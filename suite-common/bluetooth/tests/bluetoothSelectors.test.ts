@@ -3,6 +3,7 @@ import { BluetoothDeviceCommon, BluetoothState } from '../src/bluetoothReducer';
 import { WithBluetoothState } from '../src/bluetoothSelectors';
 
 const initialState: BluetoothState<BluetoothDeviceCommon> = {
+    permissionStatus: 'unavailable',
     adapterStatus: 'unknown',
     scanStatus: 'idle',
     nearbyDevices: [] as BluetoothDeviceCommon[],
@@ -11,7 +12,7 @@ const initialState: BluetoothState<BluetoothDeviceCommon> = {
 
 const pairingDeviceStateA: BluetoothDeviceCommon = {
     id: 'A',
-    data: [],
+    data: [1],
     name: 'Trezor A',
     lastUpdatedTimestamp: 1,
     connectionStatus: { type: 'pairing' },
@@ -27,7 +28,7 @@ const disconenctedDeviceB: BluetoothDeviceCommon = {
 
 const pairingDeviceStateC: BluetoothDeviceCommon = {
     id: 'C',
-    data: [],
+    data: [1],
     name: 'Trezor C',
     lastUpdatedTimestamp: 3,
     connectionStatus: { type: 'pairing' },

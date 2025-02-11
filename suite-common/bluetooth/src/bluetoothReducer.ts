@@ -46,14 +46,18 @@ export type BluetoothDeviceCommon = {
 
 export type DeviceBluetoothConnectionStatusType = DeviceBluetoothConnectionStatus['type'];
 
-export type BluetoothAdapterStatus =
-    | 'unknown'
-    | 'enabled'
-    | 'disabled'
-    | 'permission-denied'
-    | 'not-compatible';
+export type BluetoothPermissionStatus =
+    | 'unavailable'
+    | 'requested'
+    | 'denied'
+    | 'blocked'
+    | 'granted'
+    | 'limited';
+
+export type BluetoothAdapterStatus = 'unknown' | 'enabled' | 'disabled' | 'not-compatible';
 
 export type BluetoothState<T extends BluetoothDeviceCommon> = {
+    permissionStatus: BluetoothPermissionStatus;
     adapterStatus: BluetoothAdapterStatus;
     scanStatus: BluetoothScanStatus;
     nearbyDevices: null | T[]; // Must be sorted, newest last. Null = we haven't received first update yet
@@ -65,6 +69,7 @@ export type BluetoothState<T extends BluetoothDeviceCommon> = {
 
 export const prepareBluetoothReducerCreator = <T extends BluetoothDeviceCommon>() => {
     const initialState: BluetoothState<T> = {
+        permissionStatus: 'unavailable',
         adapterStatus: 'unknown',
         scanStatus: 'idle',
         nearbyDevices: null,
@@ -73,6 +78,13 @@ export const prepareBluetoothReducerCreator = <T extends BluetoothDeviceCommon>(
 
     return createReducerWithExtraDeps<BluetoothState<T>>(initialState, (builder, extra) =>
         builder
+            .addCase(bluetoothActions.permissionEventAction, (state, { payload: { status } }) => {
+                // do not allow already stored 'blocked' to be overwritten with 'denied' on Android
+                // https://github.com/zoontek/react-native-permissions/blob/3.6.0/README.md#android-flow
+                if (state.permissionStatus !== 'blocked' || status !== 'denied') {
+                    state.permissionStatus = status;
+                }
+            })
             .addCase(bluetoothActions.adapterEventAction, (state, { payload: { status } }) => {
                 state.adapterStatus = status;
                 if (status !== 'enabled') {

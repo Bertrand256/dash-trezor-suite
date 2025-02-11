@@ -3,7 +3,7 @@ import { Blur, Canvas, Text as SkiaText, useFont } from '@shopify/react-native-s
 import { prepareNativeStyle, useNativeStyles } from '@trezor/styles';
 import { Color } from '@trezor/theme';
 
-const satoshiFont = require('../../../../packages/theme/fonts/TTSatoshi-Medium.otf');
+const satoshiFont = require('@trezor/theme/fonts/TTSatoshi-Medium.otf');
 
 type DiscreetCanvasProps = {
     width: number;

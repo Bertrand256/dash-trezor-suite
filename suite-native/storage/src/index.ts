@@ -15,6 +15,7 @@ export * from './migrations/wallet/accounts/v2';
 export * from './migrations/wallet/accounts/v3';
 export * from './migrations/wallet/transactions/v3';
 
+export * from './transforms/bluetoothTransforms';
 export * from './transforms/deviceTransforms';
 export * from './transforms/walletTransforms';
 export * from './transforms/utils';

@@ -1,0 +1,15 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": { "outDir": "libDev" },
+    "references": [
+        { "path": "../atoms" },
+        { "path": "../intl" },
+        { "path": "../storage" },
+        { "path": "../../packages/connect" },
+        { "path": "../../packages/env-utils" },
+        { "path": "../../packages/styles" },
+        {
+            "path": "../../packages/transport-native-bluetooth"
+        }
+    ]
+}

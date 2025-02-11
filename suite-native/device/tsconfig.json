@@ -21,6 +21,7 @@
         { "path": "../analytics" },
         { "path": "../atoms" },
         { "path": "../biometrics" },
+        { "path": "../bluetooth" },
         { "path": "../device-authorization" },
         { "path": "../device-mutex" },
         { "path": "../feature-flags" },

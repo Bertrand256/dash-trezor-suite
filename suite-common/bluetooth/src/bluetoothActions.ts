@@ -3,11 +3,17 @@ import { createAction } from '@reduxjs/toolkit';
 import {
     BluetoothAdapterStatus,
     BluetoothDeviceCommon,
+    BluetoothPermissionStatus,
     BluetoothScanStatus,
     DeviceBluetoothConnectionStatus,
 } from './bluetoothReducer';
 
 export const BLUETOOTH_PREFIX = '@suite/bluetooth';
+
+const permissionEventAction = createAction(
+    `${BLUETOOTH_PREFIX}/permission-event`,
+    ({ status }: { status: BluetoothPermissionStatus }) => ({ payload: { status } }),
+);
 
 const adapterEventAction = createAction(
     `${BLUETOOTH_PREFIX}/adapter-event`,
@@ -69,6 +75,7 @@ const scanStatusAction = createAction(
 );
 
 export const bluetoothActions = {
+    permissionEventAction,
     adapterEventAction,
     nearbyDevicesUpdateAction,
     connectDeviceEventAction,

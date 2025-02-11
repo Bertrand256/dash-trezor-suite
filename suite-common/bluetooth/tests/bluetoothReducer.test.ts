@@ -12,6 +12,7 @@ const bluetoothReducer =
     prepareBluetoothReducerCreator<BluetoothDeviceCommon>()(extraDependenciesMock);
 
 const initialState: BluetoothState<BluetoothDeviceCommon> = {
+    permissionStatus: 'unavailable',
     adapterStatus: 'unknown',
     scanStatus: 'idle',
     nearbyDevices: [] as BluetoothDeviceCommon[],

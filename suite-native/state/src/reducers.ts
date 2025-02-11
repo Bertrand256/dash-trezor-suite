@@ -2,6 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { getStoredState } from 'redux-persist';
 
 import { prepareAnalyticsReducer } from '@suite-common/analytics';
+import { prepareBluetoothReducerCreator } from '@suite-common/bluetooth';
 import { prepareConnectPopupReducer } from '@suite-common/connect-popup';
 import { prepareFirmwareReducer } from '@suite-common/firmware';
 import { logsSlice } from '@suite-common/logger';
@@ -35,6 +36,7 @@ import { sendFormSlice } from '@suite-native/module-send';
 import { tradingSlice } from '@suite-native/module-trading';
 import { appSettingsPersistWhitelist, appSettingsReducer } from '@suite-native/settings';
 import {
+    bluetoothPersistTransform,
     deriveAccountTypeFromPaymentType,
     devicePersistTransform,
     discoveryStopPersistTransform,
@@ -51,6 +53,7 @@ import {
     walletPersistTransform,
     walletStopPersistTransform,
 } from '@suite-native/storage';
+import { BluetoothDevice } from '@trezor/transport-native-bluetooth';
 
 import { appReducer } from './appSlice';
 import { extraDependencies } from './extraDependencies';
@@ -71,6 +74,7 @@ const firmwareReducer = prepareFirmwareReducer(extraDependencies);
 const connectPopupReducer = prepareConnectPopupReducer(extraDependencies);
 const walletConnectReducer = prepareWalletConnectReducer(extraDependencies);
 const walletSettingsReducer = prepareWalletSettingsReducer(extraDependencies);
+const bluetoothReducer = prepareBluetoothReducerCreator<BluetoothDevice>()(extraDependencies);
 
 export const prepareRootReducers = async () => {
     const appSettingsPersistedReducer = await preparePersistReducer({
@@ -252,6 +256,14 @@ export const prepareRootReducers = async () => {
         version: 1,
     });
 
+    const bluetoothPersistedReducer = await preparePersistReducer({
+        reducer: bluetoothReducer,
+        persistedKeys: ['knownDevices'],
+        key: 'bluetooth',
+        version: 1,
+        transforms: [bluetoothPersistTransform],
+    });
+
     const rootReducer = await preparePersistReducer({
         reducer: combineReducers({
             app: appReducer,
@@ -271,6 +283,7 @@ export const prepareRootReducers = async () => {
             tokenDefinitions: tokenDefinitionsReducer,
             connectPopup: connectPopupReducer,
             walletConnect: walletConnectReducer,
+            bluetooth: bluetoothPersistedReducer,
         } as const),
         // 'wallet' and 'graph' need to be persisted at the top level to ensure device state
         // is accessible for transformation.

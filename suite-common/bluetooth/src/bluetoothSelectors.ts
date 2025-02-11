@@ -6,6 +6,10 @@ export type WithBluetoothState<T extends BluetoothDeviceCommon> = {
     bluetooth: BluetoothState<T>;
 };
 
+export const selectPermissionStatus = <T extends BluetoothDeviceCommon>(
+    state: WithBluetoothState<T>,
+) => state.bluetooth.permissionStatus;
+
 export const selectAdapterStatus = <T extends BluetoothDeviceCommon>(
     state: WithBluetoothState<T>,
 ) => state.bluetooth.adapterStatus;
@@ -33,8 +37,8 @@ export const prepareSelectAllDevices = <T extends BluetoothDeviceCommon>() =>
 
             knownDevices.forEach(knownDevice => map.set(knownDevice.id, knownDevice));
 
-            const nearbyDevicesCopy = [...(nearbyDevices ?? [])];
-
+            // TODO: https://github.com/trezor/trezor-suite/pull/18376
+            const nearbyDevicesCopy = (nearbyDevices ?? []).filter(d => d.data[0] === 1);
             nearbyDevicesCopy.forEach(nearbyDevice => {
                 map.delete(nearbyDevice.id); // Delete and re-add to change the order, replace would keep original order
                 map.set(nearbyDevice.id, nearbyDevice);

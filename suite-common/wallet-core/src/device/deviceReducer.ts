@@ -996,6 +996,21 @@ export const selectDeviceModel = createMemoizedSelector(
     selectedDevice => selectedDevice?.features?.internal_model ?? null,
 );
 
+export const selectIsDeviceConnectedViaCable = createMemoizedSelector(
+    [selectSelectedDevice],
+    device => !device?.bluetoothProps,
+);
+
+export const selectIsDeviceConnectedViaBluetooth = createMemoizedSelector(
+    [selectSelectedDevice],
+    device => !!device?.bluetoothProps,
+);
+
+export const selectDeviceBluetoothId = createMemoizedSelector(
+    [selectSelectedDevice],
+    device => device?.bluetoothProps?.id,
+);
+
 export const selectDeviceReleaseInfo = createMemoizedSelector(
     [selectSelectedDevice],
     device => device?.firmwareRelease ?? null,
