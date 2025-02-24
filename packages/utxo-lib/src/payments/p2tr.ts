@@ -2,7 +2,7 @@
 // https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
 
 import { bech32m } from 'bech32';
-import ecc from 'tiny-secp256k1';
+import * as ecc from 'tiny-secp256k1';
 
 import * as bcrypto from '../crypto';
 import { bitcoin as BITCOIN_NETWORK } from '../networks';
