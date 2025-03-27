@@ -4,7 +4,7 @@ export const FiatCurrencyIcon = () => (
     <RoundedIcon
         name="coin"
         color="iconSubdued"
-        iconSize='small'
+        iconSize="small"
         containerSize={24}
         backgroundColor="backgroundSurfaceElevation0"
     />
