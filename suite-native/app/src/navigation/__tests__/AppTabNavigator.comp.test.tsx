@@ -31,7 +31,9 @@ describe('AppTabNavigator', () => {
         const { queryByText } = await renderTabs({
             featureFlags: {
                 ...featureFlagsInitialState,
-                [FeatureFlag.IsTradingEnabled]: false,
+                [FeatureFlag.IsTradingBuyEnabled]: false,
+                [FeatureFlag.IsTradingSwapEnabled]: false,
+                [FeatureFlag.IsTradingSellEnabled]: false,
             },
         });
 
@@ -42,7 +44,7 @@ describe('AppTabNavigator', () => {
         const { getByText, getAllByText } = await renderTabs({
             featureFlags: {
                 ...featureFlagsInitialState,
-                [FeatureFlag.IsTradingEnabled]: true,
+                [FeatureFlag.IsTradingBuyEnabled]: true,
             },
         });
 
