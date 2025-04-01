@@ -5,6 +5,7 @@ import { BottomTabBarProps, createBottomTabNavigator } from '@react-navigation/b
 import { useHandleDeviceRequestsPassphrase } from '@suite-native/device-authorization';
 import { AccountsStackNavigator } from '@suite-native/module-accounts-management';
 import { HomeStackNavigator } from '@suite-native/module-home';
+import { InterviewScreen } from '@suite-native/module-interview';
 import { SettingsScreen } from '@suite-native/module-settings';
 import { TradingStackNavigator, selectIsTradingEnabled } from '@suite-native/module-trading';
 import { AppTabsParamList, AppTabsRoutes, TabBar } from '@suite-native/navigation';
@@ -31,6 +32,7 @@ export const AppTabNavigator = () => {
         >
             <Tab.Screen name={AppTabsRoutes.HomeStack} component={HomeStackNavigator} />
             <Tab.Screen name={AppTabsRoutes.AccountsStack} component={AccountsStackNavigator} />
+            <Tab.Screen name={AppTabsRoutes.Interview} component={InterviewScreen} />
             {isTradingEnabled && (
                 <Tab.Screen name={AppTabsRoutes.TradeStack} component={TradingStackNavigator} />
             )}

@@ -69,6 +69,7 @@
         "@suite-native/module-device-onboarding": "workspace:*",
         "@suite-native/module-device-settings": "workspace:*",
         "@suite-native/module-home": "workspace:*",
+        "@suite-native/module-interview": "workspace:*",
         "@suite-native/module-onboarding": "workspace:*",
         "@suite-native/module-send": "workspace:*",
         "@suite-native/module-settings": "workspace:*",

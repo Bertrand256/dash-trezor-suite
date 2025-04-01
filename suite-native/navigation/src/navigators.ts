@@ -112,6 +112,7 @@ export type AppTabsParamList = {
     [AppTabsRoutes.AccountsStack]: NavigatorScreenParams<AccountsStackParamList>;
     [AppTabsRoutes.TradeStack]: NavigatorScreenParams<TradingStackParamList>;
     [AppTabsRoutes.Settings]: undefined;
+    [AppTabsRoutes.Interview]: undefined;
 };
 
 export type OnboardingStackParamList = {

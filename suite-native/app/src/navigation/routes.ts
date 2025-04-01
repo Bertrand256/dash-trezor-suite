@@ -33,9 +33,17 @@ const settings = enhanceTabOption({
     label: 'Settings',
 });
 
+const interview = enhanceTabOption({
+    routeName: AppTabsRoutes.Interview,
+    iconName: 'trezorSafe5',
+    focusedIconName: 'trezorSafe5',
+    label: 'Interview',
+});
+
 export const rootTabsOptions = {
     ...homeStack,
     ...accountsStack,
     ...tradeStack,
     ...settings,
+    ...interview,
 };

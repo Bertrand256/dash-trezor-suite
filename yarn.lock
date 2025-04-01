@@ -9906,6 +9906,7 @@ __metadata:
     "@suite-native/module-device-onboarding": "workspace:*"
     "@suite-native/module-device-settings": "workspace:*"
     "@suite-native/module-home": "workspace:*"
+    "@suite-native/module-interview": "workspace:*"
     "@suite-native/module-onboarding": "workspace:*"
     "@suite-native/module-send": "workspace:*"
     "@suite-native/module-settings": "workspace:*"
@@ -10759,6 +10760,12 @@ __metadata:
     react-native-reanimated: "npm:3.16.7"
     react-native-svg: "npm:15.9.0"
     react-redux: "npm:9.2.0"
+  languageName: unknown
+  linkType: soft
+
+"@suite-native/module-interview@workspace:*, @suite-native/module-interview@workspace:suite-native/module-interview":
+  version: 0.0.0-use.local
+  resolution: "@suite-native/module-interview@workspace:suite-native/module-interview"
   languageName: unknown
   linkType: soft
 

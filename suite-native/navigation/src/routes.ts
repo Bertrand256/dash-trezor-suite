@@ -28,6 +28,7 @@ export enum AppTabsRoutes {
     AccountsStack = 'AccountsStack',
     TradeStack = 'TradeStack',
     Settings = 'Settings',
+    Interview = 'Interview',
 }
 
 export enum OnboardingStackRoutes {
