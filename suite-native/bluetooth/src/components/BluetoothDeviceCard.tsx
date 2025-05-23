@@ -12,7 +12,7 @@ import {
     Text,
     VStack,
 } from '@suite-native/atoms';
-import { DeviceImage, sizeToDimensionsMap } from '@suite-native/device';
+import { DeviceImage, sizeToDimensionsMap } from '@suite-native/device/src/components/DeviceImage';
 import { Translation } from '@suite-native/intl';
 import { models } from '@trezor/connect/src/data/models';
 import { DeviceModelInternal } from '@trezor/device-utils';

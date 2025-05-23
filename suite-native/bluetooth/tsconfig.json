@@ -2,8 +2,12 @@
     "extends": "../../tsconfig.base.json",
     "compilerOptions": { "outDir": "libDev" },
     "references": [
+        {
+            "path": "../../suite-common/bluetooth"
+        },
         { "path": "../atoms" },
         { "path": "../intl" },
+        { "path": "../device-mutex" },
         { "path": "../storage" },
         { "path": "../../packages/connect" },
         { "path": "../../packages/env-utils" },

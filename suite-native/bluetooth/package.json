@@ -11,8 +11,10 @@
     },
     "dependencies": {
         "@react-navigation/native": "6.1.18",
+        "@suite-common/bluetooth": "workspace:*",
         "@suite-native/atoms": "workspace:*",
         "@suite-native/intl": "workspace:*",
+        "@suite-native/device-mutex": "workspace:*",
         "@suite-native/storage": "workspace:*",
         "@trezor/connect": "workspace:*",
         "@trezor/env-utils": "workspace:*",

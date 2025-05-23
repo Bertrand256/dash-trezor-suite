@@ -1,5 +1,5 @@
 import { Button, Text, VStack } from '@suite-native/atoms';
-import { isBluetoothEnabled } from '@suite-native/bluetooth';
+import { isBluetoothEnabled } from '@suite-native/bluetooth/src/featureFlag';
 import { ConnectDeviceAnimation } from '@suite-native/device';
 import { Translation } from '@suite-native/intl';
 import { getScreenHeight } from '@trezor/env-utils';

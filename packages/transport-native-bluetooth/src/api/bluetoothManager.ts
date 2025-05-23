@@ -12,10 +12,9 @@ import {
 
 import { EventEmitter } from 'events';
 
-import { DeviceBluetoothConnectionStatus } from '@suite-common/bluetooth/src/bluetoothReducer';
-import { IntervalId } from '@trezor/type-utils';
+import type { IntervalId } from '@trezor/type-utils';
 
-import { BluetoothDevice } from './types';
+import { BluetoothDevice, DeviceBluetoothConnectionStatus } from './types';
 
 type Base64String = string;
 
