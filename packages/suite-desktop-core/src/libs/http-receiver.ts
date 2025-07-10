@@ -67,7 +67,8 @@ const applyTemplate = (content = 'You may now close this window.', options?: Tem
 export const createHttpReceiver = () => {
     const httpReceiver = new HttpServer<Events>({
         logger: convertILoggerToLog(global.logger, { serviceName: 'http-receiver' }),
-        port: 21335,
+        // todo: decide which ports should be used
+        ports: [21335, 21336, 21337, 21338, 21339],
     });
 
     httpReceiver.use([
