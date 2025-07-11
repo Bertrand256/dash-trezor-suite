@@ -15,7 +15,7 @@ describe('http receiver', () => {
             address: '127.0.0.1',
             family: 'IPv4',
         });
-        receiver.stop();
+        await receiver.stop();
     });
 
     fixtures.forEach(f => {
@@ -46,7 +46,7 @@ describe('http receiver', () => {
 
             expect(response.status).toEqual(f.result.response.status);
 
-            receiver.stop();
+            await receiver.stop();
         });
     });
 });
