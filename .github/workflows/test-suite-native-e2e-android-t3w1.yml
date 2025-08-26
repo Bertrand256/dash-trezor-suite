@@ -4,18 +4,18 @@ permissions:
   id-token: write # for fetching the OIDC token (needed for aws s3 actions)
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
-  pull_request:
-    paths:
-      - "suite-native/**"
-      - "suite-common/**"
-      - "packages/connect/**"
-      - ".github/workflows/test-suite-native-e2e-android.yml"
-      - "!**.md"
-  push:
-    branches:
-      - release-native/*
+  # schedule:
+  #   - cron: "0 0 * * *"
+  # pull_request:
+  #   paths:
+  #     - "suite-native/**"
+  #     - "suite-common/**"
+  #     - "packages/connect/**"
+  #     - ".github/workflows/test-suite-native-e2e-android.yml"
+  #     - "!**.md"
+  # push:
+  #   branches:
+  #     - release-native/*
   workflow_dispatch:
     inputs:
       publishResultsToGitHub:
@@ -36,4 +36,5 @@ jobs:
   run_android_e2e_tests:
     uses: ./.github/workflows/job-template-android-e2e.yml
     with:
-      emulator_model: "T3T1"
+      emulator_model: "T3W1"
+      detox_extra_args: "--testNamePattern '^(?!.*@specificModel)'"
