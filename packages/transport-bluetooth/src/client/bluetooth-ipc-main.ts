@@ -181,4 +181,16 @@ export class BluetoothIpc extends TypedEmitter<BluetoothIpcEvents> implements Bl
 
         return this.result();
     }
+
+    async enumerate(): Promise<IpcResponse<BluetoothDevice[]>> {
+        try {
+            await this.connectApi();
+
+            const devices = await this.api.send('enumerate');
+
+            return { success: true, payload: devices };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
 }

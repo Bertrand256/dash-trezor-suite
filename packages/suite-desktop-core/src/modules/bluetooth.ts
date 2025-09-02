@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron';
+import { ipcMain, powerMonitor } from 'electron';
 
 import { isMacOs, isWindows } from '@trezor/env-utils';
 import { IpcProxyHandlerOptions, createIpcProxyHandler } from '@trezor/ipc-proxy';
@@ -72,9 +72,9 @@ export const init: ModuleInit = () => {
               })
             : undefined;
 
+    let api: BluetoothIpc | undefined;
     const proxyOptions: IpcProxyHandlerOptions<BluetoothIpcApi> = {
         onCreateInstance() {
-            let api: BluetoothIpc | undefined;
             const apiError = new Error('BluetoothIpc api not initialized');
 
             return {
@@ -111,6 +111,15 @@ export const init: ModuleInit = () => {
     const unregisterProxy = createIpcProxyHandler(ipcMain, 'Bluetooth', proxyOptions);
     const onLoad = () => {
         bluetoothModuleState.getTransport = getBluetoothTransport;
+
+        powerMonitor.on('suspend', async () => {
+            if (!api) return;
+            const enumerateResponse = await api.enumerate();
+            if (!enumerateResponse.success) return;
+            for (const device of enumerateResponse.payload) {
+                api?.disconnectDevice(device.id);
+            }
+        });
     };
 
     const onQuit = () => {

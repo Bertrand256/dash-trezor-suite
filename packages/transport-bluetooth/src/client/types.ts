@@ -76,9 +76,9 @@ export type DeviceConnectionStatus =
           error: string;
       };
 
-type Success<P> = P extends unknown ? { success: true } : { success: true; payload: P };
+type Success<P> = P extends void ? { success: true } : { success: true; payload: P };
 type Failure = { success: false; error: string };
-export type IpcResponse<P = unknown> = Success<P> | Failure;
+export type IpcResponse<P = void> = Success<P> | Failure;
 
 export interface BluetoothIpcEvents {
     'adapter-event': BluetoothAdapterState;
@@ -99,6 +99,7 @@ export interface BluetoothIpcApi {
     stopScan(): Promise<IpcResponse>;
     connectDevice(id: string): Promise<IpcResponse>;
     disconnectDevice(id: string): Promise<IpcResponse>;
+    enumerate(): Promise<IpcResponse<BluetoothDevice[]>>;
     /**
      * Forget device by its Bluetooth Id. Supported only on Windows.
      */
