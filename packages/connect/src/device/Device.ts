@@ -349,6 +349,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
 
     // call only once, right after device creation
     async handshake() {
+        _log.info('Handshake start');
         if (this.isUsedElsewhere()) {
             return true;
         }
@@ -384,6 +385,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
     }
 
     private async updateDescriptor(descriptor: Descriptor) {
+        _log.info('Descriptor updated', descriptor);
         this.sessionDfd?.resolve(descriptor.session);
 
         await Promise.all([this.acquirePromise, this.releasePromise]);
@@ -393,6 +395,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
         // Session changed to different than the current one
         // -> acquired by someone else
         if (descriptor.session && descriptor.session !== this.sessionAcquired) {
+            _log.info('Device acquired by someone else based on descriptor');
             this.usedElsewhere();
         }
 
@@ -458,6 +461,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
     }
 
     private usedElsewhere() {
+        _log.info('Device used elsewhere');
         this.wasUsedElsewhere = true;
 
         // only makes sense to continue when device held by this instance
@@ -481,6 +485,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
         options: RunOptions,
         abortSignal: AbortSignal,
     ): Promise<void> {
+        _log.info('_runInner start');
         // typically when using cancel/override, device might be releasing
         // note: I am tempted to do this check at the beginning of device.acquire but on the other hand I would like
         // to have methods as atomic as possible and shift responsibility for deciding when to call them on the caller
@@ -490,6 +495,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
 
         const acquireNeeded = !this.isUsedHere() || this.currentSession?.isDisposed();
         if (acquireNeeded) {
+            _log.info('Acquiring device for run');
             // acquire session
             await this.acquire();
         }
@@ -498,43 +504,62 @@ export class Device extends TypedEmitter<DeviceEvents> {
 
         const { staticSessionId, deriveCardano } = this.getState() || {};
         if (acquireNeeded || !staticSessionId || (!deriveCardano && options.useCardanoDerivation)) {
-            // update features
-            try {
-                await handshakeCancel({ device: this, logger: _log, signal: abortSignal });
+            // TODO: temporary retry mechanism
+            while (true) {
+                _log.info('Initialize device for run');
+                // update features
+                try {
+                    await handshakeCancel({ device: this, logger: _log, signal: abortSignal });
 
-                if (this.protocol.name === 'v2') {
-                    const withInteraction = !!fn;
-                    await getThpChannel(this, withInteraction);
-                    if (this.getThpState()?.isAutoconnectPaired || withInteraction) {
+                    _log.info(
+                        'Initialize device for run',
+                        this.protocol.name,
+                        this.thp?.serialize(),
+                    );
+                    if (this.protocol.name === 'v2') {
+                        const withInteraction = !!fn;
+                        await getThpChannel(this, withInteraction);
+                        _log.info('Get thp channel passed');
+                        if (this.getThpState()?.isAutoconnectPaired || withInteraction) {
+                            _log.info('Getting features');
+                            await this.getFeatures();
+                        }
+                    } else if (fn) {
+                        await this.initialize(!!options.useCardanoDerivation);
+                    } else {
                         await this.getFeatures();
                     }
-                } else if (fn) {
-                    await this.initialize(!!options.useCardanoDerivation);
-                } else {
-                    await this.getFeatures();
+
+                    this.busy = false;
+                    break;
+                } catch (error) {
+                    _log.warn('Device._runInner error: ', error.message);
+
+                    if (error.code === 'Failure_Busy') {
+                        this.busy = true;
+                    }
+
+                    if (error.code === 'Device_ThpPairingTagInvalid') {
+                        // return as TypedError
+                        return Promise.reject(error);
+                    }
+
+                    // Reset THP and retry
+                    // TODO only do this for THP-related errors
+                    if (this.thp?.isPaired) {
+                        this.thp.resetState();
+                        continue;
+                    }
+
+                    return Promise.reject(
+                        ERRORS.TypedError(
+                            'Device_InitializeFailed',
+                            `Initialize failed: ${error.message}${
+                                error.code ? `, code: ${error.code}` : ''
+                            }`,
+                        ),
+                    );
                 }
-
-                this.busy = false;
-            } catch (error) {
-                _log.warn('Device._runInner error: ', error.message);
-
-                if (error.code === 'Failure_Busy') {
-                    this.busy = true;
-                }
-
-                if (error.code === 'Device_ThpPairingTagInvalid') {
-                    // return as TypedError
-                    return Promise.reject(error);
-                }
-
-                return Promise.reject(
-                    ERRORS.TypedError(
-                        'Device_InitializeFailed',
-                        `Initialize failed: ${error.message}${
-                            error.code ? `, code: ${error.code}` : ''
-                        }`,
-                    ),
-                );
             }
         }
 

@@ -7,6 +7,7 @@ import {
 } from './messages';
 
 export type ThpStateSerialized = {
+    phase?: ThpPhase;
     properties?: ThpDeviceProperties;
     credentials: ThpCredentials[];
     channel: string; // 2 bytes as hex
@@ -233,6 +234,7 @@ export class ThpState {
 
     serialize(): ThpStateSerialized {
         return {
+            phase: this._phase,
             properties: this._properties,
             channel: this.channel.toString('hex'),
             sendBit: this.sendBit,

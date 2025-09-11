@@ -45,7 +45,7 @@ export const sendThpMessage = async ({
 
     let attempt = 0;
 
-    const apiReadWithExpectedHeaders = readWithExpectedHeaders(apiRead, { signal });
+    const apiReadWithExpectedHeaders = readWithExpectedHeaders(apiRead, { signal, logger });
 
     // create sequence of scheduled actions controlled by one AbortSignal (from Transport call/send)
     // 1. send message
@@ -75,8 +75,12 @@ export const sendThpMessage = async ({
                 signal,
                 attempts: ATTEMPTS_LIMIT,
                 attemptFailureHandler: error => {
-                    if (error.message !== 'Aborted by deadline') {
-                        logger?.error(`sendThpMessage error ${error.message}`);
+                    if (
+                        error.message !== 'Aborted by deadline' &&
+                        error.message !== 'Aborted by timeout' &&
+                        error.message !== 'Aborted by signal'
+                    ) {
+                        logger?.error(`sendThpMessage attempt error ${error.message}`);
 
                         // break attempts on unexpected errors
                         return error;
@@ -106,8 +110,9 @@ export const sendThpMessage = async ({
 
         return success(undefined);
     } catch (err) {
-        logger?.error(`sendThpMessage error ${err.message}`);
-
+        logger?.error(`sendThpMessage final error ${err.message}`);
+        
+        // TODO: pass better errors instead of "Aborted by signal" etc.
         return error({ error: err.code, message: err.message });
     }
 };
