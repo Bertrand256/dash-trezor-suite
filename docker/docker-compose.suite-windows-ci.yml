@@ -1,0 +1,27 @@
+services:
+  trezor-user-env-windows:
+    container_name: trezor-user-env.windows
+    image: ghcr.io/trezor/trezor-user-env:51efcaf8e2ffd1fc518db7f10fabb7d540c8ccd1
+    ports:
+      - "9001:9001"
+      - "9002:9002"
+      - "21326:21326"
+      - "127.0.0.1:21325:21326"
+    environment:
+      - SDL_VIDEODRIVER=dummy
+      - XDG_RUNTIME_DIR=/var/tmp
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./../trezor-suite:/trezor-user-env/trezor-suite
+      - ./../logs:/trezor-user-env/logs
+      - ./../src/binaries/firmware/bin/user_downloaded:/trezor-user-env/src/binaries/firmware/bin/user_downloaded
+  bitcoin-regtest:
+    image: ghcr.io/trezor/trezor-user-env-regtest # this is a special image that runs regtest and blockbook
+    depends_on:
+      - trezor-user-env-windows
+    network_mode: service:trezor-user-env-windows
+  electrum-regtest:
+    image: ghcr.io/trezor/electrs:latest
+    ports:
+      - "50001:50001"
+# feat-e2e-nightly-on-windows

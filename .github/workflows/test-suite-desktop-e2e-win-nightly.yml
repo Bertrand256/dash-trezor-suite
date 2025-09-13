@@ -4,13 +4,13 @@ name: "[Test] Nightly Suite Desktop e2e Windows tests"
 # Runs full e2e test suite for Suite Desktop
 
 on:
-#   schedule:
-#     - cron: "0 0 * * *"
+  #   schedule:
+  #     - cron: "0 0 * * *"
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+#   cancel-in-progress: true
 
 jobs:
   # build-app:
@@ -19,14 +19,422 @@ jobs:
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v4
-  #     - name: Build and Upload Suite Desktop
-  #       uses: ./.github/actions/build-desktop
-  
+
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version-file: ".nvmrc"
+  #         cache: yarn
+
+  #     - name: Install dependencies, build libs
+  #       shell: bash
+  #       run: |
+  #         yarn install --immutable
+  #         yarn message-system-sign-config
+  #         yarn workspace @trezor/suite-data build:lib
+  #         yarn workspace @trezor/transport-bridge build:lib
+
+  #     - name: Build Electron app.js for tests
+  #       shell: bash
+  #       run: |
+  #         yarn workspace @trezor/suite-desktop build:app
+  #         yarn workspace @trezor/suite-desktop build:ui
+
+  #     - name: Compress build artifacts
+  #       shell: bash
+  #       run: |
+  #         POSIX_WS="$(cygpath -u "$GITHUB_WORKSPACE")"
+  #         tar -czf app-build.tar.gz -C "$POSIX_WS/packages/suite-desktop" build dist
+
+  #     - name: Upload build artifacts
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: desktop-app-build-e2e
+  #         path: app-build.tar.gz
+  #         retention-days: 7
+
   run-e2e-suite-desktop-tests:
     if: github.repository == 'trezor/trezor-suite'
     runs-on: windows-latest
     # needs:
     #   - build-app
     steps:
-      - name: Hello
-        run: echo "Hello World!"
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          ref: ${{ github.sha }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: yarn
+
+      # - name: Download build artifact
+      #   uses: actions/download-artifact@v4
+      #   with:
+      #     name: desktop-app-build-e2e
+
+      # - name: Extract build artifact
+      #   shell: bash
+      #   run: |
+      #     POSIX_WS="$(cygpath -u "$GITHUB_WORKSPACE")"
+      #     tar -xzf app-build.tar.gz -C "$POSIX_WS/packages/suite-desktop"
+
+      # - name: Install PW Dependencies
+      #   shell: bash
+      #   run: |
+      #     echo "Silently installing Playwright dependencies"
+      #     yarn workspaces focus @trezor/suite-desktop-core @trezor/suite-desktop > /dev/null
+
+      - name: Setup WSL2
+        uses: Vampire/setup-wsl@v6
+        with:
+          distribution: Ubuntu-24.04
+          wsl-version: 2
+
+      - name: Check system resources before Docker start
+        shell: powershell
+        run: |
+          Write-Host "=== System Resources ==="
+          Get-ComputerInfo | Select-Object TotalPhysicalMemory, AvailablePhysicalMemory
+          Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 10 Name, WorkingSet, CPU
+
+          # Check WSL memory allocation
+          wsl -d Ubuntu-24.04 -- bash -c "free -h && df -h"
+
+      - name: Forward Docker ports from WSL2 to Windows host
+        shell: powershell
+        run: |
+          $ports = @(9001, 9002, 21325, 21326, 50001)
+          $wslIpRaw = wsl -d Ubuntu-24.04 -- bash -c "hostname -I"
+          Write-Host "Raw output: '$wslIpRaw'"
+          $wslIp = $wslIpRaw -split '\s+' | Where-Object { $_ -match '^\d+\.\d+\.\d+\.\d+$' } | Select-Object -First 1
+          if (-not $wslIp) {
+              Write-Host "ERROR: Could not determine WSL2 IP address. Raw output: '$wslIpRaw'"
+              exit 1
+          }
+          Write-Host "WSL2 IP: $wslIp"
+          foreach ($port in $ports) {
+            # Remove any existing rule for this port
+            netsh interface portproxy delete v4tov4 listenport=$port listenaddress=127.0.0.1 2>$null
+            # Add new rule
+            netsh interface portproxy add v4tov4 listenport=$port listenaddress=127.0.0.1 connectport=$port connectaddress=$wslIp
+            Write-Host "Forwarded 127.0.0.1:$port -> ${wslIp}:$port"
+          }
+
+      - name: Setup and start docker environment inside WSL
+        shell: powershell
+        run: |
+          $ws = $env:GITHUB_WORKSPACE
+          $drive = $ws.Substring(0,1).ToLower()
+          $rest = $ws.Substring(2).Replace('\','/')
+          $wslPath = "/mnt/$drive/$rest"
+
+          # Bash script to run inside WSL (Docker Engine install + dockerd start)
+          $wslScript = @'
+          #!/usr/bin/env bash
+          set -euox pipefail
+          export DEBIAN_FRONTEND=noninteractive
+
+          # Install prerequisites
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates 
+          sudo apt-get install -y curl 
+          sudo apt-get install -y gnupg 
+          sudo apt-get install -y lsb-release 
+          sudo apt-get install -y apt-transport-https
+
+          # Add Docker's official GPG key and repo
+          sudo mkdir -p /etc/apt/keyrings
+          sudo rm -f /etc/apt/keyrings/docker.gpg
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+          echo \
+            "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+            $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+          sudo apt-get update
+          sudo apt-get install -y docker-ce 
+          sudo apt-get install -y docker-ce-cli 
+          sudo apt-get install -y containerd.io 
+          sudo apt-get install -y docker-compose-plugin
+
+          # Start dockerd in background (avoid systemd in WSL)
+          sudo nohup dockerd > /tmp/dockerd.log 2>&1 &
+
+          # Wait for docker daemon
+          for i in {1..60}; do
+            if docker info >/dev/null 2>&1; then
+              echo "docker daemon ready"
+              break
+            fi
+            echo "waiting for docker daemon... $i/60"
+            sleep 1
+          done
+
+          ostype=$(docker info --format '{{.OSType}}' 2>/dev/null || echo "")
+          if [ "$ostype" != "linux" ]; then
+            echo "ERROR: docker OSType is not linux: '$ostype'" >&2
+            exit 1
+          fi
+
+          echo "docker running with OSType=$ostype"
+
+          # Pull images (run from repository root)
+          cd "$WSL_REPO_PATH"
+          docker compose -f docker/docker-compose.suite-windows-ci.yml pull --quiet trezor-user-env-windows bitcoin-regtest electrum-regtest || true
+          '@
+
+          # Replace placeholder with actual WSL repo path (use literal Replace)
+          $wslScript = $wslScript.Replace('$WSL_REPO_PATH', $wslPath)
+
+          # ensure LF endings
+          $wslScript = $wslScript -replace "`r`n", "`n"
+          $tmpWin = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), ([System.IO.Path]::GetRandomFileName() + '.sh'))
+          [System.IO.File]::WriteAllText($tmpWin, $wslScript, [System.Text.Encoding]::UTF8)
+          Write-Host "Wrote WSL script to: $tmpWin"
+
+          # Debug: verify the temp script uses LF-only endings (no CR bytes)
+          $bytes = [System.IO.File]::ReadAllBytes($tmpWin)
+          $crCount = ($bytes | Where-Object { $_ -eq 0x0D }).Count
+          if ($crCount -gt 0) {
+            Write-Host "DEBUG: CR (0x0D) bytes detected in temp script -> CRLF present. CR count: $crCount"
+            # show a small hexdump snippet for debugging (first 256 bytes or file length)
+            $len = [Math]::Min($bytes.Length, 256)
+            $snippet = $bytes[0..($len-1)]
+            $hex = -join ($snippet | ForEach-Object { $_.ToString("X2") + " " })
+            Write-Host "DEBUG: head hex: $hex"
+          } else {
+            Write-Host "DEBUG: No CR bytes found. File appears to use LF-only endings."
+          }
+
+          # Convert Windows temp path to WSL path
+          $tmpDrive = $tmpWin.Substring(0,1).ToLower()
+          $tmpRest = $tmpWin.Substring(2).Replace('\','/')
+          $tmpWsl = "/mnt/$tmpDrive/$tmpRest"
+
+          Write-Host "Executing script inside WSL: $tmpWsl"
+          wsl -d Ubuntu-24.04 -- bash -lc "bash '$tmpWsl'"
+
+          # Cleanup temp file
+          Remove-Item $tmpWin -Force -ErrorAction SilentlyContinue
+
+          # Start docker compose services
+          wsl -d Ubuntu-24.04 -- bash -lc "cd $wslPath && docker compose -f docker/docker-compose.suite-windows-ci.yml up -d trezor-user-env-windows bitcoin-regtest electrum-regtest"
+          wsl -d Ubuntu-24.04 -- bash -lc "docker inspect trezor-user-env.windows"
+          wsl -d Ubuntu-24.04 -- bash -lc "docker stats --no-stream trezor-user-env.windows"
+          Start-Sleep -Seconds 15
+
+          wsl -d Ubuntu-24.04 -- bash -lc "docker stats --no-stream trezor-user-env.windows"
+          Start-Sleep -Seconds 15
+          wsl -d Ubuntu-24.04 -- bash -lc "docker stats --no-stream trezor-user-env.windows"
+          Start-Sleep -Seconds 15
+          wsl -d Ubuntu-24.04 -- bash -lc "docker stats --no-stream trezor-user-env.windows"
+
+          Start-Sleep -Seconds 15
+          Write-Host "`n==== Docker container status after 60 seconds ===="
+          wsl -d Ubuntu-24.04 -- bash -lc "docker ps -a"
+          wsl -d Ubuntu-24.04 -- bash -lc "docker stats --no-stream trezor-user-env.windows"
+          wsl -d Ubuntu-24.04 -- bash -lc "docker inspect trezor-user-env.windows"
+
+      - name: Log Docker containers status
+        if: always()
+        shell: powershell
+        run: |
+          $ws = $env:GITHUB_WORKSPACE
+          $drive = $ws.Substring(0,1).ToLower()
+          $rest = $ws.Substring(2).Replace('\','/')
+          $wslPath = "/mnt/$drive/$rest"
+
+          wsl -d Ubuntu-24.04 -- bash -lc "docker ps -a"
+          Start-Sleep -Seconds 60
+          Write-Host "`n==== Docker container status after 60 seconds ===="
+          wsl -d Ubuntu-24.04 -- bash -lc "docker ps -a"
+
+      - name: Verify Docker-exposed ports are reachable from Windows
+        shell: powershell
+        env:
+          COMPOSE_FILE: ./docker/docker-compose.suite-windows-ci.yml
+          GITHUB_ACTION: true
+        run: |
+          # ports exported by docker/docker-compose.suite-windows-ci.yml
+          $ports = @(9001, 9002, 21325, 21326, 50001)
+          $maxAttempts = 15
+          $sleepSeconds = 2
+
+          $remaining = @($ports) 
+          $attempt = 1
+
+          while ($remaining.Count -gt 0 -and $attempt -le $maxAttempts) {
+              $failed = @()
+              foreach ($port in $remaining) {
+                  $conn = Test-NetConnection -ComputerName localhost -Port $port -WarningAction SilentlyContinue
+                  if ($conn.TcpTestSucceeded) {
+                      Write-Host "OK: localhost:$port reachable (attempt $attempt)"
+                  } else {
+                      Write-Host "Waiting for localhost:$port... ($attempt/$maxAttempts)"
+                      $failed += $port
+                  }
+              }
+              if ($failed.Count -eq 0) {
+                  $remaining = @()
+                  Write-Host "SUCCESS: All required ports reachable after $attempt attempt(s)."
+
+                  break
+              }
+              $remaining = @($failed) 
+              Start-Sleep -Seconds $sleepSeconds
+              $attempt++
+          }
+
+          if ($remaining.Count -gt 0) {
+              Write-Host "ERROR: The following ports were not reachable after $($maxAttempts * $sleepSeconds) seconds: $($remaining -join ', ')"
+              exit 1
+          }
+
+          Write-Host "All required ports reachable. Re-enable Playwright tests in next step."
+
+      - name: Functional check of Docker-exposed services
+        shell: powershell
+        run: |
+          # Controller WebSocket (localhost:9001)
+          try {
+            $ws = New-Object System.Net.WebSockets.ClientWebSocket
+            $uri = [Uri]::new("ws://localhost:9001")
+            $ws.ConnectAsync($uri, [Threading.CancellationToken]::None).Wait(3000)
+            if ($ws.State -eq 'Open') {
+              Write-Host "Controller WebSocket on 9001: OK"
+              $ws.Dispose()
+            } else {
+              throw "WebSocket not open"
+            }
+          } catch {
+            Write-Host "ERROR: Controller WebSocket on 9001 failed: $_"
+          }
+
+          # Dashboard HTTP (localhost:9002)
+          try {
+            $resp = Invoke-WebRequest -Uri "http://localhost:9002" -UseBasicParsing -TimeoutSec 5
+            if ($resp.StatusCode -eq 200) {
+              Write-Host "Dashboard HTTP on 9002: OK"
+            } else {
+              throw "Unexpected status code: $($resp.StatusCode)"
+            }
+          } catch {
+            Write-Host "ERROR: Dashboard HTTP on 9002 failed: $_"
+          }
+
+          # Bridge (localhost:21325)
+          try {
+            $tcp = New-Object Net.Sockets.TcpClient
+            $tcp.Connect("localhost", 21325)
+            if ($tcp.Connected) {
+              Write-Host "Bridge TCP on 21325: OK"
+              $tcp.Close()
+            } else {
+              throw "Not connected"
+            }
+          } catch {
+            Write-Host "ERROR: Bridge TCP on 21325 failed: $_"
+          }
+
+          # Bitcoin regtest (localhost:18021, RPC)
+          try {
+            $body = @{
+              jsonrpc = "1.0"
+              id = "curltest"
+              method = "getblockchaininfo"
+              params = @()
+            } | ConvertTo-Json
+            $resp = Invoke-RestMethod -Uri "http://localhost:18021/" -Method Post -Body $body -ContentType "application/json" -Credential (New-Object System.Management.Automation.PSCredential("rpc",(ConvertTo-SecureString "rpc" -AsPlainText -Force))) -TimeoutSec 5
+            if ($resp.result) {
+              Write-Host "Bitcoin regtest RPC on 18021: OK"
+            } else {
+              throw "No result in response"
+            }
+          } catch {
+            Write-Host "ERROR: Bitcoin regtest RPC on 18021 failed: $_"
+          }
+
+      - name: Functional check of Docker-exposed services (inside WSL)
+        shell: bash
+        run: |
+          wsl -d Ubuntu-24.04 -- bash -c '
+            set -x
+            echo "=== Functional check of Docker-exposed services (inside WSL) ==="
+
+            # Controller WebSocket (localhost:9001)
+            echo -n "Controller WebSocket on 9001: "
+            if command -v websocat >/dev/null 2>&1; then
+              if websocat -1 ws://localhost:9001 >/dev/null 2>&1; then
+                echo "OK"
+              else
+                echo "ERROR (websocat could not connect)"
+              fi
+            else
+              echo "SKIPPED (websocat not installed)"
+            fi
+
+            # Bridge (localhost:21325)
+            echo -n "Bridge TCP on 21325: "
+            if timeout 2 bash -c "</dev/tcp/localhost/21325" 2>/dev/null; then
+              echo "OK"
+            else
+              echo "ERROR"
+            fi
+
+            # Bitcoin regtest (localhost:18021, RPC)
+            echo -n "Bitcoin regtest RPC on 18021: "
+            if curl -s --user rpc:rpc --data-binary "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"getblockchaininfo\",\"params\":[]}" -H "content-type:text/plain;" http://localhost:18021/ | grep -q "\"chain\":"; then
+              echo "OK"
+            else
+              echo "ERROR"
+            fi
+          '
+
+      # - name: Run Playwright E2E Tests
+      #   env:
+      #     COMPOSE_FILE: ./docker/docker-compose.suite-windows-ci.yml
+      #     GITHUB_ACTION: true
+      #     CURRENTS_PROJECT_ID: "4ytF0E"
+      #     CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
+      #     CURRENTS_CI_BUILD_ID: pr-run-${{ github.run_id }}-${{ github.run_attempt }}
+      #     CURRENTS_TAG: "nightly, windows"
+      #     GH_BRANCH: ${{ env.branch }} # Used by Currents reporter
+      #     PASSPHRASE: ${{ secrets.E2E_TEST_PASSPHRASE }}
+      #   shell: powershell
+      #   run: |
+      #     echo "Starting Playwright project desktop for test group 1"
+      #     yarn workspace @trezor/suite-desktop-core test:orchestrated:e2e:desktop --pwc-cancel-after-failures false --forbid-only --grep="electron-start.test"
+
+      # - name: Extract and Upload Logs
+      #   if: ${{ !cancelled() }}
+      #   uses: ./.github/actions/upload-test-logs
+      #   with:
+      #     test-group: 1
+      #     project: desktop
+
+      - name: Log Docker logs
+        if: always()
+        shell: powershell
+        run: |
+          $ws = $env:GITHUB_WORKSPACE
+          $drive = $ws.Substring(0,1).ToLower()
+          $rest = $ws.Substring(2).Replace('\','/')
+          $wslPath = "/mnt/$drive/$rest"
+
+          wsl -d Ubuntu-24.04 -- bash -lc "cd '$wslPath' && docker compose -f docker/docker-compose.suite-windows-ci.yml logs"
+          Write-Host "`n==== Docker container status (running and exited) ===="
+          wsl -d Ubuntu-24.04 -- bash -lc "docker ps -a"
+          wsl -d Ubuntu-24.04 -- bash -lc "ls -la logs"
+          wsl -d Ubuntu-24.04 -- bash -lc "cat logs/debugging.log || echo 'logs/debugging.log not found'"
+          wsl -d Ubuntu-24.04 -- bash -lc "cat logs/emulator_bridge.log || echo 'logs/emulator_bridge.log not found'"
+
+      - name: Docker Compose Down
+        shell: bash
+        env:
+          COMPOSE_FILE: ./docker/docker-compose.suite-windows-ci.yml
+        run: docker compose down
+
+        # REmove me feat-e2e-nightly-on-windows

@@ -132,8 +132,8 @@ const trezorEnvSetup = async (
     // We cannot rely on that previous teardown was done correctly
     await TrezorUserEnvLinkProxy.stopBridge();
     await TrezorUserEnvLinkProxy.stopEmu();
-    await TrezorUserEnvLinkProxy.connect();
     if (startEmulator) {
+        await TrezorUserEnvLinkProxy.connect();
         await TrezorUserEnvLinkProxy.startEmu(emulatorStartConf);
     }
     if (startEmulator && setupEmulator) {

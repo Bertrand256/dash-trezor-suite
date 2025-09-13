@@ -1,0 +1,611 @@
+[
+    {
+        "Id": "1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874",
+        "Created": "2025-09-26T11:43:14.10299824Z",
+        "Path": "/venv/bin/python",
+        "Args": [
+            "src/main.py"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2874,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-09-26T11:43:16.108783991Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:87fae12f0c6ee3a5da30c511e24a9e0ff48fe727acda68fe175f6c10a515a8da",
+        "ResolvConfPath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/hostname",
+        "HostsPath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/hosts",
+        "LogPath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874-json.log",
+        "Name": "/trezor-user-env.windows",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/mnt/d/a/trezor-suite/trezor-suite/trezor-suite:/trezor-user-env/trezor-suite:rw",
+                "/mnt/d/a/trezor-suite/trezor-suite/logs:/trezor-user-env/logs:rw",
+                "/mnt/d/a/trezor-suite/trezor-suite/src/binaries/firmware/bin/user_downloaded:/trezor-user-env/src/binaries/firmware/bin/user_downloaded:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "docker_default",
+            "PortBindings": {
+                "21326/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "21326"
+                    },
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "21325"
+                    }
+                ],
+                "9001/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9001"
+                    }
+                ],
+                "9002/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9002"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": null,
+            "DnsSearch": null,
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874",
+                "LowerDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380-init/diff:/var/lib/docker/overlay2/4bc993031f05415d550265c324febb16b77260784e80b31645ed4e07cdf5ad57/diff:/var/lib/docker/overlay2/e60d293b08598ec66de4f2e854fcab0084c3515505ef6a8a8af4fb4b2ea91023/diff:/var/lib/docker/overlay2/d4e38b95831679d7ebc59f442cd824e984ab370d05b1facdfd463547c3f3b340/diff:/var/lib/docker/overlay2/7492259bb7344e859d407e8cb22c7911607692d4c5d43bb3d4ef703ecbc7d46a/diff:/var/lib/docker/overlay2/3426341ef33875808a248d6d75c1ba4322e315ed08898d5bfa93919615b22327/diff:/var/lib/docker/overlay2/795972aaf7c4c82dce0a04bc76c9ed0fe75a38e514a6f8666854de869b5c32da/diff:/var/lib/docker/overlay2/8667aecc50d8afd993265d58d8806bdbf3df44815e58152d00190d0faf78cf6c/diff:/var/lib/docker/overlay2/770865674e8ce5870a25c557c362a534be6978e51d2ffe5440ada9142023c01c/diff:/var/lib/docker/overlay2/5b552605dc7a256de1d94eae1290a96ab2ad4ce963feec5ced9a8325e054433f/diff:/var/lib/docker/overlay2/9119ada5be71611c6df7391b43e1b381335eac8af62e24f75cd055fec89ea0bd/diff:/var/lib/docker/overlay2/abedba562375d65723bee8857bdc9a9cbe92a02390b7ff04f86352c2a6ca4b97/diff:/var/lib/docker/overlay2/8c32966a0db1833b3f1357c9a8095bae5b20c703b585a2f7db7952c6b4618ded/diff:/var/lib/docker/overlay2/3b96c60509fbc0bd8c5a5ccd3dcca58f471be516d3c826b58e9e6f6ca20fb9e1/diff:/var/lib/docker/overlay2/902c15c8b4be9a7a6bcbd20edf2491dbe324506c2938b5fccdfed3598df713f2/diff:/var/lib/docker/overlay2/249157a961173847c062f716d5c02c0d70c4bba6dab6ee8873d28a0eb9352af6/diff:/var/lib/docker/overlay2/3dc0ffbe1f3c4e44708e16d26158af593b0135a431a8199acff13b6201e74f72/diff:/var/lib/docker/overlay2/63a328d196f7d01bb29d20d78d39230cf4aa55f21fcf503ce4237ae3de348d2e/diff:/var/lib/docker/overlay2/bbb73add28f8fbeab9ab19fa254179090973af280e4fde4d9d097da5bc258c27/diff",
+                "MergedDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380/merged",
+                "UpperDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380/diff",
+                "WorkDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/mnt/d/a/trezor-suite/trezor-suite/trezor-suite",
+                "Destination": "/trezor-user-env/trezor-suite",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/mnt/d/a/trezor-suite/trezor-suite/logs",
+                "Destination": "/trezor-user-env/logs",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/mnt/d/a/trezor-suite/trezor-suite/src/binaries/firmware/bin/user_downloaded",
+                "Destination": "/trezor-user-env/src/binaries/firmware/bin/user_downloaded",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "1df0beb5ea7f",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "21326/tcp": {},
+                "9001/tcp": {},
+                "9002/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "SDL_VIDEODRIVER=dummy",
+                "XDG_RUNTIME_DIR=/var/tmp",
+                "PYTHONUNBUFFERED=1",
+                "PATH=/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "TERM=xterm",
+                "LC_ALL=C.UTF-8",
+                "LANG=C.UTF-8",
+                "GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt",
+                "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+            ],
+            "Cmd": [
+                "/venv/bin/python",
+                "src/main.py"
+            ],
+            "Image": "ghcr.io/trezor/trezor-user-env:51efcaf8e2ffd1fc518db7f10fabb7d540c8ccd1",
+            "Volumes": null,
+            "WorkingDir": "/trezor-user-env",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "com.docker.compose.config-hash": "2dc44d8421eabc68714cdc6e20c81e5a21d25403f5b844e7e52e3347e0a6d319",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:87fae12f0c6ee3a5da30c511e24a9e0ff48fe727acda68fe175f6c10a515a8da",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "docker",
+                "com.docker.compose.project.config_files": "/mnt/d/a/trezor-suite/trezor-suite/docker/docker-compose.suite-windows-ci.yml",
+                "com.docker.compose.project.working_dir": "/mnt/d/a/trezor-suite/trezor-suite/docker",
+                "com.docker.compose.service": "trezor-user-env-windows",
+                "com.docker.compose.version": "2.39.4"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "09b1211cda66a0a563590528c042cbea8daa97138d09cca80710aa51a822012b",
+            "SandboxKey": "/var/run/docker/netns/09b1211cda66",
+            "Ports": {
+                "21326/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "21325"
+                    },
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "21326"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "21326"
+                    }
+                ],
+                "9001/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "9001"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "9001"
+                    }
+                ],
+                "9002/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "9002"
+                    },
+                    {
+                        "HostIp": "::",
+                        "HostPort": "9002"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "docker_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "trezor-user-env.windows",
+                        "trezor-user-env-windows"
+                    ],
+                    "MacAddress": "12:29:c4:a5:52:dd",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "b661e304cc48cff2200b395a9ee1370df4a8d634c6ec684835677bfee429013f",
+                    "EndpointID": "b71a79eefbec067f3d157ff352de997f124276f1d42c5e7281a61bfced189da1",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.3",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "trezor-user-env.windows",
+                        "trezor-user-env-windows",
+                        "1df0beb5ea7f"
+                    ]
+                }
+            }
+        }
+    }
+]
+
+==== Docker container status after 60 seconds ====
+CONTAINER ID   IMAGE                                                                     COMMAND                  CREATED              STATUS                       PORTS                                                                                                                                          NAMES
+e19e35e6ed9d   ghcr.io/trezor/trezor-user-env-regtest                                    "./entrypoint.sh"        About a minute ago   Exited (255) 4 seconds ago                                                                                                                                                  docker-bitcoin-regtest-1
+1df0beb5ea7f   ghcr.io/trezor/trezor-user-env:51efcaf8e2ffd1fc518db7f10fabb7d540c8ccd1   "/venv/bin/python sr…"   About a minute ago   Exited (255) 4 seconds ago   0.0.0.0:9001-9002->9001-9002/tcp, [::]:9001-9002->9001-9002/tcp, 0.0.0.0:21326->21326/tcp, [::]:21326->21326/tcp, 127.0.0.1:21325->21326/tcp   trezor-user-env.windows
+0d6d95fb9393   ghcr.io/trezor/electrs:latest                                             "/root/entrypoint.sh"    About a minute ago   Exited (255) 4 seconds ago   0.0.0.0:50001->50001/tcp, [::]:50001->50001/tcp                                                                                                docker-electrum-regtest-1
+[
+    {
+        "Id": "1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874",
+        "Created": "2025-09-26T11:43:14.10299824Z",
+        "Path": "/venv/bin/python",
+        "Args": [
+            "src/main.py"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 255,
+            "Error": "",
+            "StartedAt": "2025-09-26T11:43:16.108783991Z",
+            "FinishedAt": "2025-09-26T11:44:21.593236793Z"
+        },
+        "Image": "sha256:87fae12f0c6ee3a5da30c511e24a9e0ff48fe727acda68fe175f6c10a515a8da",
+        "ResolvConfPath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/hostname",
+        "HostsPath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/hosts",
+        "LogPath": "/var/lib/docker/containers/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874/1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874-json.log",
+        "Name": "/trezor-user-env.windows",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/mnt/d/a/trezor-suite/trezor-suite/trezor-suite:/trezor-user-env/trezor-suite:rw",
+                "/mnt/d/a/trezor-suite/trezor-suite/logs:/trezor-user-env/logs:rw",
+                "/mnt/d/a/trezor-suite/trezor-suite/src/binaries/firmware/bin/user_downloaded:/trezor-user-env/src/binaries/firmware/bin/user_downloaded:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "docker_default",
+            "PortBindings": {
+                "21326/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "21326"
+                    },
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "21325"
+                    }
+                ],
+                "9001/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9001"
+                    }
+                ],
+                "9002/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "9002"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": [],
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": null,
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": null,
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "1df0beb5ea7fb36b1bce7b77c6d38b1d5989c7975d44b4fae55d816d51ae9874",
+                "LowerDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380-init/diff:/var/lib/docker/overlay2/4bc993031f05415d550265c324febb16b77260784e80b31645ed4e07cdf5ad57/diff:/var/lib/docker/overlay2/e60d293b08598ec66de4f2e854fcab0084c3515505ef6a8a8af4fb4b2ea91023/diff:/var/lib/docker/overlay2/d4e38b95831679d7ebc59f442cd824e984ab370d05b1facdfd463547c3f3b340/diff:/var/lib/docker/overlay2/7492259bb7344e859d407e8cb22c7911607692d4c5d43bb3d4ef703ecbc7d46a/diff:/var/lib/docker/overlay2/3426341ef33875808a248d6d75c1ba4322e315ed08898d5bfa93919615b22327/diff:/var/lib/docker/overlay2/795972aaf7c4c82dce0a04bc76c9ed0fe75a38e514a6f8666854de869b5c32da/diff:/var/lib/docker/overlay2/8667aecc50d8afd993265d58d8806bdbf3df44815e58152d00190d0faf78cf6c/diff:/var/lib/docker/overlay2/770865674e8ce5870a25c557c362a534be6978e51d2ffe5440ada9142023c01c/diff:/var/lib/docker/overlay2/5b552605dc7a256de1d94eae1290a96ab2ad4ce963feec5ced9a8325e054433f/diff:/var/lib/docker/overlay2/9119ada5be71611c6df7391b43e1b381335eac8af62e24f75cd055fec89ea0bd/diff:/var/lib/docker/overlay2/abedba562375d65723bee8857bdc9a9cbe92a02390b7ff04f86352c2a6ca4b97/diff:/var/lib/docker/overlay2/8c32966a0db1833b3f1357c9a8095bae5b20c703b585a2f7db7952c6b4618ded/diff:/var/lib/docker/overlay2/3b96c60509fbc0bd8c5a5ccd3dcca58f471be516d3c826b58e9e6f6ca20fb9e1/diff:/var/lib/docker/overlay2/902c15c8b4be9a7a6bcbd20edf2491dbe324506c2938b5fccdfed3598df713f2/diff:/var/lib/docker/overlay2/249157a961173847c062f716d5c02c0d70c4bba6dab6ee8873d28a0eb9352af6/diff:/var/lib/docker/overlay2/3dc0ffbe1f3c4e44708e16d26158af593b0135a431a8199acff13b6201e74f72/diff:/var/lib/docker/overlay2/63a328d196f7d01bb29d20d78d39230cf4aa55f21fcf503ce4237ae3de348d2e/diff:/var/lib/docker/overlay2/bbb73add28f8fbeab9ab19fa254179090973af280e4fde4d9d097da5bc258c27/diff",
+                "MergedDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380/merged",
+                "UpperDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380/diff",
+                "WorkDir": "/var/lib/docker/overlay2/feaf634e580068c5c4ce40fb7ae39399d546890fe235868a6c1d8df96908e380/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/mnt/d/a/trezor-suite/trezor-suite/logs",
+                "Destination": "/trezor-user-env/logs",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/mnt/d/a/trezor-suite/trezor-suite/src/binaries/firmware/bin/user_downloaded",
+                "Destination": "/trezor-user-env/src/binaries/firmware/bin/user_downloaded",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "bind",
+                "Source": "/mnt/d/a/trezor-suite/trezor-suite/trezor-suite",
+                "Destination": "/trezor-user-env/trezor-suite",
+                "Mode": "rw",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "1df0beb5ea7f",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": true,
+            "AttachStderr": true,
+            "ExposedPorts": {
+                "21326/tcp": {},
+                "9001/tcp": {},
+                "9002/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "SDL_VIDEODRIVER=dummy",
+                "XDG_RUNTIME_DIR=/var/tmp",
+                "PYTHONUNBUFFERED=1",
+                "PATH=/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "TERM=xterm",
+                "LC_ALL=C.UTF-8",
+                "LANG=C.UTF-8",
+                "GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt",
+                "NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
+            ],
+            "Cmd": [
+                "/venv/bin/python",
+                "src/main.py"
+            ],
+            "Image": "ghcr.io/trezor/trezor-user-env:51efcaf8e2ffd1fc518db7f10fabb7d540c8ccd1",
+            "Volumes": null,
+            "WorkingDir": "/trezor-user-env",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "com.docker.compose.config-hash": "2dc44d8421eabc68714cdc6e20c81e5a21d25403f5b844e7e52e3347e0a6d319",
+                "com.docker.compose.container-number": "1",
+                "com.docker.compose.depends_on": "",
+                "com.docker.compose.image": "sha256:87fae12f0c6ee3a5da30c511e24a9e0ff48fe727acda68fe175f6c10a515a8da",
+                "com.docker.compose.oneoff": "False",
+                "com.docker.compose.project": "docker",
+                "com.docker.compose.project.config_files": "/mnt/d/a/trezor-suite/trezor-suite/docker/docker-compose.suite-windows-ci.yml",
+                "com.docker.compose.project.working_dir": "/mnt/d/a/trezor-suite/trezor-suite/docker",
+                "com.docker.compose.service": "trezor-user-env-windows",
+                "com.docker.compose.version": "2.39.4"
+            }
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "",
+            "SandboxKey": "",
+            "Ports": {},
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "docker_default": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": [
+                        "trezor-user-env.windows",
+                        "trezor-user-env-windows"
+                    ],
+                    "MacAddress": "",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "b661e304cc48cff2200b395a9ee1370df4a8d634c6ec684835677bfee429013f",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "trezor-user-env.windows",
+                        "trezor-user-env-windows",
+                        "1df0beb5ea7f"
+                    ]
+                }
+            }
+        }
+    }
+]
