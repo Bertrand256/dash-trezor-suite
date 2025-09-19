@@ -39,7 +39,6 @@ import {
     selectIsDeviceSetupSupported,
     selectIsEntropyCheckEnabledAndFailed,
 } from '../selectors';
-import { isDeviceConnectAction } from '../utils';
 
 export const deviceConnectionMiddleware = createListenerMiddleware<NativeDeviceRootState>();
 
@@ -114,7 +113,7 @@ const handleDeviceConnectNavigation = ({
 };
 
 deviceConnectionMiddleware.startListening({
-    predicate: action => isDeviceConnectAction(action),
+    predicate: action => deviceActions.connectDevice.match(action),
     effect: (
         action: UnknownAction,
         { getState }: ListenerEffectAPI<NativeDeviceRootState, Dispatch<UnknownAction>>,

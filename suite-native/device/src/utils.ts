@@ -1,11 +1,7 @@
 import { G } from '@mobily/ts-belt';
-import { UnknownAction } from '@reduxjs/toolkit';
 import * as semver from 'semver';
 
 import { AnyAction } from '@suite-common/redux-utils';
-import { isThpDevice } from '@suite-common/suite-utils';
-import { thpActions } from '@suite-common/thp';
-import { deviceConnectThunks } from '@suite-common/wallet-core';
 import { Device, DeviceEvent, VersionArray } from '@trezor/connect';
 import { DeviceModelInternal } from '@trezor/device-utils';
 import { exhaustive } from '@trezor/type-utils';
@@ -57,22 +53,4 @@ export const isDeviceSetupSupported = (model: DeviceModelInternal) => {
         default:
             return exhaustive(model);
     }
-};
-
-export const isDeviceConnectAction = (action: UnknownAction) => {
-    // For THP, we don't use deviceConnectThunks, because THP confirmation is required before we can communicate with the device,
-    // therefore we postpone until THP flow is finished.
-    if (thpActions.finishThpFlow.match(action)) {
-        return true;
-    }
-
-    if (deviceConnectThunks.fulfilled.match(action)) {
-        const { device } = action.meta.arg;
-
-        if (!isThpDevice(device)) {
-            return true;
-        }
-    }
-
-    return false;
 };
