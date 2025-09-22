@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { selectDeviceHasState, selectHasRunningDiscovery } from '@suite-common/wallet-core';
+import { selectHasRunningDiscovery, selectIsDeviceAuthorized } from '@suite-common/wallet-core';
 import { selectHasDeviceAnySendAvailableAccount } from '@suite-native/accounts';
 import { Assets } from '@suite-native/assets';
 import { AnimatedVStack, Button, HStack, VStack } from '@suite-native/atoms';
@@ -24,7 +24,7 @@ import { PortfolioGraph, PortfolioGraphRef } from './PortfolioGraph';
 export const PortfolioContent = forwardRef<PortfolioGraphRef>((_props, ref) => {
     const navigation = useNavigation<StackNavigationProps<RootStackParamList, RootStackRoutes>>();
 
-    const isDeviceAuthorized = useSelector(selectDeviceHasState);
+    const isDeviceAuthorized = useSelector(selectIsDeviceAuthorized);
     const hasDiscovery = useSelector(selectHasRunningDiscovery);
     const hasDeviceAnySendAvailableAccount = useSelector(selectHasDeviceAnySendAvailableAccount);
     const hasFirmwareAuthenticityCheckHardFailed = useSelector(

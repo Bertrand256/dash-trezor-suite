@@ -166,7 +166,7 @@ export const selectDeviceState = createMemoizedSelector(
     device => device?.state,
 );
 
-export const selectDeviceHasState = createMemoizedSelector(
+export const selectIsDeviceAuthorized = createMemoizedSelector(
     [selectDeviceState],
     deviceState => !!deviceState,
 );

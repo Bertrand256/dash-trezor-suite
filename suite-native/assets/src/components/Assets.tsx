@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useSelectorDeepComparison } from '@suite-common/redux-utils';
 import { type NetworkSymbol } from '@suite-common/wallet-config';
-import { selectDeviceHasState, selectHasRunningDiscovery } from '@suite-common/wallet-core';
+import { selectHasRunningDiscovery, selectIsDeviceAuthorized } from '@suite-common/wallet-core';
 import { OnSelectAccount } from '@suite-native/accounts';
 import { AnimatedCard } from '@suite-native/atoms';
 import {
@@ -34,7 +34,7 @@ export const Assets = () => {
     const deviceNetworks = useSelectorDeepComparison(selectDeviceNetworksWithAssets);
 
     const hasDiscovery = useSelector(selectHasRunningDiscovery);
-    const isDeviceAuthorized = useSelector(selectDeviceHasState);
+    const isDeviceAuthorized = useSelector(selectIsDeviceAuthorized);
     const isLoading = hasDiscovery || !isDeviceAuthorized;
 
     const [selectedAssetSymbol, setSelectedAssetSymbol] = useState<NetworkSymbol | null>(null);
