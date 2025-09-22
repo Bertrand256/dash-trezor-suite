@@ -22,7 +22,7 @@ export const autoInitThpAfterDeviceConnectionThunk = createThunk<
     const reselectedTrezorDevice = selectDevices(getState())?.find(
         stateDevice => stateDevice.path === device.path,
     );
-    // TODO: To be fixed properly in https://github.com/trezor/trezor-suite/issues/20930
+
     if (!selectIsFirmwareInstallationRunning(getState())) {
         dispatch(acquireDevice({ requestedDevice: reselectedTrezorDevice }));
     }
