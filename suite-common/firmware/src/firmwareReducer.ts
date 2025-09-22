@@ -115,3 +115,7 @@ export const prepareFirmwareReducer = createReducerWithExtraDeps(initialState, (
 export const selectFirmware = (state: RootState) => state.firmware;
 export const selectUseDevkit = (state: RootState) => state.firmware.useDevkit;
 export const selectFirmwareUpdateSource = (state: RootState) => state.firmware.firmwareUpdateSource;
+
+// FIXME error status is missing here
+export const selectIsFirmwareInstallationRunning = (state: RootState) =>
+    state.firmware.status !== 'initial' && state.firmware.status !== 'done';
