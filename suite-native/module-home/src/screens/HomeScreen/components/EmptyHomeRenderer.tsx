@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
 
 import {
+    selectDeviceHasState,
     selectHasOnlyEmptyPortfolioTracker,
-    selectIsDeviceAuthorized,
     selectIsDeviceConnected,
     selectIsDeviceInitialized,
     selectIsDeviceThpRequired,
@@ -20,7 +20,7 @@ import { UninitializedConnectedDeviceState } from './UninitializedConnectedDevic
 export const EmptyHomeRenderer = () => {
     const isUsbDeviceConnectFeatureEnabled = useFeatureFlag(FeatureFlag.IsDeviceConnectEnabled);
 
-    const isDeviceAuthorized = useSelector(selectIsDeviceAuthorized);
+    const isDeviceAuthorized = useSelector(selectDeviceHasState);
     const isPortfolioTrackerDevice = useSelector(selectIsPortfolioTrackerDevice);
     const hasOnlyEmptyPortfolioTracker = useSelector(selectHasOnlyEmptyPortfolioTracker);
 

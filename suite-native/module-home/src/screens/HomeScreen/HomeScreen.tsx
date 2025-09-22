@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useFocusEffect } from '@react-navigation/native';
 
 import {
-    selectIsDeviceAuthorized,
+    selectDeviceHasState,
     selectIsDeviceInitialized,
     selectIsDeviceUnlocked,
     selectIsDiscoveredDeviceAccountless,
@@ -23,7 +23,7 @@ export const HomeScreen = () => {
     const { showSystemUnpairingAlert } = useBluetoothAlerts();
 
     const isDiscoveredDeviceAccountless = useSelector(selectIsDiscoveredDeviceAccountless);
-    const isDeviceAuthorized = useSelector(selectIsDeviceAuthorized);
+    const isDeviceAuthorized = useSelector(selectDeviceHasState);
     const isDeviceUnlocked = useSelector(selectIsDeviceUnlocked);
     const isDeviceInitialized = useSelector(selectIsDeviceInitialized);
     const shouldShowSystemUnpairingAlert = useSelector(selectShouldShowSystemUnpairingAlert);

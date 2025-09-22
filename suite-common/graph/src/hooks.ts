@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { A } from '@mobily/ts-belt';
 import { roundToNearestMinutes, subHours } from 'date-fns';
 
-import { selectHasRunningDiscovery, selectIsDeviceAuthorized } from '@suite-common/wallet-core';
+import { selectDeviceHasState, selectHasRunningDiscovery } from '@suite-common/wallet-core';
 import type { BaseCurrencyCode } from '@trezor/blockchain-link-types';
 
 import { getAccountMovementEvents } from './graphBalanceEvents';
@@ -92,7 +92,7 @@ export function useGraphForAccounts(params: useGraphForAccountsParams): {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
     const isDiscoveryActive = useSelector(selectHasRunningDiscovery);
-    const isDeviceAuthorized = useSelector(selectIsDeviceAuthorized);
+    const isDeviceAuthorized = useSelector(selectDeviceHasState);
     const dispatch = useDispatch();
 
     const lastFetchTimestamp = useRef<number | null>(null);

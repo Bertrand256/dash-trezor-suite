@@ -7,6 +7,7 @@ import {
     getDeviceInstances,
     getDeviceInternalModel,
     getFwUpdateVersion,
+    getIsDeviceConnectedAndAuthorized,
     getIsDeviceInitialized,
     getStatus,
 } from '@suite-common/suite-utils';
@@ -160,14 +161,20 @@ export const selectIsConnectedDeviceUninitialized = createMemoizedSelector(
     (device, isDeviceInitialized) => device && !isDeviceInitialized,
 );
 
-export const selectIsDeviceAuthorized = createMemoizedSelector(
+export const selectDeviceState = createMemoizedSelector(
     [selectSelectedDevice],
-    device => !!device?.state,
+    device => device?.state,
+);
+
+export const selectDeviceHasState = createMemoizedSelector(
+    [selectDeviceState],
+    deviceState => !!deviceState,
 );
 
 export const selectIsDeviceConnectedAndAuthorized = createMemoizedSelector(
-    [selectIsDeviceAuthorized, selectDeviceFeatures],
-    (isDeviceAuthorized, deviceFeatures) => isDeviceAuthorized && !!deviceFeatures,
+    [selectDeviceState, selectDeviceFeatures],
+    (deviceState, deviceFeatures) =>
+        getIsDeviceConnectedAndAuthorized({ deviceFeatures, deviceState }),
 );
 
 export const selectDeviceInternalModel = createMemoizedSelector(
@@ -414,11 +421,6 @@ export const selectIsDeviceUsingPassphrase = createMemoizedSelector(
 export const selectPhysicalDevicesGrouppedById = createMemoizedSelector(
     [selectPhysicalDeviceWallets],
     devices => returnStableArrayIfEmpty(deviceUtils.getDeviceInstancesGroupedByDeviceId(devices)),
-);
-
-export const selectDeviceState = createMemoizedSelector(
-    [selectSelectedDevice],
-    device => device?.state ?? null,
 );
 
 export const selectDeviceStaticSessionId = createMemoizedSelector(

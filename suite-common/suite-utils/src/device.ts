@@ -479,3 +479,11 @@ export const getIsDeviceInitialized = ({
 
     return !!deviceFeatures?.initialized;
 };
+
+export const getIsDeviceConnectedAndAuthorized = ({
+    deviceState,
+    deviceFeatures,
+}: {
+    deviceState: TrezorDevice['state'];
+    deviceFeatures?: PROTO.Features;
+}) => !!deviceState && !!deviceFeatures;

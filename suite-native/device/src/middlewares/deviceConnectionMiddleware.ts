@@ -5,8 +5,10 @@ import {
     createListenerMiddleware,
 } from '@reduxjs/toolkit';
 
+import { TrezorDevice } from '@suite-common/suite-types';
 import {
     getDeviceInternalModel,
+    getIsDeviceConnectedAndAuthorized,
     getIsDeviceInitialized,
     isThpDevice,
 } from '@suite-common/suite-utils';
@@ -123,6 +125,10 @@ deviceConnectionMiddleware.startListening({
             throw new Error('This listener only handles connectDevice action');
         }
 
+        // FYI: This is the only device you should access from this middleware. At this point, selectedDevice is previously connected device.
+        // Your decision logic should be derived from device passed from TrezorConnect in the action payload (not selectedDevice from the state).
+        const { device } = action.payload;
+
         const shouldNavigateToDeviceCompromisedModal = selectIsDeviceCompromised(getState());
 
         if (checkIsActiveRouteAnyOf(DEVICE_CONNECTION_BLACKLISTED_ROUTES)) return;
@@ -138,26 +144,23 @@ deviceConnectionMiddleware.startListening({
             return;
         }
 
-        // If device is authorized already (usually in case of remembered device which has already been authorized)
-        const isDeviceConnectedAndAuthorized =
-            // TODO this is selectIsDeviceConnectedAndAuthorized but on the action payload device, not selected device
-            // FIXME: we should refactor this so the logic is reused
-            !!action.payload.device.state && !!action.payload.device.features;
-
         // Passphrase protected devices are only connected through passphrase form
         // The passphrase flow handles connection differently and redirect to connecting screen is not wanted.
         const isDeviceUsingPassphrase = selectIsDeviceUsingPassphrase(getState());
 
         if (isDeviceUsingPassphrase) return;
 
+        // If device is authorized already (usually in case of remembered device which has already been authorized)
+        const isDeviceConnectedAndAuthorized = getIsDeviceConnectedAndAuthorized({
+            deviceState: device.state as TrezorDevice['state'],
+            deviceFeatures: device.features,
+        });
         const isNonThpRememberedDeviceConnectAction =
             isDeviceConnectedAndAuthorized &&
             deviceActions.connectDevice.match(action) &&
             !isThpDevice(action.payload.device);
 
         if (isNonThpRememberedDeviceConnectAction) return;
-
-        const { device } = action.payload;
 
         handleDeviceConnectNavigation({
             isCoinEnablingInitFinished: selectIsCoinEnablingInitFinished(getState()),
