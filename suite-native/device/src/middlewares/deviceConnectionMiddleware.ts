@@ -9,7 +9,6 @@ import { isThpDevice } from '@suite-common/suite-utils';
 import { isThpPairingUIRequestButtonAction } from '@suite-common/thp';
 import {
     deviceActions,
-    deviceConnectThunks,
     selectIsDeviceConnectedAndAuthorized,
     selectIsDeviceInitialized,
     selectIsDeviceRemembered,
@@ -143,8 +142,8 @@ deviceConnectionMiddleware.startListening({
 
         const isNonThpRememberedDeviceConnectAction =
             isDeviceConnectedAndAuthorized &&
-            deviceConnectThunks.fulfilled.match(action) &&
-            !isThpDevice(action.meta.arg.device);
+            deviceActions.connectDevice.match(action) &&
+            !isThpDevice(action.payload.device);
 
         if (isNonThpRememberedDeviceConnectAction) return;
 
