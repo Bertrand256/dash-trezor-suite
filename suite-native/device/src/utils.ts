@@ -38,7 +38,9 @@ export const isDeviceEventAction = <T extends DeviceEvent['type']>(
     actionType: T,
 ): action is { type: T; payload: Device } => action.type === actionType;
 
-export const isDeviceSetupSupported = (model: DeviceModelInternal) => {
+export const getIsDeviceSetupSupported = (model: DeviceModelInternal | null) => {
+    if (G.isNullable(model)) return false;
+
     // Exhaustive check for case that new model is introduced later it won't be forgotten.
     switch (model) {
         case DeviceModelInternal.T2B1:

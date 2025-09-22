@@ -5,12 +5,14 @@ import {
     createListenerMiddleware,
 } from '@reduxjs/toolkit';
 
-import { isThpDevice } from '@suite-common/suite-utils';
+import {
+    getDeviceInternalModel,
+    getIsDeviceInitialized,
+    isThpDevice,
+} from '@suite-common/suite-utils';
 import { isThpPairingUIRequestButtonAction } from '@suite-common/thp';
 import {
     deviceActions,
-    selectIsDeviceConnectedAndAuthorized,
-    selectIsDeviceInitialized,
     selectIsDeviceRemembered,
     selectIsDeviceUsingPassphrase,
 } from '@suite-common/wallet-core';
@@ -35,9 +37,9 @@ import {
 import {
     NativeDeviceRootState,
     selectIsDeviceCompromised,
-    selectIsDeviceSetupSupported,
     selectIsEntropyCheckEnabledAndFailed,
 } from '../selectors';
+import { getIsDeviceSetupSupported } from '../utils';
 
 export const deviceConnectionMiddleware = createListenerMiddleware<NativeDeviceRootState>();
 
@@ -117,6 +119,10 @@ deviceConnectionMiddleware.startListening({
         action: UnknownAction,
         { getState }: ListenerEffectAPI<NativeDeviceRootState, Dispatch<UnknownAction>>,
     ) => {
+        if (!deviceActions.connectDevice.match(action)) {
+            throw new Error('This listener only handles connectDevice action');
+        }
+
         const shouldNavigateToDeviceCompromisedModal = selectIsDeviceCompromised(getState());
 
         if (checkIsActiveRouteAnyOf(DEVICE_CONNECTION_BLACKLISTED_ROUTES)) return;
@@ -133,7 +139,11 @@ deviceConnectionMiddleware.startListening({
         }
 
         // If device is authorized already (usually in case of remembered device which has already been authorized)
-        const isDeviceConnectedAndAuthorized = selectIsDeviceConnectedAndAuthorized(getState());
+        const isDeviceConnectedAndAuthorized =
+            // TODO this is selectIsDeviceConnectedAndAuthorized but on the action payload device, not selected device
+            // FIXME: we should refactor this so the logic is reused
+            !!action.payload.device.state && !!action.payload.device.features;
+
         // Passphrase protected devices are only connected through passphrase form
         // The passphrase flow handles connection differently and redirect to connecting screen is not wanted.
         const isDeviceUsingPassphrase = selectIsDeviceUsingPassphrase(getState());
@@ -147,10 +157,15 @@ deviceConnectionMiddleware.startListening({
 
         if (isNonThpRememberedDeviceConnectAction) return;
 
+        const { device } = action.payload;
+
         handleDeviceConnectNavigation({
             isCoinEnablingInitFinished: selectIsCoinEnablingInitFinished(getState()),
-            isDeviceInitialized: selectIsDeviceInitialized(getState()),
-            isDeviceSetupSupported: selectIsDeviceSetupSupported(getState()),
+            isDeviceInitialized: getIsDeviceInitialized({
+                deviceMode: device.mode,
+                deviceFeatures: device.features,
+            }),
+            isDeviceSetupSupported: getIsDeviceSetupSupported(getDeviceInternalModel(device)),
             wasDeviceOnboardingCancelled: selectWasDeviceOnboardingCancelled(getState()),
         });
     },

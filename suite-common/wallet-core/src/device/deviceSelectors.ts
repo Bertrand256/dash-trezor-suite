@@ -7,6 +7,7 @@ import {
     getDeviceInstances,
     getDeviceInternalModel,
     getFwUpdateVersion,
+    getIsDeviceInitialized,
     getStatus,
 } from '@suite-common/suite-utils';
 import { networkSymbolCollection } from '@suite-common/wallet-config';
@@ -136,11 +137,7 @@ export const selectIsDeviceInBootloader = createMemoizedSelector(
 
 export const selectIsDeviceInitialized = createMemoizedSelector(
     [selectDeviceFeatures, selectDeviceMode],
-    (features, mode) => {
-        if (mode === 'initialize' || mode === 'seedless') return false;
-
-        return !!features?.initialized;
-    },
+    (features, mode) => getIsDeviceInitialized({ deviceMode: mode, deviceFeatures: features }),
 );
 
 export const selectIsDeviceConnected = createMemoizedSelector(
