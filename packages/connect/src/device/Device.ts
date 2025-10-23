@@ -581,6 +581,7 @@ export class Device extends TypedEmitter<DeviceEvents> {
         if (!options.skipFirmwareChecks) {
             await checkFirmwareHashWithRetries({ device: this, logger: _log });
             await this.checkFirmwareRevisionWithRetries();
+            console.log(JSON.stringify(this.authenticityChecks, null, 2));
         }
 
         if (
