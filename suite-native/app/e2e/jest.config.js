@@ -5,10 +5,7 @@ const nativeJestConfig = require('../../../jest.config.native');
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-const baseReporters = [
-    'detox/runners/jest/reporter',
-    ['jest-junit', { outputDirectory: './reports', outputName: 'junit-report.xml' }],
-];
+const baseReporters = ['detox/runners/jest/reporter', '@currents/jest'];
 const githubReporter = './e2e/support/reporter/index.js';
 const reporters =
     process.env.PUBLISH_RESULTS_TO_GITHUB === 'true'
