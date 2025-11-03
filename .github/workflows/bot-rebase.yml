@@ -14,6 +14,49 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase') && github.repository == 'trezor/trezor-suite'
     steps:
+      - name: Check authorization
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            const prAuthor = pr.user.login;
+            const commenter = context.actor;
+
+            if (commenter === prAuthor) {
+              return;
+            }
+
+            try {
+              const { data: permission } = await github.rest.repos.getCollaboratorPermissionLevel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                username: commenter
+              });
+
+              if (!['admin', 'write'].includes(permission.permission)) {
+                core.setFailed(`User ${commenter} is not authorized`);
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `@${commenter} Only the PR author or maintainers can trigger a rebase.`
+                });
+              }
+            } catch (error) {
+              core.setFailed(`User ${commenter} is not authorized`);
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `@${commenter} Only the PR author or maintainers can trigger a rebase.`
+              });
+            }
+
       - name: Respond in pull request
         uses: actions/github-script@v6
         with:
