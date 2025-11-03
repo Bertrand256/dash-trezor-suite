@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "description": "Group all GitHub Actions updates into a single PR every 2 weeks. Renovate automatically detects and updates commit hashes for GitHub Actions, finding the latest commit hash for the same tag/branch.",
+      "groupName": "GitHub Actions",
+      "schedule": ["every 2 weeks"],
+      "separateMajorMinor": false,
+      "separateMinorPatch": false,
+      "commitMessagePrefix": "chore(deps): ",
+      "commitMessageTopic": "update GitHub Actions",
+      "labels": ["dependencies", "github-actions"],
+      "automerge": false
+    }
+  ]
+}
+

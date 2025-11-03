@@ -19,10 +19,10 @@ jobs:
     if: github.repository == 'trezor/trezor-suite'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
 
@@ -34,10 +34,10 @@ jobs:
     if: github.repository == 'trezor/trezor-suite'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
 
@@ -53,7 +53,7 @@ jobs:
         extension: [".png", ".jpg", ".mp4", ".webm", ".svg"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - run: ./scripts/ci/find_duplicates.sh ./packages/suite-data/files ${{ matrix.extension }}
 
@@ -62,10 +62,10 @@ jobs:
     if: github.repository == 'trezor/trezor-suite'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
 
@@ -77,10 +77,10 @@ jobs:
     if: github.repository == 'trezor/trezor-suite'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
 
@@ -93,10 +93,10 @@ jobs:
     if: github.repository == 'trezor/trezor-suite'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
 
@@ -108,10 +108,10 @@ jobs:
     if: github.repository == 'trezor/trezor-suite'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
 
@@ -124,9 +124,9 @@ jobs:
     if: github.repository == 'trezor/trezor-suite'
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
 

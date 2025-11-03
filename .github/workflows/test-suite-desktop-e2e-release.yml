@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
       - name: Build and Upload Suite Desktop
         uses: ./.github/actions/build-desktop
 
@@ -52,25 +52,25 @@ jobs:
     steps:
       - name: Generate GitHub App token
         id: trezor-bot-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547
         with:
           app-id: ${{ secrets.TREZOR_BOT_APP_ID }}
           private-key: ${{ secrets.TREZOR_BOT_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           submodules: true
           ref: ${{ github.sha }}
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
           cache: yarn
 
       - name: Download build artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: desktop-app-build-e2e
 

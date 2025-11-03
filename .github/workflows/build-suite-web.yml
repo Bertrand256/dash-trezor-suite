@@ -36,12 +36,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           lfs: true
 
       - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@ff717079ee2060e4bcee96c4779b553acc87447c
         with:
           role-to-assume: arn:aws:iam::538326561891:role/gh_actions_trezor_suite_dev_deploy
           aws-region: eu-central-1
@@ -52,7 +52,7 @@ jobs:
           echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
           cache: yarn

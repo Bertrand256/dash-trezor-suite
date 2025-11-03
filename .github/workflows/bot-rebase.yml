@@ -15,7 +15,7 @@ jobs:
     if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/rebase') && github.repository == 'trezor/trezor-suite'
     steps:
       - name: Check authorization
-        uses: actions/github-script@v6
+        uses: actions/github-script@00f12e3e20659f42342b1c0226afda7f7c042325
         with:
           script: |
             const { data: pr } = await github.rest.pulls.get({
@@ -58,7 +58,7 @@ jobs:
             }
 
       - name: Respond in pull request
-        uses: actions/github-script@v6
+        uses: actions/github-script@00f12e3e20659f42342b1c0226afda7f7c042325
         with:
           script: |
             github.rest.issues.createComment({
@@ -69,25 +69,25 @@ jobs:
             })
       - name: Generate GitHub App token
         id: trezor-bot-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547
         with:
           app-id: ${{ secrets.TREZOR_BOT_APP_ID }}
           private-key: ${{ secrets.TREZOR_BOT_PRIVATE_KEY }}
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           fetch-depth: 0
           token: ${{ steps.trezor-bot-token.outputs.token }}
       - name: Auto rebase pull request
-        uses: cirrus-actions/rebase@1.8
+        uses: cirrus-actions/rebase@b87d48154a87a85666003575337e27b8cd65f691
         with:
           autosquash: true
         env:
           GITHUB_TOKEN: ${{ steps.trezor-bot-token.outputs.token }}
       - name: Report failure
         if: ${{ failure() }}
-        uses: actions/github-script@v6
+        uses: actions/github-script@00f12e3e20659f42342b1c0226afda7f7c042325
         with:
           script: |
             github.rest.issues.createComment({

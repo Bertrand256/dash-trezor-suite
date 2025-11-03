@@ -30,13 +30,13 @@ jobs:
     env:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
           cache: yarn
       - name: Setup EAS
-        uses: expo/expo-github-action@v8
+        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e
         with:
           eas-version: 16.24.1
           token: ${{ secrets.EXPO_TOKEN }}
@@ -60,13 +60,13 @@ jobs:
     env:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
           cache: yarn
       - name: Setup EAS
-        uses: expo/expo-github-action@v8
+        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e
         with:
           eas-version: 16.24.1
           token: ${{ secrets.EXPO_TOKEN }}
@@ -91,18 +91,18 @@ jobs:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       EXPO_PUBLIC_ENVIRONMENT: production
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
           cache: yarn
       - name: Setup EAS
-        uses: expo/expo-github-action@v8
+        uses: expo/expo-github-action@c7b66a9c327a43a8fa7c0158e7f30d6040d2481e
         with:
           eas-version: 16.24.1
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@ff717079ee2060e4bcee96c4779b553acc87447c
         with:
           role-to-assume: arn:aws:iam::538326561891:role/gh_actions_mobile_prod_deploy
           aws-region: eu-central-1
@@ -144,7 +144,7 @@ jobs:
 
       - name: Generate GitHub App token
         id: trezor-bot-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547
         with:
           app-id: ${{ secrets.TREZOR_BOT_APP_ID }}
           private-key: ${{ secrets.TREZOR_BOT_PRIVATE_KEY }}

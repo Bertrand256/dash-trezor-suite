@@ -19,16 +19,16 @@ jobs:
     name: Setup and Cache Dependencies
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
       - name: Install node and yarn
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: ".nvmrc"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
       - name: Yarn Cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: yarn-cache-folder-${{ hashFiles('**/yarn.lock', '.yarnrc.yml') }}
@@ -47,7 +47,7 @@ jobs:
       NODE_OPTIONS: --max-old-space-size=6144
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           submodules: true
       - name: "Checkout branches for Nx"
@@ -63,14 +63,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
       - name: "Checkout branches for Nx"
         uses: ./.github/actions/nx-checkout
       - name: "Minimal yarn install"
         uses: ./.github/actions/minimal-yarn-install
 
       - name: ESlint Cache
-        uses: actions/cache@v4
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
         with:
           path: |
             **/.eslintcache
@@ -81,7 +81,7 @@ jobs:
       - name: Lint Styles
         run: yarn nx:lint:styles --output-style=stream
       - name: Check rust files changes
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36
         id: changes
         with:
           filters: |
@@ -97,7 +97,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           submodules: true
       - name: "Checkout branches for Nx"
@@ -114,7 +114,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           submodules: true
       - name: "Checkout branches for Nx"
@@ -130,7 +130,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
         with:
           submodules: true
       - name: "Checkout branches for Nx"
@@ -146,7 +146,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
       - name: "Checkout branches for Nx"
         uses: ./.github/actions/nx-checkout
       - name: "Minimal yarn install"
@@ -174,9 +174,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
       - name: Check releases.json files changes
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36
         id: changes
         with:
           filters: |

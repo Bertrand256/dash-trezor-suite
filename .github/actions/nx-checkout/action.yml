@@ -24,7 +24,7 @@ runs:
         git fetch --prune --unshallow --no-tags
 
     - name: Derive appropriate SHAs for base and head for `nx affected` commands
-      uses: nrwl/nx-set-shas@v4
+      uses: nrwl/nx-set-shas@826660b82addbef3abff5fa871492ebad618c9e1
       with:
         main-branch-name: "develop"
 

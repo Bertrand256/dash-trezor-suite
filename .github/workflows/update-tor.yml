@@ -12,10 +12,10 @@ jobs:
       UPDATE_FILE: packages/suite-data/files/bin/tor/update.sh
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: 20
 
@@ -90,14 +90,14 @@ jobs:
       - name: Generate GitHub App token
         if: steps.check_crx.outputs.new_crx == 'true' || steps.check_arm.outputs.new_arm == 'true'
         id: trezor-bot-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547
         with:
           app-id: ${{ secrets.TREZOR_BOT_APP_ID }}
           private-key: ${{ secrets.TREZOR_BOT_PRIVATE_KEY }}
 
       - name: Create Pull Request
         if: steps.check_crx.outputs.new_crx == 'true' || steps.check_arm.outputs.new_arm == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e
         with:
           token: ${{ steps.trezor-bot-token.outputs.token }}
           commit-message: "chore(suite-data): update TOR binaries"

@@ -25,7 +25,7 @@ jobs:
       COINGECKO_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955
 
       - name: Download crypto icons
         run: |
@@ -34,7 +34,7 @@ jobs:
           yarn download-crypto-icons
 
       - name: Configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@ff717079ee2060e4bcee96c4779b553acc87447c
         with:
           role-to-assume: arn:aws:iam::538326561891:role/gh_actions_suite_production_icons
           aws-region: ${{ env.AWS_REGION }}
