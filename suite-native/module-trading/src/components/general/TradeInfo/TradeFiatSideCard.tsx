@@ -1,21 +1,19 @@
 import { ReactNode } from 'react';
 
-import type { SellCryptoPaymentMethod } from 'invity-api';
-
 import { Card, HStack, Text, VStack } from '@suite-native/atoms';
 import { Translation } from '@suite-native/intl';
 import { TradeInfoHeader, TradeInfoRow } from '@suite-native/trading-atoms';
-import { exhaustive } from '@trezor/type-utils';
+import type { ExtendedSellCryptoPaymentMethod } from '@suite-native/trading-types';
 
 import { FiatCurrencyIcon } from '../FiatCurrencyIcon';
 
 export type TradeFiatSideCardProps = {
-    paymentMethod: SellCryptoPaymentMethod;
+    paymentMethod: ExtendedSellCryptoPaymentMethod;
     amount: ReactNode;
     title: ReactNode;
 };
 
-const getPaymentMethodTranslation = (paymentMethod: SellCryptoPaymentMethod) => {
+const getPaymentMethodTranslation = (paymentMethod: ExtendedSellCryptoPaymentMethod) => {
     switch (paymentMethod) {
         case 'bankTransfer':
             return (
@@ -25,8 +23,31 @@ const getPaymentMethodTranslation = (paymentMethod: SellCryptoPaymentMethod) => 
             return (
                 <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.creditCard" />
             );
+        case 'sepa':
+            return <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.sepa" />;
+        case 'ach':
+            return <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.ach" />;
+        case 'skrill':
+            return (
+                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.skrill" />
+            );
+        case 'neteller':
+            return (
+                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.neteller" />
+            );
+        case 'payid':
+            return <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.payid" />;
+        case 'dcinterac':
+            return (
+                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.dcinterac" />
+            );
+        case 'fasterPayment':
+            return (
+                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.fasterPayment" />
+            );
         default:
-            exhaustive(paymentMethod);
+            // api can return even unknown payment methods
+            return paymentMethod;
     }
 };
 
