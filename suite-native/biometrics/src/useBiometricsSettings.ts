@@ -1,18 +1,11 @@
 import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { isRejected } from '@reduxjs/toolkit';
 
 import { useAlert } from '@suite-native/alerts';
-import { EventType, analytics } from '@suite-native/analytics';
 
-import {
-    authenticate,
-    selectIsBiometricsEnabled,
-    setIsBiometricsOverlayVisible,
-    setIsUserAuthenticated,
-    toggleEnableBiometrics,
-} from './biometricsSlice';
+import { ToggleBiometricsError, toggleBiometricsSettings } from './biometricsThunks';
 
 export type BiometricsToggleResult = 'enabled' | 'disabled' | 'failed' | 'notAvailable';
 
@@ -21,52 +14,28 @@ export const useBiometricsSettings = () => {
 
     const dispatch = useDispatch();
 
-    const isBiometricsEnabled = useSelector(selectIsBiometricsEnabled);
-
     const toggleBiometricsOption = useCallback(async (): Promise<BiometricsToggleResult> => {
-        const authResult = await dispatch(authenticate()).unwrap();
+        const authResult = await dispatch(toggleBiometricsSettings());
 
-        if (isRejected(authResult) && authResult.payload === 'biometrics-not-available') {
-            await new Promise(resolve => {
-                showAlert({
-                    title: 'Biometrics',
-                    description:
-                        'No security features on your device. Make sure you have biometrics setup on your phone and try again.',
-                    primaryButtonTitle: 'Cancel',
-                    onPressPrimaryButton: () => resolve(undefined),
-                    pictogramVariant: 'warning',
+        if (isRejected(authResult)) {
+            if (authResult.payload === ToggleBiometricsError.NotAvailable) {
+                await new Promise(resolve => {
+                    showAlert({
+                        title: 'Biometrics',
+                        description:
+                            'No security features on your device. Make sure you have biometrics setup on your phone and try again.',
+                        primaryButtonTitle: 'Cancel',
+                        onPressPrimaryButton: () => resolve(undefined),
+                        pictogramVariant: 'warning',
+                    });
                 });
-            });
-
-            return 'notAvailable';
+            }
         }
 
-        if (!authResult?.success) {
-            return 'failed';
-        }
+        if (!authResult.payload) return 'failed';
 
-        dispatch(setIsBiometricsOverlayVisible(false));
-
-        if (isBiometricsEnabled) {
-            dispatch(toggleEnableBiometrics(false));
-            dispatch(setIsUserAuthenticated(false));
-            analytics.report({
-                type: EventType.BiometricsChange,
-                payload: { enabled: false, origin: 'settingsToggle' },
-            });
-
-            return 'disabled';
-        }
-
-        setIsUserAuthenticated(true);
-        dispatch(toggleEnableBiometrics(true));
-        analytics.report({
-            type: EventType.BiometricsChange,
-            payload: { enabled: true, origin: 'settingsToggle' },
-        });
-
-        return 'enabled';
-    }, [dispatch, isBiometricsEnabled, showAlert]);
+        return authResult.payload;
+    }, [dispatch, showAlert]);
 
     return { toggleBiometricsOption };
 };
