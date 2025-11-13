@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { isRejected } from '@reduxjs/toolkit';
+
 import { useAlert } from '@suite-native/alerts';
 import { EventType, analytics } from '@suite-native/analytics';
 
@@ -11,7 +13,6 @@ import {
     setIsUserAuthenticated,
     toggleEnableBiometrics,
 } from './biometricsSlice';
-import { getIsBiometricsFeatureAvailable } from './isBiometricsFeatureAvailable';
 
 export type BiometricsToggleResult = 'enabled' | 'disabled' | 'failed' | 'notAvailable';
 
@@ -23,9 +24,9 @@ export const useBiometricsSettings = () => {
     const isBiometricsEnabled = useSelector(selectIsBiometricsEnabled);
 
     const toggleBiometricsOption = useCallback(async (): Promise<BiometricsToggleResult> => {
-        const isBiometricsAvailable = await getIsBiometricsFeatureAvailable();
+        const authResult = await dispatch(authenticate()).unwrap();
 
-        if (!isBiometricsAvailable) {
+        if (isRejected(authResult) && authResult.payload === 'biometrics-not-available') {
             await new Promise(resolve => {
                 showAlert({
                     title: 'Biometrics',
@@ -39,8 +40,6 @@ export const useBiometricsSettings = () => {
 
             return 'notAvailable';
         }
-
-        const authResult = await dispatch(authenticate()).unwrap();
 
         if (!authResult?.success) {
             return 'failed';
