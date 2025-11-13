@@ -31,6 +31,7 @@ import {
 // This is causing problems handling types in WalletConnect, so we import the reducer directly instead of the whole module
 import { prepareWalletConnectReducer } from '@suite-common/walletconnect/src/walletConnectReducer';
 import { bannerFlagsPersistWhitelist, bannerFlagsReducer } from '@suite-native/banner-flags';
+import { biometricsPersistWhitelist, biometricsSlice } from '@suite-native/biometrics';
 import { bluetoothSlice } from '@suite-native/bluetooth';
 import { deviceAuthorizationReducer } from '@suite-native/device-authorization';
 import { deviceOnboardingReducer } from '@suite-native/device-onboarding';
@@ -94,6 +95,13 @@ export const prepareRootReducers = async () => {
         // `areTestnetsEnabled` is a developer-only option and does not require migration.
         // To version 2: moved to initialMigrateAppSettingsAndDiscoveryConfig
         version: 3,
+    });
+
+    const biometricsPersistedReducer = await preparePersistReducer({
+        reducer: biometricsSlice.reducer,
+        persistedKeys: biometricsPersistWhitelist,
+        key: biometricsSlice.name,
+        version: 1,
     });
 
     const tradingPersistedReducer = await preparePersistReducer({
@@ -274,6 +282,9 @@ export const prepareRootReducers = async () => {
             analytics: analyticsPersistedReducer,
             app: appReducer,
             appSettings: appSettingsPersistedReducer,
+            biometrics: biometricsPersistedReducer,
+            wallet: walletPersistedReducer,
+            featureFlags: featureFlagsPersistedReducer,
             bannerFlags: bannerFlagsPersistedReducer,
             bluetooth: bluetoothPersistedReducer,
             connectPopup: connectPopupPersistedReducer,

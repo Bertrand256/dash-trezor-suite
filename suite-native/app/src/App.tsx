@@ -10,7 +10,7 @@ import * as Sentry from '@sentry/react-native';
 import * as SplashScreen from 'expo-splash-screen';
 
 import { FormatterProvider } from '@suite-common/formatters';
-import { useIsBiometricsOverlayVisible } from '@suite-native/biometrics';
+import { selectIsBiometricsOverlayVisible } from '@suite-native/biometrics';
 import { configureNetInfo } from '@suite-native/connection-status';
 import { useFormattersConfig } from '@suite-native/formatters-config';
 import { IntlProvider } from '@suite-native/intl';
@@ -65,7 +65,7 @@ const AppComponent = () => {
     const formattersConfig = useFormattersConfig();
     const isAppReady = useSelector(selectIsAppReady);
     const isOnboardingFinished = useSelector(selectIsOnboardingFinished);
-    const { isBiometricsOverlayVisible } = useIsBiometricsOverlayVisible();
+    const isBiometricsOverlayVisible = useSelector(selectIsBiometricsOverlayVisible);
 
     useReportAppInitToAnalytics(APP_STARTED_TIMESTAMP);
 
