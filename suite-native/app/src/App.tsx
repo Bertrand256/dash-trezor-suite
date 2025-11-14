@@ -10,7 +10,7 @@ import * as Sentry from '@sentry/react-native';
 import * as SplashScreen from 'expo-splash-screen';
 
 import { FormatterProvider } from '@suite-common/formatters';
-import { selectIsBiometricsOverlayVisible } from '@suite-native/biometrics';
+import { selectShouldUserBeAuthenticated } from '@suite-native/biometrics';
 import { configureNetInfo } from '@suite-native/connection-status';
 import { useFormattersConfig } from '@suite-native/formatters-config';
 import { IntlProvider } from '@suite-native/intl';
@@ -65,7 +65,7 @@ const AppComponent = () => {
     const formattersConfig = useFormattersConfig();
     const isAppReady = useSelector(selectIsAppReady);
     const isOnboardingFinished = useSelector(selectIsOnboardingFinished);
-    const isBiometricsOverlayVisible = useSelector(selectIsBiometricsOverlayVisible);
+    const shouldUserBeAuthenticated = useSelector(selectShouldUserBeAuthenticated);
 
     useReportAppInitToAnalytics(APP_STARTED_TIMESTAMP);
 
@@ -95,7 +95,7 @@ const AppComponent = () => {
         <FormatterProvider config={formattersConfig}>
             <BannersRenderer />
             <BottomSheetModalProvider>
-                <Freeze freeze={isBiometricsOverlayVisible}>
+                <Freeze freeze={shouldUserBeAuthenticated}>
                     <RootStackNavigator />
                 </Freeze>
             </BottomSheetModalProvider>
