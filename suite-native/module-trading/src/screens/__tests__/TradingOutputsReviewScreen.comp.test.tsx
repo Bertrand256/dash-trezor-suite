@@ -3,8 +3,8 @@ import { RouteProp } from '@react-navigation/native';
 import { TokenAddress } from '@suite-common/wallet-types';
 import { TradingStackParamList, TradingStackRoutes } from '@suite-native/navigation';
 import { TestStore, initStore, renderWithStoreProviderAsync } from '@suite-native/test-utils';
+import { getWalletState } from '@suite-native/trading-fixtures';
 
-import { getWalletState } from '../../__fixtures__/walletState';
 import { TradingOutputsReviewScreen } from '../TradingOutputsReviewScreen';
 
 const mockSignAndSendTransaction = jest.fn();
