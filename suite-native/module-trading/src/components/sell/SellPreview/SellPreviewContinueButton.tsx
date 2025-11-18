@@ -15,8 +15,7 @@ import {
     type TradingStackParamList,
     TradingStackRoutes,
 } from '@suite-native/navigation';
-
-import { selectSellSelectedSendAccount } from '../../../selectors/sellSelectors';
+import { selectSellSelectedSendAccount } from '@suite-native/trading-state';
 
 export type SellPreviewContinueButtonProps = {
     isDisabled: boolean;

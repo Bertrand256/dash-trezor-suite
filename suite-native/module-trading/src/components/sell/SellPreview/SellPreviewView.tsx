@@ -41,7 +41,10 @@ export const SellPreviewView = memo(({ quote, txnErrorString }: SellPreviewViewP
                     <InlineAlertBox variant="critical" title={txnErrorString} />
                 </Animated.View>
             )}
-            <SellFromAccountTradePreviewCard fromStringValue={fromStringValue} />
+            <SellFromAccountTradePreviewCard
+                cryptoId={quote?.cryptoCurrency}
+                fromStringValue={fromStringValue}
+            />
             <SellToFiatTradePreviewCard quote={quote} toStringValue={toStringValue} />
             {showBankAccountPicker && (
                 <SellBankAccountPicker
