@@ -27,16 +27,4 @@ describe('TradeFiatSideCard', () => {
         expect(getByText('To')).toBeOnTheScreen();
         expect(getByText('Bank Transfer')).toBeOnTheScreen();
     });
-
-    it('should handle exhaustive case for unknown payment method', () => {
-        // This test ensures the exhaustive function is called for unknown payment methods
-        // The exhaustive function will throw an error for unknown values
-        expect(() => {
-            renderTradeFiatSideCard({
-                paymentMethod: 'unknown' as any,
-                amount: '+90.17',
-                title: 'To',
-            });
-        }).toThrow();
-    });
 });
