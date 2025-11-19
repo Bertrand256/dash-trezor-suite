@@ -112,7 +112,7 @@ describe('SellPreviewContinueButton', () => {
         expect(mockOnSignTransactionNavigation).not.toHaveBeenCalled();
     });
 
-    it('should navigate to TradingOutputsReview on continue press', async () => {
+    it('should navigate to TradingSellOutputsReview on continue press', async () => {
         const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
         const mockOnSignTransactionNavigation = jest.fn();
         const { getByText } = await renderSellPreviewContinueButton(
@@ -124,9 +124,8 @@ describe('SellPreviewContinueButton', () => {
 
         expect(consoleWarnSpy).not.toHaveBeenCalled();
         expect(mockNavigate).toHaveBeenCalledWith({
-            name: 'TradingOutputsReview',
+            name: 'TradingSellOutputsReview',
             params: {
-                tradingType: 'sell',
                 accountKey: 'eth-account-1',
                 orderId: sellQuotes[0].orderId,
                 tokenContract: undefined,
