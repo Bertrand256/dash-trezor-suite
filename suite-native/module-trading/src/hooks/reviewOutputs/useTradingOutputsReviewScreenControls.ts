@@ -32,7 +32,7 @@ type TradingOutputsReviewScreenNavigationProp = StackToTabCompositeNavigationPro
 
 export type UseTradingOutputsReviewScreenControlsProps = Pick<
     UseTradingTransactionReturnProps,
-    'signAndSendTransaction' | 'isTransactionSendConsentRequested' | 'resolveTransactionSendConsent'
+    'signAndSendTransaction'
 > & {
     orderId: string;
     accountKey: AccountKey;
@@ -42,8 +42,6 @@ export const useTradingOutputsReviewScreenControls = ({
     orderId,
     accountKey,
     signAndSendTransaction,
-    isTransactionSendConsentRequested,
-    resolveTransactionSendConsent,
 }: UseTradingOutputsReviewScreenControlsProps) => {
     const allowAlertRef = useRef(true);
     const signingExecutedRef = useRef(false);
@@ -116,8 +114,6 @@ export const useTradingOutputsReviewScreenControls = ({
 
     return {
         isTransactionAlreadySigned,
-        isConsentRequested: isTransactionSendConsentRequested,
-        resolveConsent: resolveTransactionSendConsent,
         confirmOnTrezorRef,
     };
 };

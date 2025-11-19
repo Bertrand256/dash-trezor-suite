@@ -13,8 +13,6 @@ import { TradingExchangeSignAndSendTransactionProps } from '../../exchange/useEx
 import { useTradingOutputsReviewScreenControls } from '../useTradingOutputsReviewScreenControls';
 
 const mockSignAndSendTransaction = jest.fn(() => Promise.resolve(true));
-const mockIsTransactionSendConsentRequested = false;
-const mockResolveTransactionSendConsent = jest.fn();
 
 const mockUseConfirmOnTrezorController = {
     confirmOnTrezorRef: { current: null },
@@ -62,8 +60,6 @@ describe('useTradingOutputsReviewScreenControls', () => {
                     orderId: 'orderId',
                     accountKey: 'btc-account-1',
                     signAndSendTransaction: mockSignAndSendTransaction,
-                    isTransactionSendConsentRequested: mockIsTransactionSendConsentRequested,
-                    resolveTransactionSendConsent: mockResolveTransactionSendConsent,
                 }),
             {
                 store,
@@ -73,13 +69,6 @@ describe('useTradingOutputsReviewScreenControls', () => {
     beforeEach(async () => {
         jest.clearAllMocks();
         store = await initStore({ wallet: getWalletState({ tradeType: 'exchange' }) });
-    });
-
-    it('should return values from props', async () => {
-        const { result } = await renderUseTradingOutputsReviewScreenControls();
-
-        expect(result.current.isConsentRequested).toBe(mockIsTransactionSendConsentRequested);
-        expect(result.current.resolveConsent).toBe(mockResolveTransactionSendConsent);
     });
 
     it('should return confirmOnTrezorRef', async () => {

@@ -15,6 +15,7 @@ import { prepareNativeStyle, useNativeStyles } from '@trezor/styles';
 import { ReviewOutputsFooter } from '../components/reviewOutputs/ReviewOutputsFooter';
 import { ReviewOutputsSkeleton } from '../components/reviewOutputs/ReviewOutputsSkeleton';
 import { useExchangeFlow } from '../hooks/exchange/useExchangeFlow';
+import type { UseTradingTransactionReturnProps } from '../hooks/general/useTradingTransaction';
 import { useDelayedReviewOutputListDisplayFlag } from '../hooks/reviewOutputs/useDelayedReviewOutputListDisplayFlag';
 import {
     UseTradingOutputsReviewScreenControlsProps,
@@ -35,7 +36,11 @@ type TradingOutputsBaseReviewScreenProps = {
 };
 
 type TradingOutputsReviewScreenParams = UseTradingOutputsReviewScreenControlsProps &
-    TradingOutputsBaseReviewScreenProps;
+    TradingOutputsBaseReviewScreenProps &
+    Pick<
+        UseTradingTransactionReturnProps,
+        'isTransactionSendConsentRequested' | 'resolveTransactionSendConsent'
+    >;
 
 export const TradingOutputsBaseReviewScreen = ({
     accountKey,
@@ -47,13 +52,11 @@ export const TradingOutputsBaseReviewScreen = ({
     resolveTransactionSendConsent,
 }: TradingOutputsReviewScreenParams) => {
     const { applyStyle } = useNativeStyles();
-    const { isTransactionAlreadySigned, isConsentRequested, resolveConsent, confirmOnTrezorRef } =
+    const { isTransactionAlreadySigned, confirmOnTrezorRef } =
         useTradingOutputsReviewScreenControls({
             orderId,
             accountKey,
             signAndSendTransaction,
-            isTransactionSendConsentRequested,
-            resolveTransactionSendConsent,
         });
     const shouldDisplayReviewList = useDelayedReviewOutputListDisplayFlag();
 
@@ -82,8 +85,8 @@ export const TradingOutputsBaseReviewScreen = ({
                 )}
                 {isTransactionAlreadySigned ? (
                     <ReviewOutputsFooter
-                        isConsentRequested={isConsentRequested}
-                        resolveConsent={resolveConsent}
+                        isConsentRequested={isTransactionSendConsentRequested}
+                        resolveConsent={resolveTransactionSendConsent}
                         testID="@trading/outputs-review/footer"
                     />
                 ) : (
