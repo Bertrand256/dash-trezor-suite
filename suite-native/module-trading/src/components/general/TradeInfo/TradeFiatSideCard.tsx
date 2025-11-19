@@ -13,43 +13,27 @@ export type TradeFiatSideCardProps = {
     title: ReactNode;
 };
 
-const getPaymentMethodTranslation = (paymentMethod: ExtendedSellCryptoPaymentMethod) => {
-    switch (paymentMethod) {
-        case 'bankTransfer':
-            return (
-                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.bankTransfer" />
-            );
-        case 'creditCard':
-            return (
-                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.creditCard" />
-            );
-        case 'sepa':
-            return <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.sepa" />;
-        case 'ach':
-            return <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.ach" />;
-        case 'skrill':
-            return (
-                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.skrill" />
-            );
-        case 'neteller':
-            return (
-                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.neteller" />
-            );
-        case 'payid':
-            return <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.payid" />;
-        case 'dcinterac':
-            return (
-                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.dcinterac" />
-            );
-        case 'fasterPayment':
-            return (
-                <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.fasterPayment" />
-            );
-        default:
-            // api can return even unknown payment methods
-            return paymentMethod;
-    }
+const paymentMethodNamesMap: Record<ExtendedSellCryptoPaymentMethod, ReactNode> = {
+    bankTransfer: (
+        <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.bankTransfer" />
+    ),
+    creditCard: (
+        <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.creditCard" />
+    ),
+    sepa: <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.sepa" />,
+    ach: <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.ach" />,
+    skrill: <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.skrill" />,
+
+    neteller: <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.neteller" />,
+    payid: <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.payid" />,
+    dcinterac: <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.dcinterac" />,
+    fasterPayment: (
+        <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.fasterPayment" />
+    ),
 };
+
+const getPaymentMethodTranslation = (paymentMethod: ExtendedSellCryptoPaymentMethod) =>
+    paymentMethodNamesMap[paymentMethod] ?? paymentMethod;
 
 export const TradeFiatSideCard = ({ paymentMethod, amount, title }: TradeFiatSideCardProps) => (
     <Card noPadding>
