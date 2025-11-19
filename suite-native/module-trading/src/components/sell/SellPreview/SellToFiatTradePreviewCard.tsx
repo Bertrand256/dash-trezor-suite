@@ -2,7 +2,7 @@ import type { SellFiatTrade } from 'invity-api';
 
 import { Text } from '@suite-native/atoms';
 import { Translation } from '@suite-native/intl';
-import { ExtendedSellCryptoPaymentMethod } from '@suite-native/trading-types';
+import type { ExtendedSellCryptoPaymentMethod } from '@suite-native/trading-types';
 
 import { TradeFiatSideCard } from '../../general/TradeInfo/TradeFiatSideCard';
 
