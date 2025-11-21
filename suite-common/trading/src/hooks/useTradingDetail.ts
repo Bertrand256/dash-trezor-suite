@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { type TradingType, selectTradingDetailData, tradingThunks } from '../index';
+import type { TradingType } from '@suite-common/suite-types';
+
 import { useSelector } from './useSelector';
+import { selectTradingDetailData } from '../selectors/tradingSelectors';
+import { tradingThunks } from '../thunks';
 import type {
     TradingTradeInfoMapProps,
     TradingTradeTransactionMapProps,
