@@ -2,7 +2,6 @@ import type { SellFiatTrade } from 'invity-api';
 
 import { Text } from '@suite-native/atoms';
 import { Translation } from '@suite-native/intl';
-import type { ExtendedSellCryptoPaymentMethod } from '@suite-native/trading-types';
 
 import { TradeFiatSideCard } from '../../general/TradeInfo/TradeFiatSideCard';
 
@@ -21,7 +20,7 @@ export const SellToFiatTradePreviewCard = ({
 
     return (
         <TradeFiatSideCard
-            paymentMethod={quote.paymentMethod as ExtendedSellCryptoPaymentMethod}
+            paymentMethod={quote.paymentMethod}
             amount={
                 !!toStringValue && (
                     <Text variant="hint" color="textSecondaryHighlight">
