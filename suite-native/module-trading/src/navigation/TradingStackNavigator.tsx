@@ -11,7 +11,10 @@ import { TradingExchangePreviewScreen } from '../screens/TradingExchangePreviewS
 import { TradingExchangeRevokeScreen } from '../screens/TradingExchangeRevokeScreen';
 import { TradingFeesScreen } from '../screens/TradingFeesScreen';
 import { TradingHistoryScreen } from '../screens/TradingHistoryScreen';
-import { TradingExchangeOutputsReviewScreen , TradingSellOutputsReviewScreen } from '../screens/TradingOutputsReviewScreen';
+import {
+    TradingExchangeOutputsReviewScreen,
+    TradingSellOutputsReviewScreen,
+} from '../screens/TradingOutputsReviewScreen';
 import { TradingReceiveAccountsPickerScreen } from '../screens/TradingReceiveAccountsPickerScreen';
 import { TradingScreen } from '../screens/TradingScreen';
 import { TradingSellPreviewScreen } from '../screens/TradingSellPreviewScreen';
