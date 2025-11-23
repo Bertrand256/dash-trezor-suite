@@ -19,14 +19,15 @@ export const SafetyChecksBanner = ({ onDismiss }: SafetyChecksBannerProps) => {
             rightContent={
                 <Row gap={8}>
                     <Banner.Button
-                        onClick={() =>
+                        onClick={e => {
+                            e.stopPropagation();
                             dispatch(
                                 goto('settings-device', {
                                     preserveParams: true,
                                     anchor: SettingsAnchor.SafetyChecks,
                                 }),
-                            )
-                        }
+                            );
+                        }}
                         data-testid="@banner/safety-checks/button"
                     >
                         <Translation id="TR_SAFETY_CHECKS_BANNER_CHANGE" />
@@ -34,7 +35,10 @@ export const SafetyChecksBanner = ({ onDismiss }: SafetyChecksBannerProps) => {
                     {onDismiss && (
                         <WarningComponent.IconButton
                             icon="x"
-                            onClick={onDismiss}
+                            onClick={e => {
+                                e.stopPropagation();
+                                onDismiss();
+                            }}
                             data-testid="@banner/safety-checks/dismiss"
                         />
                     )}
