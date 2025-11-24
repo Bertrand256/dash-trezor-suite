@@ -283,8 +283,6 @@ export const prepareRootReducers = async () => {
             app: appReducer,
             appSettings: appSettingsPersistedReducer,
             biometrics: biometricsPersistedReducer,
-            wallet: walletPersistedReducer,
-            featureFlags: featureFlagsPersistedReducer,
             bannerFlags: bannerFlagsPersistedReducer,
             bluetooth: bluetoothPersistedReducer,
             connectPopup: connectPopupPersistedReducer,
