@@ -12,7 +12,6 @@ export type TradeFiatSideCardProps = {
     amount: ReactNode;
     title: ReactNode;
 };
-
 const paymentMethodNamesMap: Record<ExtendedSellCryptoPaymentMethod, ReactNode> = {
     bankTransfer: (
         <Translation id="moduleTrading.tradingSellPreviewScreen.paymentMethods.bankTransfer" />
@@ -32,8 +31,13 @@ const paymentMethodNamesMap: Record<ExtendedSellCryptoPaymentMethod, ReactNode> 
     ),
 };
 
-const getPaymentMethodTranslation = (paymentMethod: ExtendedSellCryptoPaymentMethod) =>
-    paymentMethodNamesMap[paymentMethod] ?? paymentMethod;
+const getPaymentMethodTranslation = (paymentMethod: ExtendedSellCryptoPaymentMethod | string) => {
+    if (paymentMethod in paymentMethodNamesMap) {
+        return paymentMethodNamesMap[paymentMethod as ExtendedSellCryptoPaymentMethod];
+    }
+
+    return paymentMethod;
+};
 
 export const TradeFiatSideCard = ({ paymentMethod, amount, title }: TradeFiatSideCardProps) => (
     <Card noPadding>

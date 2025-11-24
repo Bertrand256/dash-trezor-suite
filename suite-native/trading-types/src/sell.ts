@@ -8,7 +8,15 @@ import type {
     FormWithSendAccountValues,
 } from './general';
 
-export type ExtendedSellCryptoPaymentMethod = SellCryptoPaymentMethod | string;
+export type ExtendedSellCryptoPaymentMethod =
+    | SellCryptoPaymentMethod
+    | 'sepa'
+    | 'ach'
+    | 'skrill'
+    | 'neteller'
+    | 'payid'
+    | 'dcinterac'
+    | 'fasterPayment';
 
 export type SellFormValues = BaseFormValues<
     'cryptoStringAmount' | 'fiatStringAmount',
