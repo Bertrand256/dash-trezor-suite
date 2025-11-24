@@ -11,6 +11,8 @@ import { useServerEnvironment } from 'src/hooks/wallet/trading/useServerEnvirome
 import { useTradingWatchTrade } from 'src/hooks/wallet/trading/useTradingWatchTrade';
 import type { TradingDetailContextValues } from 'src/types/trading/tradingDetail';
 
+import { useTradingFormAccount } from './form/useTradingFormAccount';
+
 /**
  * Suite-specific wrapper around the common useTradingDetail hook
  * Adds platform-specific functionality like server environment setup and trade watching
@@ -18,15 +20,20 @@ import type { TradingDetailContextValues } from 'src/types/trading/tradingDetail
 export const useTradingDetail = <T extends TradingType>(
     props: TradingUseDetailProps & { tradeType: T },
 ): TradingUseDetailOutputProps<T> => {
-    const result = useTradingDetailCommon<T>(props);
+    console.warn('useTradingDetail - suite', props);
+    const { tradeType, account: accountProps } = props;
+    const { account: exchangeAccount } = useTradingFormAccount();
+    const account = tradeType === 'exchange' ? exchangeAccount : accountProps;
+
+    const result = useTradingDetailCommon<T>({ tradeType });
 
     // Setup server environment from suite settings
     useServerEnvironment();
 
     // Watch for trade updates
-    useTradingWatchTrade({ account: result.account, trade: result.trade });
+    useTradingWatchTrade({ account, trade: result.trade });
 
-    return result;
+    return { ...result, account };
 };
 
 export const TradingDetailContext = createContext<TradingDetailContextValues<any> | null>(null);

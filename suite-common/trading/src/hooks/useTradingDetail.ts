@@ -9,13 +9,13 @@ import { tradingThunks } from '../thunks';
 import type {
     TradingTradeInfoMapProps,
     TradingTradeTransactionMapProps,
-    TradingUseDetailOutputProps,
-    TradingUseDetailProps,
+    TradingUseDetailOutputWithoutAccountProps,
+    TradingUseDetailPropsWithoutAccount,
 } from '../types/tradingDetail';
 
 export const useTradingDetailData = <T extends TradingType>(
     tradeType: TradingType,
-): Omit<TradingUseDetailOutputProps<T>, 'account'> => {
+): TradingUseDetailOutputWithoutAccountProps<T> => {
     const { info, transactionId, trade } = useSelector(state =>
         selectTradingDetailData(state, tradeType),
     ) as {
@@ -37,14 +37,11 @@ export const useTradingDetailData = <T extends TradingType>(
 };
 
 export const useTradingDetail = <T extends TradingType>({
-    selectedAccount,
     tradeType,
-}: TradingUseDetailProps): TradingUseDetailOutputProps<T> => {
-    const { account } = selectedAccount;
+}: TradingUseDetailPropsWithoutAccount): TradingUseDetailOutputWithoutAccountProps<T> => {
     const { info, transactionId, trade } = useTradingDetailData(tradeType);
 
     return {
-        account,
         info: info as TradingTradeInfoMapProps[T] | undefined,
         transactionId,
         trade: trade as TradingTradeTransactionMapProps[T] | undefined,

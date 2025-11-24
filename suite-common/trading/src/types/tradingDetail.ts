@@ -1,4 +1,4 @@
-import type { Account, SelectedAccountLoaded } from '@suite-common/wallet-types';
+import type { Account } from '@suite-common/wallet-types';
 
 import type {
     TradingBuyInfoSelector,
@@ -31,16 +31,22 @@ export interface TradingGetDetailDataOutputProps<T extends TradingType> {
 }
 
 export interface TradingUseDetailProps {
-    selectedAccount: SelectedAccountLoaded;
+    account: Account;
     tradeType: TradingType;
 }
 
+export type TradingUseDetailPropsWithoutAccount = Omit<TradingUseDetailProps, 'account'>;
 export interface TradingUseDetailOutputProps<T extends TradingType> {
     transactionId: string | undefined;
     info: TradingTradeInfoMapProps[T] | undefined;
     trade: TradingTradeTransactionMapProps[T] | undefined;
     account: Account;
 }
+
+export type TradingUseDetailOutputWithoutAccountProps<T extends TradingType> = Omit<
+    TradingUseDetailOutputProps<T>,
+    'account'
+>;
 
 export interface TradingUseWatchTradeProps<T extends TradingType> {
     account: Account | undefined;
