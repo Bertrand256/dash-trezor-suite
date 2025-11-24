@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 
 import {
     type TradingType,
@@ -20,10 +20,15 @@ import { useTradingFormAccount } from './form/useTradingFormAccount';
 export const useTradingDetail = <T extends TradingType>(
     props: TradingUseDetailProps & { tradeType: T },
 ): TradingUseDetailOutputProps<T> => {
-    console.warn('useTradingDetail - suite', props);
     const { tradeType, account: accountProps } = props;
-    const { account: exchangeAccount } = useTradingFormAccount();
-    const account = tradeType === 'exchange' ? exchangeAccount : accountProps;
+    const { account: formAccount } = useTradingFormAccount();
+
+    // For exchange trades, use the account from the trading form context
+    // For buy/sell trades, use the account passed as a prop
+    const account = useMemo(
+        () => (tradeType === 'exchange' ? formAccount : accountProps),
+        [tradeType, formAccount, accountProps],
+    );
 
     const result = useTradingDetailCommon<T>({ tradeType });
 
