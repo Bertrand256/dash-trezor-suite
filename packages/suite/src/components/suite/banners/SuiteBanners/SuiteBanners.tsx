@@ -11,7 +11,7 @@ import {
     selectVisibleDeviceAccounts,
 } from '@suite-common/wallet-core';
 import { isCardanoStakedWithFiveBinaries } from '@suite-common/wallet-utils';
-import { Column, TOOLTIP_DELAY_LONG, Tooltip, motionEasing } from '@trezor/components';
+import { Column, TOOLTIP_DELAY_EXTRA_LONG, Text, Tooltip, motionEasing } from '@trezor/components';
 import { isWeb } from '@trezor/env-utils';
 import { spacingsPx } from '@trezor/theme';
 
@@ -34,10 +34,10 @@ import { NoBackup } from './NoBackupBanner';
 import { NoConnectionBanner } from './NoConnectionBanner';
 import { SafetyChecksBanner } from './SafetyChecksBanner';
 
-const Container = styled.div<{ $fill?: boolean; $cursor?: string }>`
+const Container = styled.div<{ $fill?: boolean; $cursor?: string; $hasPadding?: boolean }>`
     width: 100%;
     max-width: ${({ $fill }) => ($fill ? 'none' : MAX_CONTENT_WIDTH)};
-    padding: ${spacingsPx.sm} ${spacingsPx.md};
+    padding: ${({ $hasPadding }) => ($hasPadding ? `${spacingsPx.sm} ${spacingsPx.md}` : 0)};
     position: relative; /* because it must be on the top of the draggable area on Mac */
     cursor: ${({ $cursor }) => $cursor || 'unset'};
 `;
@@ -58,7 +58,7 @@ const BannerWrapper = ({ scale, children, isExpanded, index }: BannerWrapperProp
 
     return (
         <BannerWrapperContainer
-            initial={{ height: 1 }}
+            initial={false}
             transition={{
                 duration: 0.4,
                 ease: motionEasing.transition,
@@ -185,17 +185,21 @@ export const SuiteBanners = ({ isOnboarding, fill }: SuiteBannersProps) => {
             $cursor={hasMultipleItems ? 'pointer' : 'unset'}
             $fill={fill}
             onClick={() => setIsExpanded(!isExpanded)}
+            $hasPadding
         >
             <Tooltip
                 isFullWidth
+                placement="right"
                 content={
-                    isExpanded
-                        ? 'Click to collapse notifications'
-                        : 'Click to show all notifications'
+                    <Text typographyStyle="label">
+                        {isExpanded
+                            ? 'Click to collapse notifications'
+                            : 'Click to show all notifications'}
+                    </Text>
                 }
                 hasArrow
                 isActive={hasMultipleItems}
-                delayShow={TOOLTIP_DELAY_LONG}
+                delayShow={TOOLTIP_DELAY_EXTRA_LONG}
             >
                 <Column gap={8} width="100%">
                     <AnimatePresence>
