@@ -22,6 +22,7 @@ test.describe('Backup success', { tag: ['@group=device-management', '@specificMo
         trezorUserEnvLink,
     }) => {
         // access from notification
+        await dashboardPage.suiteBannersContainer.click();
         await dashboardPage.notificationNoBackupButton.click();
 
         await onboardingPage.backup.understandWhatSeedIsCheckbox.click();

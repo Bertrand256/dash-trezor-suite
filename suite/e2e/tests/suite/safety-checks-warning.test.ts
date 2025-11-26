@@ -6,7 +6,11 @@ test.describe('safety_checks Warnings', { tag: ['@group=suite'] }, () => {
         await settingsPage.changeSafetyChecksLevel('prompt');
     });
 
-    test('Dismissible warning appears when safety_checks to prompt', async ({ page }) => {
+    test('Dismissible warning appears when safety_checks to prompt', async ({
+        page,
+        dashboardPage,
+    }) => {
+        await dashboardPage.suiteBannersContainer.click();
         await expect(page.getByTestId('@banner/safety-checks/button')).toBeVisible();
         await expect(page.getByTestId('@banner/safety-checks/dismiss')).toBeVisible();
     });
@@ -14,12 +18,18 @@ test.describe('safety_checks Warnings', { tag: ['@group=suite'] }, () => {
     test('CTA button opens device settings when safety_checks to prompt', async ({
         page,
         settingsPage,
+        dashboardPage,
     }) => {
+        await dashboardPage.suiteBannersContainer.click();
         await page.getByTestId('@banner/safety-checks/button').click();
         await expect(settingsPage.settingsHeader).toBeVisible();
     });
 
-    test('Dismiss button hides the warning when safety_checks to prompt', async ({ page }) => {
+    test('Dismiss button hides the warning when safety_checks to prompt', async ({
+        page,
+        dashboardPage,
+    }) => {
+        await dashboardPage.suiteBannersContainer.click();
         await page.getByTestId('@banner/safety-checks/dismiss').click();
         await expect(page.getByTestId('@banner/safety-checks/button')).toBeHidden();
     });
@@ -36,6 +46,7 @@ test.describe('safety_checks Warnings', { tag: ['@group=suite'] }, () => {
     test('Dismissed warning re-appears when safety_checks are set to strict and then to Prompt again', async ({
         page,
         settingsPage,
+        dashboardPage,
     }) => {
         await settingsPage.changeSafetyChecksLevel('strict');
 
@@ -44,6 +55,7 @@ test.describe('safety_checks Warnings', { tag: ['@group=suite'] }, () => {
         await settingsPage.changeSafetyChecksLevel('prompt');
 
         // Assert the warning appears again.
+        await dashboardPage.suiteBannersContainer.click();
         await expect(page.getByTestId('@banner/safety-checks/button')).toBeVisible();
     });
 });

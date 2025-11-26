@@ -38,6 +38,7 @@ export class DashboardPage {
     readonly passphraseSubmitButton: Locator;
     readonly passphraseShowButton: Locator;
     readonly loading: Locator;
+    readonly suiteBannersContainer: Locator;
     readonly notificationNoBackupButton: Locator;
     readonly openUnusedWalletButton1: Locator;
     readonly openUnusedWalletButton2: Locator;
@@ -79,6 +80,7 @@ export class DashboardPage {
         this.passphraseSubmitButton = this.page.getByTestId('@passphrase/hidden/submit-button');
         this.passphraseShowButton = this.page.getByTestId('@passphrase/show-toggle');
         this.loading = this.page.getByTestId('@dashboard/loading');
+        this.suiteBannersContainer = this.page.getByTestId('@suite-banners/container');
         this.notificationNoBackupButton = this.page.getByTestId('@notification/no-backup/button');
         this.openUnusedWalletButton1 = this.page.getByTestId(
             '@passphrase-confirmation/step1-open-unused-wallet-button',
