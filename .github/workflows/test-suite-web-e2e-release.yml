@@ -86,6 +86,7 @@ jobs:
           currents-project-id: "Og0NOQ"
           currents-record-key: ${{ secrets.CURRENTS_RECORD_KEY }}
           e2e-passphrase: ${{ secrets.E2E_TEST_PASSPHRASE }}
+          e2e-passphrase-live: ${{ secrets.E2E_TEST_PASSPHRASE_LIVE }}
           github-token: ${{ steps.trezor-bot-token.outputs.token }}
           release-build: ${{ env.release_build }}
           run-reporter: ${{ inputs.publish_results_to_github == true }}

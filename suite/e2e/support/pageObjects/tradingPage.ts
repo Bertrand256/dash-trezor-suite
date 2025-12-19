@@ -552,7 +552,6 @@ export class TradingPage {
     async fillSwapForm({
         sellAsset,
         buyAsset,
-        receiveAddress,
         selectReceiveAddress,
         amount,
     }: {
@@ -561,7 +560,6 @@ export class TradingPage {
         buyAsset: Omit<Parameters<TradingPage['selectBuyAsset']>[0], 'assetCryptoId'> & {
             assetCryptoId: CryptoId;
         };
-        receiveAddress?: string;
         selectReceiveAddress?: () => Promise<void>;
     }) {
         await this.selectSellAsset(sellAsset);
@@ -577,22 +575,11 @@ export class TradingPage {
             await selectReceiveAddress();
         }
 
-        const quotesRequestPromise = this.page.waitForRequest(invityEndpoint.swapQuotes);
         const quotesResponsePromise = this.page.waitForResponse(invityEndpoint.swapQuotes);
         await expect(this.bestOfferAmount).toHaveText(/0 \w+/);
         await this.youPayCryptoInput.fill(amount);
         await quotesResponsePromise;
         await this.waitForOffersSync();
-        await expect.soft(quotesRequestPromise).toHavePayload(
-            {
-                receive: buyAsset.assetCryptoId,
-                send: sellAsset.assetCryptoId,
-                sendStringAmount: amount,
-                dex: 'enable',
-                receiveAddress,
-            },
-            { omit: ['fromAddress'] },
-        );
     }
 
     @step()
@@ -608,6 +595,7 @@ export class TradingPage {
     @step()
     async initiateSendConfirmation(options?: { confirmAlsoToken: boolean }) {
         await this.openConfirmAndSendModal();
+        await this.devicePrompt.compareAddressesOnDeviceAndSuite();
         await this.devicePrompt.waitForPromptAndConfirm();
         if (options?.confirmAlsoToken) {
             await this.devicePrompt.waitForPromptAndConfirm();

@@ -39,6 +39,9 @@ inputs:
   e2e-passphrase:
     description: "Passphrase for E2E tests"
     required: true
+  e2e-passphrase-live:
+    description: "Passphrase for live E2E tests"
+    required: true
   github-token:
     description: "GitHub token for GitHub Reporter, only on Release workflows"
     required: false
@@ -102,6 +105,7 @@ runs:
         CURRENTS_CI_BUILD_ID: ${{ inputs.currents-ci-build-id }}
         GH_BRANCH: ${{ env.branch }} # Used by Currents reporter
         PASSPHRASE: ${{ inputs.e2e-passphrase }}
+        PASSPHRASE_LIVE: ${{ inputs.e2e-passphrase-live }}
         GITHUB_TOKEN: ${{ inputs.github-token }}
         RELEASE_BUILD: ${{ inputs.release-build }}
         ELECTRON_DISABLE_SANDBOX: 1

@@ -69,3 +69,4 @@ jobs:
           currents-record-key: ${{ secrets.CURRENTS_RECORD_KEY }}
           currents-ci-build-id: "nightly-run-${{ github.run_id }}-${{ github.run_attempt }}"
           e2e-passphrase: ${{ secrets.E2E_TEST_PASSPHRASE }}
+          e2e-passphrase-live: ${{ secrets.E2E_TEST_PASSPHRASE_LIVE }}

@@ -229,6 +229,7 @@ export const TokenRow = ({
                         <Text variant="tertiary" typographyStyle="hint">
                             {/* TODO(stellar): I think it would be better to display the asset code as a symbol. */}
                             <FormattedCryptoAmount
+                                data-testid={`@token-row/${token.name}/crypto-amount`}
                                 value={token.balance}
                                 symbol={token.symbol}
                                 contractAddress={token.contract}
