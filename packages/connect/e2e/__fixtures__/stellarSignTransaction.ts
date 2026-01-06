@@ -212,7 +212,9 @@ export default {
             },
             result: {
                 publicKey: result.public_key,
-                signature: Buffer.from(result.signature, 'base64').toString('hex'),
+                signature: result.signature
+                    ? Buffer.from(result.signature, 'base64').toString('hex')
+                    : undefined,
             },
             legacyResults: legacyResultsMap[name]
                 ? legacyResultsMap[name]
