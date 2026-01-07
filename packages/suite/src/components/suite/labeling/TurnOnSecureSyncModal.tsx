@@ -3,11 +3,11 @@ import { Card, IconCircle, List, Modal, Paragraph } from '@trezor/components';
 
 import { useLabelingCombined } from 'src/hooks/suite/useLabelingCombined';
 
-type TurnOnSecureSyncModalProps = {
+type TurnOnSuiteSyncModalProps = {
     onClose: () => void;
 };
 
-export const TurnOnSecureSyncModal = ({ onClose }: TurnOnSecureSyncModalProps) => {
+export const TurnOnSuiteSyncModal = ({ onClose }: TurnOnSuiteSyncModalProps) => {
     const { enableSuiteSyncIfNeeded } = useLabelingCombined({
         deviceStaticSessionId: undefined,
     });

@@ -2,7 +2,7 @@ import { selectShowEnableSuiteSyncModal } from 'src/actions/suiteSync/suiteSyncS
 import { updateShowEnableSuiteSyncModal } from 'src/actions/suiteSync/suiteSyncSlice';
 import { useDispatch, useSelector } from 'src/hooks/suite';
 
-import { TurnOnSecureSyncModal } from './TurnOnSecureSyncModal';
+import { TurnOnSuiteSyncModal } from './TurnOnSecureSyncModal';
 
 export const LabelingModalManager = () => {
     const dispatch = useDispatch();
@@ -14,5 +14,5 @@ export const LabelingModalManager = () => {
 
     if (!showEnableSuiteSyncModal) return null;
 
-    return <TurnOnSecureSyncModal onClose={onClose} />;
+    return <TurnOnSuiteSyncModal onClose={onClose} />;
 };
