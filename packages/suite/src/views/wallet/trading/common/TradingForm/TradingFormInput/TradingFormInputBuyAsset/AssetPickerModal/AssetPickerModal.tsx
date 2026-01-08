@@ -71,7 +71,7 @@ export const AssetPickerModal = memo(function AssetPickerModalInner({
                         <AssetRowAccountWithBalance
                             account={item.account}
                             onClick={() => handleAssetClick(item)}
-                            dataTestId={`${dataTestId}/account`}
+                            dataTestId={`${dataTestId}/account/${item.account.symbol}`}
                         />
                     );
 
