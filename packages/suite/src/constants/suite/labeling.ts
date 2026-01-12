@@ -18,3 +18,20 @@ export const LABELING_SELECT_OPTIONS_MAP: Record<
 export const LABELING_LEGACY_OPTION_LABEL = 'TR_LABELING_ON';
 
 export const LABELING_SELECT_OPTIONS = typedObjectValues(LABELING_SELECT_OPTIONS_MAP);
+
+export type SuiteSyncServerTypeOption = {
+    label: TranslationKey;
+    value: SuiteSyncServerTypeSelectValue;
+};
+
+export type SuiteSyncServerTypeSelectValue = 'default' | 'custom';
+
+export const SUITE_SYNC_SERVER_TYPE_OPTIONS_MAP: Record<
+    SuiteSyncServerTypeSelectValue,
+    SuiteSyncServerTypeOption
+> = {
+    default: { label: 'TR_SUITE_SYNC_SERVER_TREZOR_DEFAULT', value: 'default' },
+    custom: { label: 'TR_SUITE_SYNC_SERVER_CUSTOM', value: 'custom' },
+};
+
+export const SUITE_SYNC_SERVER_TYPE_OPTIONS = typedObjectValues(SUITE_SYNC_SERVER_TYPE_OPTIONS_MAP);
