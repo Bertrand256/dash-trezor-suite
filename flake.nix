@@ -6,10 +6,6 @@
     flake-utils.url = "github:numtide/flake-utils";
     playwright-web-flake.url = "github:pietdevries94/playwright-web-flake/1.57.0";
     old-gcc-nixpkgs.url = "github:NixOS/nixpkgs/a78ed5cbdd5427c30ca02a47ce6cccc9b7d17de4"; # For GCC 10.2.0
-
-    # Android environment (local flake)
-    android-env.url = "path:./nix/android-env";
-    android-env.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -19,7 +15,6 @@
       flake-utils,
       playwright-web-flake,
       old-gcc-nixpkgs,
-      android-env,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -45,8 +40,7 @@
           config.android_sdk.accept_license = true;
         };
 
-        androidEnvPkgs = android-env.packages.${system};
-        androidEnvLib = android-env.lib.${system};
+        androidEnv = import ./.nix/android.nix { inherit pkgs; };
 
         commonBuildInputs = [
           pkgs.bash
@@ -117,38 +111,36 @@
           echo "- Playwright $(playwright --version)"
         '';
 
-        welcomeMessageAndroid = ''
-          echo "- Java $(java -version 2>&1 | head -n1)"
-          command -v adb >/dev/null 2>&1 && echo "- adb $(adb version | head -n1)" || echo "- adb not found (install SDK packages)"
-          command -v emulator >/dev/null 2>&1 && echo "- emulator $(emulator -version | head -n1)" || echo "- emulator not found"
-        '';
-
       in
       {
-        devShells = {
-          default = pkgs.mkShell {
-            buildInputs = commonBuildInputs;
-            NIX_PATCHELF_LIBRARY_PATH = "${pkgs.openssl.out}/lib:${pkgs.zlib}/lib:${pkgs.gcc.cc.lib}/lib";
-            NIX_CC = "${pkgs.gcc}";
-            shellHook = commonShellHook + welcomeMessage;
+        devShells =
+          let
+            androidShell = pkgs.mkShell {
+              buildInputs = commonBuildInputs ++ [
+                 androidEnv.jdk
+                 androidEnv.androidSdk
+               ] ++ androidEnv.extraPackages;
+              
+              NIX_PATCHELF_LIBRARY_PATH = "${pkgs.openssl.out}/lib:${pkgs.zlib}/lib:${pkgs.gcc.cc.lib}/lib";
+              NIX_CC = "${pkgs.gcc}";
+
+              shellHook = commonShellHook
+                + androidEnv.nixLdHook
+                + androidEnv.shellHook
+                + welcomeMessage;
+            };
+          in
+          {
+            default = pkgs.mkShell {
+              buildInputs = commonBuildInputs;
+              NIX_PATCHELF_LIBRARY_PATH = "${pkgs.openssl.out}/lib:${pkgs.zlib}/lib:${pkgs.gcc.cc.lib}/lib";
+              NIX_CC = "${pkgs.gcc}";
+              shellHook = commonShellHook + welcomeMessage;
+            };
+
+            android = androidShell;
+            use_android = androidShell;
           };
-
-          android = pkgs.mkShell {
-            buildInputs = commonBuildInputs ++ [
-              androidEnvPkgs.jdk
-              androidEnvPkgs.androidSdk
-            ];
-
-            NIX_PATCHELF_LIBRARY_PATH = "${pkgs.openssl.out}/lib:${pkgs.zlib}/lib:${pkgs.gcc.cc.lib}/lib";
-            NIX_CC = "${pkgs.gcc}";
-
-            # Emulator library paths
-            LD_LIBRARY_PATH = "${androidEnvPkgs.androidSdk}/libexec/android-sdk/emulator/lib:${androidEnvPkgs.androidSdk}/libexec/android-sdk/emulator/lib64:$LD_LIBRARY_PATH";
-
-            shellHook =
-              commonShellHook + androidEnvLib.androidShellHook + welcomeMessage + welcomeMessageAndroid;
-          };
-        };
       }
     );
 }
