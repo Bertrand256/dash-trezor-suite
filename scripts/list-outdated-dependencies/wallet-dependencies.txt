@@ -59,6 +59,7 @@ redux
 redux-logger
 redux-mock-store
 react-native-quick-crypto
+react-native-tcp-socket
 redux-persist
 redux-thunk
 reselect

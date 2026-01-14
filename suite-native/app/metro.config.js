@@ -41,6 +41,9 @@ const config = {
             http: require.resolve('stream-http'),
             zlib: require.resolve('browserify-zlib'),
             vm: require.resolve('vm-browserify'),
+            // modules needed by ElectrumWorker
+            net: require.resolve('react-native-tcp-socket'),
+            tls: require.resolve('react-native-tcp-socket'),
         },
         sourceExts,
         resolveRequest: (context, moduleName, platform) => {
