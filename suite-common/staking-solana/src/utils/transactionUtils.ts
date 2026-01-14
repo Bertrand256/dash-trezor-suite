@@ -238,16 +238,11 @@ export const stake = async ({
     try {
         const { connection, validator } = selectSolanaWalletSdkNetwork(network, url);
 
-        // Get the minimum balance for rent exemption
-        const minimumRent = await connection
-            .getMinimumBalanceForRentExemption(BigInt(STAKE_ACCOUNT_V2_SIZE))
-            .send();
-
         const [
             createStakeAccountInstruction,
             initializeStakeAccountInstruction,
             stakeAccountPublicKey,
-        ] = await createAccountWithSeedTx(address(sender), BigInt(lamports) + minimumRent, source);
+        ] = await createAccountWithSeedTx(address(sender), BigInt(lamports), source);
 
         const delegateInstruction = getDelegateStakeInstruction({
             stake: stakeAccountPublicKey,

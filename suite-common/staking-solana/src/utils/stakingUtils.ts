@@ -61,7 +61,7 @@ const getStakingParams = (estimatedFee?: Fee[number]) => {
     }
 
     return {
-        сomputeUnitPrice: BigInt(estimatedFee.feePerUnit),
+        computeUnitPrice: BigInt(estimatedFee.feePerUnit),
         computeUnitLimit: Number(estimatedFee.feeLimit), // solana package expects number
     };
 };
