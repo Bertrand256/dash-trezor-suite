@@ -1381,6 +1381,7 @@ export const messages = {
                         disconnected: 'Disconnected',
                     },
                     serverType: 'Server type',
+                    serverTypeDefault: 'Default – Trezor',
                     serverAddress: 'Server address',
                     connectButton: 'Connect',
                     invalidFormat:

@@ -8,14 +8,15 @@ import { Translation, useTranslate } from '@suite-native/intl';
 import { DynamicScreenHeader, Screen } from '@suite-native/navigation';
 
 import { ConnectionInfoButton } from '../components/ConnectionInfoButton';
-import { ServerType, serverTypes, useBackendServersForm } from '../hooks/useBackendServersForm';
+import { ServerType, useBackendServersForm } from '../hooks/useBackendServersForm';
 
 export const BitcoinBackendsScreen = () => {
     const { showAlert } = useAlert();
     const { translate } = useTranslate();
     const navigation = useNavigation();
 
-    const { form, isConnected, isConnecting, submit, discard } = useBackendServersForm();
+    const { form, serverTypes, isConnected, isConnecting, submit, discard } =
+        useBackendServersForm();
 
     const { isDirty } = form.formState;
     const serverType = form.watch('serverType');
@@ -100,6 +101,8 @@ export const BitcoinBackendsScreen = () => {
                                 label={translate(
                                     'moduleSettings.advanced.bitcoinBackends.servers.serverAddress',
                                 )}
+                                autoCapitalize="none"
+                                keyboardType="url"
                             />
                         )}
                         {(isDirty || !isConnected) && (

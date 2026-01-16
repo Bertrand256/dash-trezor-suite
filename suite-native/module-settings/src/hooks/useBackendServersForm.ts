@@ -22,11 +22,6 @@ const symbol = 'btc';
 
 export type ServerType = BackendType | 'default';
 
-export const serverTypes = [
-    { value: 'default', label: 'Default – Trezor' },
-    { value: 'electrum', label: 'Electrum' },
-] satisfies SelectItemType<ServerType>[];
-
 type FormValues = {
     serverType: ServerType;
     serverAddress: string;
@@ -41,6 +36,17 @@ export const useBackendServersForm = () => {
         backends: { selected, urls },
     } = useSelector((state: BlockchainRootState) => selectNetworkBlockchainInfo(state, symbol));
 
+    const serverTypes = useMemo<SelectItemType<ServerType>[]>(
+        () => [
+            {
+                value: 'default',
+                label: translate('moduleSettings.advanced.bitcoinBackends.servers.serverType'),
+            },
+            { value: 'electrum', label: 'Electrum' },
+        ],
+        [translate],
+    );
+
     const defaultValues = useMemo<FormValues>(
         () => ({
             serverType: selected ?? 'default',
@@ -51,7 +57,10 @@ export const useBackendServersForm = () => {
 
     const form = useForm({
         validation: yup.object({
-            serverType: yup.string<ServerType>().oneOf(['default', 'electrum']).required(),
+            serverType: yup
+                .string<ServerType>()
+                .oneOf(serverTypes.map(({ value }) => value))
+                .required(),
             serverAddress: yup
                 .string()
                 .test(
@@ -125,6 +134,7 @@ export const useBackendServersForm = () => {
 
     return {
         form,
+        serverTypes,
         isConnected: connected,
         isConnecting,
         submit,
