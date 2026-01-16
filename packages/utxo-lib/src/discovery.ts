@@ -38,7 +38,9 @@ export const createAddressCache = (network: Network | undefined) => {
             const derived = cache[key] ?? [];
             const needed = from + count - derived.length;
             if (needed > 0) {
+                const start = performance.now();
                 const newDerived = deriveAddresses(xpub, type, derived.length, needed, network);
+                console.log('deriveAddresses', needed, performance.now() - start);
                 cache[key] = derived.concat(newDerived);
             }
 

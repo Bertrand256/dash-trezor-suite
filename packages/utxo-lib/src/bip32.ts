@@ -65,13 +65,14 @@ function fromPublicKeyLocal(
     index?: number,
     parentFingerprint?: number,
 ): BIP32Interface {
-    typeforce(
-        {
-            publicKey: typeforce.BufferN(33),
-            chainCode: UINT256_TYPE,
-        },
-        { publicKey, chainCode },
-    );
+    // TODO: exhibit 1
+    // typeforce(
+    //     {
+    //         publicKey: typeforce.BufferN(33),
+    //         chainCode: UINT256_TYPE,
+    //     },
+    //     { publicKey, chainCode },
+    // );
     network = network || BITCOIN;
 
     // verify the X coordinate is a point on the curve

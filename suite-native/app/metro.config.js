@@ -76,6 +76,14 @@ const config = {
                 };
             }
 
+            // TODO: comment
+            if (moduleName === 'tiny-secp256k1') {
+                return {
+                    filePath: require.resolve('@bitcoinerlab/secp256k1'),
+                    type: 'sourceFile',
+                };
+            }
+
             // Todo: This is hack because of the `unstable_enablePackageExports: false`.
             //       See: https://github.com/trezor/trezor-suite/issues/20733
             if (moduleName === '@evolu/react-native/expo-sqlite') {

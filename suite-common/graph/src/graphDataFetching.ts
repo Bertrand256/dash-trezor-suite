@@ -219,10 +219,12 @@ const getAccountBalanceHistory = async ({
         };
     };
 
+    const start = performance.now();
     const [accountMovementHistory, latestAccountInfo] = await Promise.all([
         getBalanceHistory(),
         getLatestAccountInfo({ symbol, identity, descriptor }),
     ]);
+    console.log('graphDataFetching', performance.now() - start);
 
     const accountMovementHistoryWithBalance = addBalanceForAccountMovementHistory(
         accountMovementHistory.main,

@@ -24,6 +24,7 @@
         "github:report:manual": "npx jest --config=./e2e/jest.config.reporter.js"
     },
     "dependencies": {
+        "@bitcoinerlab/secp256k1": "1.2.0",
         "@exodus/patch-broken-hermes-typed-arrays": "^1.0.0-alpha.1",
         "@gorhom/bottom-sheet": "5.2.6",
         "@jest/reporters": "^29.7.0",

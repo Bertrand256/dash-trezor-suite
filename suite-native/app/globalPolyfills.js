@@ -31,6 +31,9 @@ install();
 
 // The Buffer implementation from react-native-quick-crypto is not compatible with Trezor Connect.
 global.Buffer = require('buffer').Buffer;
+if (typeof Uint8Array !== 'undefined' && !Uint8Array.prototype.copy) {
+    Uint8Array.prototype.copy = Buffer.prototype.copy;
+}
 
 difference.shim();
 intersection.shim();
