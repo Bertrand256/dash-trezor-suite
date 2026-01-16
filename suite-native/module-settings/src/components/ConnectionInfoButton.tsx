@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { BlockchainRootState, selectNetworkBlockchainInfo } from '@suite-common/wallet-core';
 import {
     BottomSheetModal,
-    Box,
     IconButton,
     Text,
     VStack,
@@ -39,7 +38,7 @@ export const ConnectionInfoButton = () => {
     };
 
     return (
-        <Box>
+        <>
             <IconButton
                 colorScheme="tertiaryElevation0"
                 size="medium"
@@ -80,6 +79,6 @@ export const ConnectionInfoButton = () => {
                     )}
                 </VStack>
             </BottomSheetModal>
-        </Box>
+        </>
     );
 };
