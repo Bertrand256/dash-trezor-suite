@@ -34,6 +34,7 @@
         "socks-proxy-agent": "@trezor/blockchain-link/src/utils/socks-proxy-agent.ts"
     },
     "publishConfig": {
+        "main": "lib/index.js",
         "exports": {
             ".": {
                 "import": "./libESM/index.js",

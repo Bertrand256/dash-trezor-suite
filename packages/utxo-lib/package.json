@@ -27,6 +27,7 @@
         "CHANGELOG.md"
     ],
     "publishConfig": {
+        "main": "lib/index.js",
         "exports": {
             ".": {
                 "import": "./libESM/index.js",

@@ -27,6 +27,7 @@
         "./src/transports/webusb": "./src/transports/webusb.ts"
     },
     "publishConfig": {
+        "main": "lib/index.js",
         "exports": {
             ".": {
                 "import": "./libESM/index.js",

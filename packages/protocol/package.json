@@ -12,6 +12,7 @@
     "sideEffects": false,
     "main": "src/index.ts",
     "publishConfig": {
+        "main": "lib/index.js",
         "exports": {
             ".": {
                 "import": "./libESM/index.js",
@@ -21,8 +22,10 @@
             "./lib/*": "./lib/*.js",
             "./libESM/*.js": "./libESM/*.js",
             "./lib/protocol-thp": "./lib/protocol-thp/index.js",
+            "./lib/protocol-tpn": "./lib/protocol-tpn/index.js",
             "./lib/protocol-thp/messages": "./lib/protocol-thp/messages/index.js",
             "./libESM/protocol-thp": "./libESM/protocol-thp/index.js",
+            "./libESM/protocol-tpn": "./libESM/protocol-tpn/index.js",
             "./libESM/protocol-thp/messages": "./libESM/protocol-thp/messages/index.js",
             "./libESM/protocol-thp/messages.js": "./libESM/protocol-thp/messages/index.js"
         }

@@ -33,12 +33,27 @@
         "./src/workers/workers": "./src/workers/workers.native.ts"
     },
     "publishConfig": {
+        "main": "lib/index.js",
         "exports": {
             ".": {
                 "import": "./libESM/index.js",
                 "require": "./lib/index.js",
                 "types": "./lib/index.d.ts"
-            }
+            },
+            "./lib/constants/*": "./lib/constants/*.js",
+            "./lib/data/*": "./lib/data/*.js",
+            "./lib/events": "./lib/events/index.js",
+            "./lib/exports": "./lib/exports.js",
+            "./lib/factory": "./lib/factory.js",
+            "./lib/impl/*": "./lib/impl/*.js",
+            "./lib/utils/*": "./lib/utils/*.js",
+            "./libESM/constants/*": "./libESM/constants/*.js",
+            "./libESM/data/*": "./libESM/data/*.js",
+            "./libESM/events": "./libESM/events/index.js",
+            "./libESM/exports": "./libESM/exports.js",
+            "./libESM/factory": "./libESM/factory.js",
+            "./libESM/impl/*": "./libESM/impl/*.js",
+            "./libESM/utils/*": "./libESM/utils/*.js"
         },
         "browser": {
             "./lib/index.js": "./lib/index-browser.js",
