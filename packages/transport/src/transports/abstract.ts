@@ -430,9 +430,15 @@ export abstract class AbstractTransport extends TypedEmitter<TransportEvents> {
             ...params,
             signal,
         })
-            .catch(err =>
-                unknownError(err, [ERRORS.ABORTED_BY_TIMEOUT, ERRORS.ABORTED_BY_SIGNAL, ...errors]),
-            )
+            .catch(err => {
+                console.error(err);
+
+                return unknownError(err, [
+                    ERRORS.ABORTED_BY_TIMEOUT,
+                    ERRORS.ABORTED_BY_SIGNAL,
+                    ...errors,
+                ]);
+            })
             .finally(clear);
     };
 }

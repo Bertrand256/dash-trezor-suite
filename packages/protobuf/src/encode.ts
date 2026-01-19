@@ -77,12 +77,17 @@ function patch(Message: Type, payload: any) {
 }
 
 export const encode = (Message: Type, data: Record<string, unknown>) => {
-    const payload = patch(Message, data);
-    const message = Message.fromObject(payload);
-    // Encode a message to an Uint8Array (browser) or Buffer (node)
-    const bytes = Message.encode(message).finish();
+    try {
+        const payload = patch(Message, data);
+        const message = Message.fromObject(payload);
+        // Encode a message to an Uint8Array (browser) or Buffer (node)
+        const bytes = Message.encode(message).finish();
 
-    return Buffer.from(bytes);
+        return Buffer.from(bytes);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
 };
 
 export const encodeMessage = (
