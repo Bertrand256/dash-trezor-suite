@@ -18,7 +18,7 @@ const OUTPUT_DIR = path.join(ROOT_DIR, 'tmp/packed-packages');
 const PACKAGES = await getConnectDependencies(ROOT_DIR);
 
 // Connect is not a dependency of itself, so we need to add it manually.
-PACKAGES.push('connect');
+PACKAGES.push('connect', 'connect-web', 'connect-webextension');
 
 const buildAllPackages = async () => {
     if (await existsDirectory(OUTPUT_DIR)) {
