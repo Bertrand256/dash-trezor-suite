@@ -73,6 +73,7 @@ export const connectCallableMethods = [
     'getPublicKey',
     'getSettings',
     'loadDevice',
+    'lockDevice',
     'moneroGetAddress',
     'moneroGetWatchKey',
     'moneroKeyImageSync',

@@ -57,6 +57,7 @@ import { getPublicKey } from './getPublicKey';
 import { getSettings } from './getSettings';
 import { init } from './init';
 import { loadDevice } from './loadDevice';
+import { lockDevice } from './lockDevice';
 import { manifest } from './manifest';
 import { moneroGetAddress } from './moneroGetAddress';
 import { moneroGetWatchKey } from './moneroGetWatchKey';
@@ -326,6 +327,9 @@ export interface TrezorConnect {
 
     // https://connect.trezor.io/9/methods/device/setBusy/
     setBusy: typeof setBusy;
+
+    // https://connect.trezor.io/9/methods/device/lockDevice/
+    lockDevice: typeof lockDevice;
 
     // todo: link docs
     setProxy: typeof setProxy;
