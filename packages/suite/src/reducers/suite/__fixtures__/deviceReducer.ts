@@ -340,7 +340,7 @@ const disconnect = [
                 mockSuiteDevice({
                     path: '1',
                     remember: true,
-                    state: '1stTestnet@device_id:0',
+                    state: { staticSessionId: '1stTestnet@device_id:0' },
                 }),
             ],
         },
@@ -371,13 +371,13 @@ const disconnect = [
                 mockSuiteDevice({
                     path: '1',
                     remember: true,
-                    state: '1stTestnet@device_id:0',
+                    state: { staticSessionId: '1stTestnet@device_id:0' },
                 }),
                 mockSuiteDevice({
                     path: '1',
                     remember: true,
                     instance: 1,
-                    state: '1stTestnet@device_id_2:0',
+                    state: { staticSessionId: '1stTestnet@device_id_2:0' },
                 }),
             ],
         },
@@ -840,7 +840,7 @@ const forget: Fixture<ReturnType<typeof deviceActions.forgetDevice>>[] = [
                     },
                 ),
                 mockSuiteDevice({
-                    state: '1stTestnetAddress@device_id:3',
+                    state: { staticSessionId: '1stTestnetAddress@device_id:3' },
                     connected: true,
                     instance: 3,
                 }),
@@ -1015,7 +1015,7 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
             ...deviceReducerInitialState,
             devices: [
                 mockSuiteDevice({
-                    state: '1stTestnet@device_id:0',
+                    state: { staticSessionId: '1stTestnet@device_id:0' },
                 }),
             ],
         },
@@ -1024,7 +1024,7 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
                 type: deviceActions.setRememberDevice.type,
                 payload: {
                     device: mockSuiteDevice({
-                        state: '1stTestnet@device_id:0',
+                        state: { staticSessionId: '1stTestnet@device_id:0' },
                     }),
                     remember: true,
                 },
@@ -1032,7 +1032,7 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
         ],
         result: [
             mockSuiteDevice({
-                state: '1stTestnet@device_id:0',
+                state: { staticSessionId: '1stTestnet@device_id:0' },
                 remember: true,
             }),
         ],
@@ -1043,22 +1043,22 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
             ...deviceReducerInitialState,
             devices: [
                 mockSuiteDevice({
-                    state: '1stTestnet@device_id:0',
+                    state: { staticSessionId: '1stTestnet@device_id:0' },
                 }),
                 mockSuiteDevice({
-                    state: '1stTestnet@device_id:0',
+                    state: { staticSessionId: '1stTestnet@device_id:0' },
                     instance: 1,
                 }),
                 mockSuiteDevice({
                     instance: 2,
                 }),
                 mockSuiteDevice({
-                    state: '1stTestnet@device_id:0',
+                    state: { staticSessionId: '1stTestnet@device_id:0' },
                     instance: 3,
                 }),
                 mockSuiteDevice(
                     {
-                        state: '1stTestnet@device_id:0',
+                        state: { staticSessionId: '1stTestnet@device_id:0' },
                         path: '2',
                     },
                     {
@@ -1072,7 +1072,7 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
                 type: deviceActions.setRememberDevice.type,
                 payload: {
                     device: mockSuiteDevice({
-                        state: '1stTestnet@device_id:0',
+                        state: { staticSessionId: '1stTestnet@device_id:0' },
                     }),
                     remember: true,
                 },
@@ -1081,7 +1081,7 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
                 type: deviceActions.setRememberDevice.type,
                 payload: {
                     device: mockSuiteDevice({
-                        state: '1stTestnet@device_id:0',
+                        state: { staticSessionId: '1stTestnet@device_id:0' },
                         instance: 3,
                     }),
                     remember: true,
@@ -1090,11 +1090,11 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
         ],
         result: [
             mockSuiteDevice({
-                state: '1stTestnet@device_id:0',
+                state: { staticSessionId: '1stTestnet@device_id:0' },
                 remember: true,
             }),
             mockSuiteDevice({
-                state: '1stTestnet@device_id:0',
+                state: { staticSessionId: '1stTestnet@device_id:0' },
                 instance: 1,
                 remember: false,
             }),
@@ -1102,13 +1102,13 @@ const remember: Fixture<ReturnType<typeof deviceActions.setRememberDevice>>[] = 
                 instance: 2,
             }),
             mockSuiteDevice({
-                state: '1stTestnet@device_id:0',
+                state: { staticSessionId: '1stTestnet@device_id:0' },
                 instance: 3,
                 remember: true,
             }),
             mockSuiteDevice(
                 {
-                    state: '1stTestnet@device_id:0',
+                    state: { staticSessionId: '1stTestnet@device_id:0' },
                     path: '2',
                 },
                 {
