@@ -38,7 +38,7 @@ export const Collapsible = ({
                 gap,
             }}
         >
-            <Container data-testid={dataTest}>{children}</Container>
+            {dataTest ? <Container data-testid={dataTest}>{children}</Container> : children}
         </CollapsibleContext.Provider>
     );
 };
