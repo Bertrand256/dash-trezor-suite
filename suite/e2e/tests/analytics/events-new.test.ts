@@ -4,8 +4,13 @@ import { TestCategory, TestPriority, TestStream, createTestAnnotation } from '@t
 import { isDesktopProject } from '../../support/common';
 import { expect, test } from '../../support/fixtures';
 import { PromoBannerType } from '../../support/pageObjects/dashboardPage';
+import {
+    CLIENT_METADATA,
+    CONNECT_PARAMS,
+    generateWalletConnectLink,
+} from '../../support/walletConnectLinkGen';
 
-test.describe('New Analytics Events', { tag: ['@T3T1', '@smoke'] }, () => {
+test.describe('Analytics Events', { tag: ['@T3T1', '@smoke'] }, () => {
     test.beforeEach(async ({ onboardingPage, settingsPage }) => {
         await onboardingPage.completeOnboarding();
         await settingsPage.changeNetworks({
@@ -142,4 +147,123 @@ test.describe('New Analytics Events', { tag: ['@T3T1', '@smoke'] }, () => {
             },
         );
     }
+});
+
+test.describe('Analytics Events', { tag: ['@T3W1'] }, () => {
+    let wcUri: string;
+
+    test.beforeEach(async ({ onboardingPage, settingsPage }) => {
+        await test.step('Generate WalletConnect URI', async () => {
+            const result = await generateWalletConnectLink(CLIENT_METADATA, CONNECT_PARAMS);
+            wcUri = result.uri;
+        });
+        await test.step('Onboarding', async () => {
+            await onboardingPage.completeOnboarding();
+            await settingsPage.changeNetworks({
+                enableNetworks: ['eth', 'ada'],
+            });
+        });
+    });
+
+    test(
+        `Should log 'wallet-connect/init' when loading Suite`,
+        {
+            annotation: createTestAnnotation({
+                testCase: `Verify that the 'wallet-connect/init' event is triggered automatically when the application starts`,
+                category: TestCategory.General,
+                priority: TestPriority.Medium,
+                stream: TestStream.Foundation,
+            }),
+        },
+        async ({ analyticsSection, page }) => {
+            const WALLECT_CONNECT_INIT = 'wallet-connect/init';
+
+            // Set up listeners
+            const analyticsPromise = analyticsSection.waitForAnalytics({
+                c_type: WALLECT_CONNECT_INIT,
+            });
+
+            // Perform the action
+            await page.reload();
+
+            // Await the listeners
+            const payload = await analyticsPromise;
+
+            expect(payload).toMatchObject({ c_type: WALLECT_CONNECT_INIT });
+        },
+    );
+
+    test(
+        `Should log 'wallet-connect/proposal-approved' when approving connection`,
+        {
+            annotation: createTestAnnotation({
+                testCase:
+                    "Verify that 'wallet-connect/proposal-approved' and related events are logged when the user confirms a WalletConnect proposal",
+                category: TestCategory.General,
+                priority: TestPriority.Medium,
+                stream: TestStream.Foundation,
+            }),
+        },
+        async ({ settingsPage, analyticsSection }) => {
+            const EXPECTED_WC_EVENTS = [
+                'wallet-connect/paired',
+                'wallet-connect/proposal',
+                'wallet-connect/proposal-approved',
+            ];
+
+            // Set up listeners
+            const analyticsPromise = analyticsSection.waitForMultipleAnalytics(EXPECTED_WC_EVENTS);
+
+            await test.step('Add connection', async () => {
+                await settingsPage.navigateTo('connect');
+                await settingsPage.walletConnectTab.addConnection(wcUri);
+            });
+
+            await test.step('Approve proposal & verify payloads', async () => {
+                // Perform the action
+                await settingsPage.walletConnectTab.approveProposal(0);
+                // Await the listeners
+                const payloads = await analyticsPromise;
+
+                expect(payloads.map(p => p.c_type).sort()).toEqual([...EXPECTED_WC_EVENTS].sort());
+            });
+        },
+    );
+
+    test(
+        "Should log 'wallet-connect/proposal-rejected' when cancelling connection",
+        {
+            annotation: createTestAnnotation({
+                testCase:
+                    "Verify that 'wallet-connect/proposal-rejected' is logged when the user cancel a WalletConnect proposal",
+                category: TestCategory.General,
+                priority: TestPriority.Medium,
+                stream: TestStream.Foundation,
+            }),
+        },
+        async ({ settingsPage, analyticsSection }) => {
+            const EXPECTED_WC_EVENTS = [
+                'wallet-connect/paired',
+                'wallet-connect/proposal',
+                'wallet-connect/proposal-rejected',
+            ];
+
+            // Set up listeners
+            const analyticsPromise = analyticsSection.waitForMultipleAnalytics(EXPECTED_WC_EVENTS);
+
+            await test.step('Add connection', async () => {
+                await settingsPage.navigateTo('connect');
+                await settingsPage.walletConnectTab.addConnection(wcUri);
+            });
+
+            await test.step('Approve proposal & verify payloads', async () => {
+                // Perform the action
+                await settingsPage.walletConnectTab.rejectProposal();
+                // Await the listeners
+                const payloads = await analyticsPromise;
+
+                expect(payloads.map(p => p.c_type).sort()).toEqual([...EXPECTED_WC_EVENTS].sort());
+            });
+        },
+    );
 });

@@ -8,6 +8,7 @@ import { capitalizeFirstLetter } from '@trezor/utils';
 import { CoinsTab } from './coinsTab';
 import { DebugTab } from './debugTab';
 import { DeviceTab } from './deviceTab';
+import { WalletConnectTab } from './walletConnectTab';
 import { step } from '../../common';
 import { DeviceFixture } from '../../device';
 import { expect } from '../../testExtends/customMatchers';
@@ -38,8 +39,9 @@ const backgroundImageButton = {
 
 export class SettingsPage {
     private readonly TIMES_CLICK_TO_SET_DEBUG_MODE = 5;
-    readonly coinsTab: CoinsTab;
     readonly deviceTab: DeviceTab;
+    readonly coinsTab: CoinsTab;
+    readonly walletConnectTab: WalletConnectTab;
     readonly debugTab: DebugTab;
 
     readonly settingsMenuButton: Locator;
@@ -97,8 +99,9 @@ export class SettingsPage {
         private readonly page: Page,
         private readonly device: DeviceFixture,
     ) {
-        this.coinsTab = new CoinsTab(page);
         this.deviceTab = new DeviceTab(page);
+        this.coinsTab = new CoinsTab(page);
+        this.walletConnectTab = new WalletConnectTab(page);
         this.debugTab = new DebugTab(page);
 
         this.settingsMenuButton = this.page.getByTestId('@suite/menu/settings');

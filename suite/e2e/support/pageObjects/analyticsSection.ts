@@ -7,24 +7,47 @@ export class AnalyticsSection {
     readonly continueButton: Locator;
     readonly toggleSwitch: Locator;
 
+    private static readonly ANALYTICS_HOST = 'data.trezor.io';
+
     constructor(private readonly page: Page) {
         this.continueButton = page.getByTestId('@analytics/continue-button');
         this.heading = page.getByTestId('@analytics/consent/heading');
         this.toggleSwitch = page.getByTestId('@analytics/toggle-switch');
     }
 
-    @step()
-    async waitForAnalytics(params: Record<string, string>) {
-        const request = await this.page.waitForRequest(req => {
-            const url = new URL(req.url());
-            if (url.hostname !== 'data.trezor.io') return false;
+    private async waitForAnalyticsRequest(filter: (url: URL) => boolean, timeout?: number) {
+        const request = await this.page.waitForRequest(
+            req => {
+                const url = new URL(req.url());
 
-            return Object.entries(params).every(
-                ([key, value]) => url.searchParams.get(key) === value,
-            );
-        });
+                if (url.hostname !== AnalyticsSection.ANALYTICS_HOST) return false;
+
+                return filter(url);
+            },
+            { timeout },
+        );
 
         return Object.fromEntries(new URL(request.url()).searchParams);
+    }
+
+    @step()
+    async waitForAnalytics(params: Record<string, string>, timeout?: number) {
+        return await this.waitForAnalyticsRequest(
+            url => Object.entries(params).every(([k, v]) => url.searchParams.get(k) === v),
+            timeout,
+        );
+    }
+
+    @step()
+    async waitForMultipleAnalytics(eventTypes: string[], timeout?: number) {
+        return await Promise.all(
+            eventTypes.map(type =>
+                this.waitForAnalyticsRequest(
+                    url => url.searchParams.get('c_type') === type,
+                    timeout,
+                ),
+            ),
+        );
     }
 
     @step()
