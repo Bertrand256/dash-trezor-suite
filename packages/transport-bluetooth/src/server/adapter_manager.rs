@@ -531,6 +531,7 @@ impl AdapterManager {
                     }
                     CentralEvent::DeviceUpdated(id) => {
                         if let Some(mut device) = self_ref.get_device(&id).await {
+                            info!("DeviceUpdated {:?} : {:?}", id, device);
                             let mut emit_update = false;
                             if let Ok(peripheral) =
                                 self_ref.get_peripheral_or_die(&id.to_string()).await
@@ -541,7 +542,7 @@ impl AdapterManager {
                             };
 
                             if emit_update {
-                                info!("DeviceUpdated {:?} : {:?}", id, device);
+                                info!("DeviceUpdated. emit_update {:?} : {:?}", id, device);
                                 let devices = self_ref.get_devices().await;
                                 self_ref
                                     .dispatch_notification(NotificationEvent::DeviceUpdated {

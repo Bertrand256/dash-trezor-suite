@@ -23,6 +23,7 @@ export const bluetoothConnectDeviceThunk = createThunk<
 >(
     `${BLUETOOTH_PREFIX}/bluetoothConnectDeviceThunk`,
     async ({ deviceId }, { fulfillWithValue, dispatch }) => {
+        console.log('bluetoothConnectDeviceThunk', deviceId);
         dispatch(startConnectingBluetoothDevice({ deviceId }));
 
         const result = await bluetoothIpc.connectDevice(deviceId);

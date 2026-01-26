@@ -30,6 +30,7 @@ export const initBluetoothThunk = createThunk<void, void, void>(
     `${BLUETOOTH_PREFIX}/initBluetoothThunk`,
     async (_, { getState, dispatch }) => {
         const knownDevices = selectKnownDevices<DesktopBluetoothDevice>(getState());
+        console.log('initBluetoothThunk - knownDevices', knownDevices);
 
         const result = await bluetoothIpc.init({
             knownDevices: knownDevices.map(device => ({
@@ -60,6 +61,7 @@ export const initBluetoothThunk = createThunk<void, void, void>(
         }
 
         const attemptDeviceConnect = async ({ device }: { device: DesktopBluetoothDevice }) => {
+            console.log('Attempting auto-connect to device', device);
             const knownDevice = selectKnownDevices<DesktopBluetoothDevice>(getState()).find(
                 d => d.id === device.id,
             );
@@ -70,10 +72,17 @@ export const initBluetoothThunk = createThunk<void, void, void>(
 
             if (adapterStatus === 'power-suspending') {
                 // system is going to sleep
+                console.log('Adapter is suspending, skipping auto-connect');
+
                 return;
             }
 
             if (!knownDevice || connectingDevices.includes(knownDevice.id)) {
+                console.log(
+                    'Device is not known or already connecting, skipping auto-connect',
+                    device.id,
+                );
+
                 return;
             }
 
@@ -93,6 +102,12 @@ export const initBluetoothThunk = createThunk<void, void, void>(
                 firmwareStatus.cachedDevice?.bluetoothProps?.id !== device.id;
 
             if (hasUnacquiredDevice || hasSameUsbDevice || fwUpdatingDifferentDevice) {
+                console.log('Skipping auto-connect to Bluetooth device', {
+                    hasUnacquiredDevice,
+                    hasSameUsbDevice,
+                    fwUpdatingDifferentDevice,
+                });
+
                 return;
             }
 
@@ -116,6 +131,8 @@ export const initBluetoothThunk = createThunk<void, void, void>(
             // ) {
             //     isConnectable = false;
             // }
+            console.log('isConnectable', isConnectable, device.id);
+            console.log('devicePolicy', devicePolicy);
 
             if (isConnectable) {
                 await dispatch(bluetoothConnectDeviceThunk({ deviceId: device.id }));
@@ -184,6 +201,8 @@ export const initBluetoothThunk = createThunk<void, void, void>(
             TrezorConnect.on('device-connect', cleanup);
         });
         Promise.race([waitForDevice, resolveAfter(3000)]).then(() => {
+            console.log('Init Bluetooth: starting auto-connect procedure');
+
             // Start attempting to connect to known BT devices
             bluetoothIpc.on('device-update', async (deviceIpc: BluetoothDevice) => {
                 const device = fromBluetoothDevice(deviceIpc);
