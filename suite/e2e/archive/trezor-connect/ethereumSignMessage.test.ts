@@ -25,7 +25,7 @@ test.describe(
         test('TrezorConnect.ethereumSignMessage', async ({
             connectPermissionsModal,
             page,
-            device
+            device,
         }) => {
             const res = TrezorConnect.ethereumSignMessage({
                 path: "m/44'/60'/0'",

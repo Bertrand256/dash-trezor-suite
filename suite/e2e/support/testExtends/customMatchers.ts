@@ -178,19 +178,20 @@ export const expect = baseExpect.extend({
         },
     ) {
         const transformedExpectedAddress = transformAddress(expectedAddress, options.lineFormat);
-        const expectedContent = device.model === 'T3W1'
-            ? {
-                  header: { title: 'Receive' },
-                  body: [transformedExpectedAddress],
-                  actions: {
-                      right_button: 'Confirm',
-                  },
-              }
-            : {
-                  header: { title: 'Receive address' },
-                  body: [transformedExpectedAddress],
-                  footer: 'Tap to continue',
-              };
+        const expectedContent =
+            device.model === 'T3W1'
+                ? {
+                      header: { title: 'Receive' },
+                      body: [transformedExpectedAddress],
+                      actions: {
+                          right_button: 'Confirm',
+                      },
+                  }
+                : {
+                      header: { title: 'Receive address' },
+                      body: [transformedExpectedAddress],
+                      footer: 'Tap to continue',
+                  };
 
         return await compareDisplayContent(
             device,

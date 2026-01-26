@@ -11,7 +11,7 @@ test.describe('Onboarding - recover wallet T1B1', { tag: ['@firmware-ready', '@T
 
     test('Device disconnected during recovery offers retry', async ({
         device,
-            onboardingPage,
+        onboardingPage,
         analyticsSection,
         recoveryModal,
         devicePrompt,

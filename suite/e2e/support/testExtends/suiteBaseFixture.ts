@@ -4,11 +4,7 @@ import { BrowserContext, Page, TestInfo } from '@playwright/test';
 import { execSync } from 'child_process';
 
 import { TestAnnotationType } from '@trezor/e2e-utils';
-import {
-    SetupEmu,
-    TrezorUserEnvLink,
-    TrezorUserEnvLinkClass,
-} from '@trezor/trezor-user-env-link';
+import { SetupEmu, TrezorUserEnvLink, TrezorUserEnvLinkClass } from '@trezor/trezor-user-env-link';
 
 import {
     TrezorUserEnvLinkProxy,

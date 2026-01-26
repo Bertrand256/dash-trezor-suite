@@ -19,11 +19,7 @@ test.describe('TrezorConnect.signTransaction', { tag: ['@group=connect', '@deskt
         });
     });
 
-    test('TrezorConnect.signTransaction', async ({
-        page,
-        connectPermissionsModal,
-        device,
-    }) => {
+    test('TrezorConnect.signTransaction', async ({ page, connectPermissionsModal, device }) => {
         TrezorConnect.signTransaction({
             coin: 'btc',
             inputs: [

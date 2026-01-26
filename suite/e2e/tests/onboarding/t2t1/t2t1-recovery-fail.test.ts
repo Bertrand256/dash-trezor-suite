@@ -18,13 +18,7 @@ test.describe('Onboarding - recover wallet T2T1', { tag: ['@T2T1'] }, () => {
                     'Verifies that if the device is disconnected during the recovery process, the user is given the option to retry the recovery.',
             }),
         },
-        async ({
-            page,
-            device,
-            onboardingPage,
-            analyticsSection,
-            devicePrompt,
-        }) => {
+        async ({ page, device, onboardingPage, analyticsSection, devicePrompt }) => {
             await analyticsSection.passThroughAnalytics();
             await onboardingPage.firmware.continueThroughFirmware();
 

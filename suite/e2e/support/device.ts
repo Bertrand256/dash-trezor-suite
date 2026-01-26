@@ -20,7 +20,7 @@ export class DeviceFixture {
         public readonly firmwareVersion: string,
     ) {
         this.hasTHP = this.model === 'T3W1';
-        this.hasSecureElement = ['T3B1', 'T3T1', 'T3W1'].includes(this.model); 
+        this.hasSecureElement = ['T3B1', 'T3T1', 'T3W1'].includes(this.model);
     }
 
     @step()
@@ -64,7 +64,6 @@ export class DeviceFixture {
 
     @step()
     async tapCenter() {
-
         await TrezorUserEnvLink.clickEmu(EMULATOR_CENTER_COORDINATES[this.model]);
     }
 
@@ -75,6 +74,29 @@ export class DeviceFixture {
         } else {
             await TrezorUserEnvLink.swipeEmu('up');
         }
+    }
+
+    @step()
+    async readAndConfirmShamirMnemonic(options: { shares: number; threshold: number }) {
+        await TrezorUserEnvLink.readAndConfirmShamirMnemonicEmu(options);
+    }
+
+    @step()
+    async getTHPPairingCode(): Promise<string[]> {
+        const screenContent = await TrezorUserEnvLink.getScreenContent();
+        const screenContentBody = screenContent.body as string;
+
+        return (
+            screenContentBody
+                .match(/(\d\s*){6}$/)?.[0]
+                .replace(/\s+/g, '')
+                .split('') ?? []
+        );
+    }
+
+    @step()
+    async getDebugState() {
+        return await TrezorUserEnvLink.getDebugState();
     }
 
     @step()
