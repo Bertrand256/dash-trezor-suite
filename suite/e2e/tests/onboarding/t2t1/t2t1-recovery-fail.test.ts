@@ -20,11 +20,10 @@ test.describe('Onboarding - recover wallet T2T1', { tag: ['@T2T1'] }, () => {
         },
         async ({
             page,
+            device,
             onboardingPage,
             analyticsSection,
             devicePrompt,
-            trezorUserEnvLink,
-            emulatorStartConf,
         }) => {
             await analyticsSection.passThroughAnalytics();
             await onboardingPage.firmware.continueThroughFirmware();
@@ -36,10 +35,10 @@ test.describe('Onboarding - recover wallet T2T1', { tag: ['@T2T1'] }, () => {
 
             // Disconnect device
             await page.waitForTimeout(1000);
-            await trezorUserEnvLink.stopEmu();
+            await device.powerOff();
             await page.waitForTimeout(500);
             await devicePrompt.connectDevicePromptIsShown();
-            await trezorUserEnvLink.startEmu({ ...emulatorStartConf, wipe: false });
+            await device.powerOn();
 
             // Check that you can retry
             await onboardingPage.retryRecoveryButton.click();
