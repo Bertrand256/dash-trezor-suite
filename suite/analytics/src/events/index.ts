@@ -38,6 +38,7 @@ export { stakingNavigateEvent } from './stakingNavigateEvent';
 export { stakingStakeEvent } from './stakingStakeEvent';
 export { stakingUnstakeEvent } from './stakingUnstakeEvent';
 export { stakingUpdateProviderEvent } from './stakingUpdateProviderEvent';
+export { stakingYieldEvent } from './stakingYieldEvent';
 export { switchDeviceEjectEvent } from './switchDeviceEjectEvent';
 export { switchDeviceForgetEvent } from './switchDeviceForgetEvent';
 export { switchDeviceRememberEvent } from './switchDeviceRememberEvent';

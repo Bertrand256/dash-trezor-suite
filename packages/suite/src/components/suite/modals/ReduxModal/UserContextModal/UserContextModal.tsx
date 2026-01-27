@@ -3,6 +3,7 @@ import { exhaustive } from '@trezor/type-utils';
 
 import { MODAL } from 'src/actions/suite/constants';
 import { onCancel as onCancelAction } from 'src/actions/suite/modalActions';
+import { EarnInANutshellModal, EarnProviderConsentModal } from 'src/components/earn';
 import { useDispatch } from 'src/hooks/suite';
 import type { AcquiredDevice } from 'src/types/suite';
 
@@ -33,7 +34,6 @@ import { CriticalCoinjoinPhaseModal } from './CriticalCoinjoinPhaseModal/Critica
 import { DeviceAuthenticityOptOutModal } from './DeviceAuthenticityOptOutModal';
 import { DisableTorModal } from './DisableTorModal';
 import { DisableTorStopCoinjoinModal } from './DisableTorStopCoinjoinModal';
-import { EverstakeModal } from './EverstakeModal/EverstakeModal';
 import { FirmwareRevisionOptOutModal } from './FirmwareRevisionOptOutModal';
 import { ImportTransactionModal } from './ImportTransactionModal/ImportTransactionModal';
 import { MetadataProviderModal } from './MetadataProviderModal/MetadataProviderModal';
@@ -42,7 +42,6 @@ import { PinMismatchModal } from './PinMismatchModal';
 import { QrScannerModal } from './QrScannerModal';
 import { RequestEnableTorModal } from './RequestEnableTorModal';
 import { SafetyChecksModal } from './SafetyChecksModal';
-import { StakeInANutshellModal } from './StakeInANutshellModal/StakeInANutshellModal';
 import { StakeModal } from './StakeModal/StakeModal';
 import { TorLoadingModal } from './TorLoadingModal';
 import { TxDetailModal } from './TxDetailModal/TxDetailModal';
@@ -135,16 +134,28 @@ export const UserContextModal = ({ payload }: ReduxModalProps<typeof MODAL.CONTE
             return <MoreRoundsNeededModal />;
         case 'uneco-coinjoin-warning':
             return <UnecoCoinjoinModal />;
-        case 'stake-in-a-nutshell':
-            return <StakeInANutshellModal onCancel={onCancel} flow={payload.flow} />;
+        case 'earn-in-a-nutshell':
+            return (
+                <EarnInANutshellModal
+                    onCancel={onCancel}
+                    flow={payload.flow}
+                    provider={payload.provider}
+                />
+            );
+        case 'earn-provider-consent':
+            return (
+                <EarnProviderConsentModal
+                    onCancel={onCancel}
+                    flow={payload.flow}
+                    provider={payload.provider}
+                />
+            );
         case 'stake':
             return <StakeModal onCancel={onCancel} flow={payload.flow} />;
         case 'unstake':
             return <UnstakeModal onCancel={onCancel} />;
         case 'claim':
             return <ClaimModal onCancel={onCancel} />;
-        case 'everstake':
-            return <EverstakeModal onCancel={onCancel} flow={payload.flow} />;
         case 'copy-address':
             return (
                 <CopyAddressModal

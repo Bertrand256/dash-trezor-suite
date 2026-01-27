@@ -8,7 +8,6 @@ import {
 } from '@suite-common/wallet-core';
 import { validateCardanoDrep } from '@suite-common/wallet-utils';
 import { Card, CollapsibleBox, Column, Input, Radio, Row, Text } from '@trezor/components';
-import { spacings } from '@trezor/theme';
 
 import { useDispatch, useSelector } from 'src/hooks/suite';
 import { selectSelectedAccount } from 'src/reducers/wallet/selectedAccountReducer';
@@ -64,7 +63,7 @@ export const VotingDelegations = () => {
         <Card>
             <CollapsibleBox
                 heading={
-                    <Row gap={spacings.sm} justifyContent="space-between">
+                    <Row gap={12} justifyContent="space-between">
                         <Text typographyStyle="hint">
                             <Translation id="TR_STAKING_DELEGATE_YOUR_VOTING_RIGHTS" />
                         </Text>
@@ -86,7 +85,7 @@ export const VotingDelegations = () => {
                 paddingType="none"
                 hasDivider={false}
             >
-                <Column gap={spacings.md} padding={spacings.xs}>
+                <Column gap={16} padding={8}>
                     {VOTING_OPTIONS.map(({ key, translationId }) => (
                         <React.Fragment key={key}>
                             <Radio
@@ -114,7 +113,7 @@ export const VotingDelegations = () => {
                         </React.Fragment>
                     ))}
                 </Column>
-                <Text variant="tertiary" typographyStyle="hint" margin={{ top: spacings.xs }}>
+                <Text variant="tertiary" typographyStyle="hint" margin={{ top: 8 }}>
                     <Translation id="TR_STAKING_DELEGATION_INFO_TEXT" />
                 </Text>
             </CollapsibleBox>

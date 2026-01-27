@@ -73,6 +73,7 @@ export enum EventType {
 
     StakingNavigate = 'staking/navigate',
     StakingStake = 'staking/stake',
+    StakingYield = 'staking/yield',
     StakingUnstake = 'staking/unstake',
     StakingClaim = 'staking/claim',
     StakingConfirm = 'staking/confirm',

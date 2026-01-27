@@ -1,7 +1,7 @@
 import { EventType } from '@suite/analytics';
 import { Translation } from '@suite/intl';
 import { getStakingTotalRewards } from '@suite-common/staking';
-import { StakingFlow } from '@suite-common/suite-types/src/staking';
+import { EarnFlow } from '@suite-common/suite-types/src/staking';
 import { getNetworkDisplaySymbol } from '@suite-common/wallet-config';
 import {
     selectAccountStakeTypeTransactions,
@@ -163,7 +163,7 @@ export const StakingCard = ({
 
     const openStakeModal = () => {
         if (!isStakingDisabled) {
-            dispatch(openModal({ type: 'stake', flow: StakingFlow.Stake }));
+            dispatch(openModal({ type: 'stake', flow: EarnFlow.Stake }));
 
             analytics.report({
                 type: EventType.StakingStake,

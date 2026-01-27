@@ -1,40 +1,38 @@
-import { JSX, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Translation } from '@suite/intl';
-import { StakingFlow } from '@suite-common/suite-types/src/staking';
+import { EarnFlow, EarnProvider } from '@suite-common/suite-types/src/staking';
 import { getNetworkDisplaySymbol } from '@suite-common/wallet-config';
-import {
-    selectAccountIsStakingActive,
-    selectVotingDelegationOption,
-} from '@suite-common/wallet-core';
+import { selectVotingDelegationOption } from '@suite-common/wallet-core';
 import { validateCardanoDrep } from '@suite-common/wallet-utils';
-import { Banner, Card, Checkbox, Column, IconName, Modal } from '@trezor/components';
-import { spacings } from '@trezor/theme';
+import { Banner, Card, Checkbox, Column, Modal } from '@trezor/components';
 
 import { openModal } from 'src/actions/suite/modalActions';
-import { stakingFlowToEventTypeMap } from 'src/constants/suite/staking';
+import { earnFlowToEventTypeMap } from 'src/constants/suite/staking';
 import { useDispatch, useSelector } from 'src/hooks/suite';
 import { selectSelectedAccount } from 'src/reducers/wallet/selectedAccountReducer';
 import { useAnalytics } from 'src/support/useAnalytics';
 
-import { VotingDelegations } from './VotingDelegations';
+import { VotingDelegations } from '../EarnProviderConsent/VotingDelegations';
+import { getEarnProviderConsentConfig } from '../EarnProviderConsent/earnProviderConsentUtils';
 
-interface EverstakeModalProps {
+interface EarnProviderConsentModalProps {
     onCancel: () => void;
-    flow: StakingFlow;
+    flow: EarnFlow;
+    provider: EarnProvider;
 }
 
-export const EverstakeModal = ({ onCancel, flow }: EverstakeModalProps) => {
+export const EarnProviderConsentModal = ({
+    onCancel,
+    flow,
+    provider,
+}: EarnProviderConsentModalProps) => {
     const dispatch = useDispatch();
     const analytics = useAnalytics();
     const [hasAgreed, setHasAgreed] = useState(false);
     const account = useSelector(selectSelectedAccount);
-    const isStakingActive = useSelector(state =>
-        selectAccountIsStakingActive(state, account?.key ?? ''),
-    );
     const selectedVotingDelegation = useSelector(selectVotingDelegationOption);
     const isCardanoNetworkType = account?.networkType === 'cardano';
-    const isUpdateProviderFlow = isStakingActive && isCardanoNetworkType;
 
     const isDrepValid = useMemo(() => {
         if (!isCardanoNetworkType || selectedVotingDelegation.type !== 'another_drep') {
@@ -49,12 +47,12 @@ export const EverstakeModal = ({ onCancel, flow }: EverstakeModalProps) => {
         dispatch(openModal({ type: 'stake', flow }));
 
         analytics.report({
-            type: stakingFlowToEventTypeMap[flow],
+            type: earnFlowToEventTypeMap[flow],
             payload: {
                 action: 'continue',
                 step: 'funds-maintained-modal',
                 networkSymbol: account?.symbol,
-                ...(flow === StakingFlow.UpdateProvider
+                ...(flow === EarnFlow.UpdateProvider
                     ? { votingDelegation: selectedVotingDelegation.type }
                     : {}),
             },
@@ -65,12 +63,12 @@ export const EverstakeModal = ({ onCancel, flow }: EverstakeModalProps) => {
         onCancel();
 
         analytics.report({
-            type: stakingFlowToEventTypeMap[flow],
+            type: earnFlowToEventTypeMap[flow],
             payload: {
                 action: 'cancel',
                 step: 'funds-maintained-modal',
                 networkSymbol: account?.symbol,
-                ...(flow === StakingFlow.UpdateProvider
+                ...(flow === EarnFlow.UpdateProvider
                     ? { votingDelegation: selectedVotingDelegation.type }
                     : {}),
             },
@@ -80,60 +78,17 @@ export const EverstakeModal = ({ onCancel, flow }: EverstakeModalProps) => {
     if (!account) return null;
 
     const displaySymbol = getNetworkDisplaySymbol(account.symbol);
-
-    const banners: {
-        icon: IconName;
-        message: JSX.Element;
-    }[] = [
-        {
-            icon: 'fileFilled',
-            message: (
-                <Translation
-                    id={
-                        account?.networkType === 'ethereum'
-                            ? 'TR_STAKE_EVERSTAKE_MANAGES'
-                            : 'TR_STAKE_BY_STAKING_YOU_CAN_EARN_REWARDS'
-                    }
-                    values={{
-                        networkDisplaySymbol: displaySymbol,
-                        t: text => <strong>{text}</strong>,
-                    }}
-                />
-            ),
-        },
-        {
-            icon: 'shieldWarningFilled',
-            message: (
-                <Translation
-                    id={
-                        account?.networkType === 'ethereum'
-                            ? 'TR_STAKE_TREZOR_NO_LIABILITY'
-                            : 'TR_STAKE_SECURELY_DELEGATE_TO_EVERSTAKE'
-                    }
-                    values={{
-                        symbol: displaySymbol,
-                    }}
-                />
-            ),
-        },
-    ];
+    const { heading, description, banners, consentText } = getEarnProviderConsentConfig({
+        flow,
+        provider,
+        networkType: account.networkType,
+        displaySymbol,
+    });
 
     return (
         <Modal
-            heading={
-                <Translation
-                    id={
-                        isUpdateProviderFlow ? 'TR_STAKING_UPDATE_PROVIDER' : 'TR_STAKE_STAKE_TOKEN'
-                    }
-                    values={{ symbol: displaySymbol }}
-                />
-            }
-            description={
-                <Translation
-                    id="TR_STAKE_YOUR_FUNDS_MAINTAINED"
-                    values={{ networkDisplaySymbol: displaySymbol }}
-                />
-            }
+            heading={heading}
+            description={description}
             onCancel={onCancelClick}
             width={600}
             bottomContent={
@@ -151,21 +106,21 @@ export const EverstakeModal = ({ onCancel, flow }: EverstakeModalProps) => {
                 </>
             }
         >
-            <Column gap={spacings.sm} margin={{ top: spacings.xs, bottom: spacings.lg }}>
+            <Column gap={12} margin={{ top: 8, bottom: 20 }}>
                 {banners.map(({ icon, message }, index) => (
                     <Banner icon={icon} intent="info" key={index} description={message} />
                 ))}
             </Column>
-            <Column gap={spacings.sm}>
+            <Column gap={12}>
                 <VotingDelegations />
                 <Card>
                     <Checkbox
-                        data-testid="@staking/everstake-acknowledge-checkbox"
+                        data-testid="@staking/provider-acknowledge-checkbox"
                         verticalAlignment="center"
                         onClick={() => setHasAgreed(!hasAgreed)}
                         isChecked={hasAgreed}
                     >
-                        <Translation id="TR_STAKE_CONSENT_TO_STAKING_WITH_EVERSTAKE" />
+                        {consentText}
                     </Checkbox>
                 </Card>
             </Column>
