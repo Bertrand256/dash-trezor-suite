@@ -1,4 +1,5 @@
 import { MessagesSchema as PROTO } from '@trezor/protobuf';
+import { versionUtils } from '@trezor/utils';
 
 import { AbstractMethod } from '../core/AbstractMethod';
 import { getFirmwareRange } from './common/paramsValidator';
@@ -22,11 +23,18 @@ export default class EvoluGetDelegatedIdentityKey extends AbstractMethod<
 
     async run() {
         const thpState = this.device.getThpState();
+        const version = this.device.getVersion();
+
         if (thpState) {
             this.params = {
                 thp_credential: thpState.pairingCredentials[0].credential,
-                host_static_public_key:
-                    thpState.handshakeCredentials?.hostStaticPublicKey.toString('hex'),
+
+                ...(version !== undefined && versionUtils.isNewer(version, [2, 10, 0])
+                    ? {} // The `host_static_public_key` is no longer required
+                    : {
+                          host_static_public_key:
+                              thpState.handshakeCredentials?.hostStaticPublicKey.toString('hex'),
+                      }),
             };
         }
 
