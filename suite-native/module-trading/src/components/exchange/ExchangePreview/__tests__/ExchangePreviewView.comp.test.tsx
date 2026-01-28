@@ -11,6 +11,7 @@ describe('ExchangePreviewView', () => {
         preloadedState.wallet!.trading!.composedTransactionInfo = { composed: { fee: '1000' } };
         preloadedState.wallet!.trading!.exchange!.tradingAccountKey = 'btc-account-1';
         preloadedState.wallet!.trading!.exchange!.receiveAccountKey = 'eth-account-1';
+        preloadedState.wallet!.trading!.exchange!.lastErrorMessage = 'ERROR_MESSAGE';
 
         return renderWithStoreProviderAsync(
             <ExchangePreviewView quote={exchangeQuotes[0]} txnErrorString={null} {...props} />,
@@ -24,6 +25,7 @@ describe('ExchangePreviewView', () => {
         expect(getByText('BTC Account #1')).toBeOnTheScreen();
         expect(getByText('Ethereum #1')).toBeOnTheScreen();
         expect(getByText('Fee')).toBeOnTheScreen();
+        expect(getByText('ERROR_MESSAGE')).toBeOnTheScreen();
     });
 
     it('should render txnErrorString but no fee picker when isTxnError is true', async () => {
