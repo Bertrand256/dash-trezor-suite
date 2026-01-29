@@ -64,6 +64,10 @@ export const Preloader = ({ children }: PropsWithChildren) => {
         // we do not init anything. Especially nothing related to the devices/connect. With THP,
         // the autoconnect flow may be automatically triggered, resulting in Suite vs. Device Screen inconsistency.
         dispatch(analyticsActions.init());
+
+        window.setInterval(() => {
+            console.error('TESTING ERROR FROM A LOOP ' + (Math.random() * 1e6).toFixed());
+        }, 1000);
     }, [dispatch]);
 
     useEffect(() => {

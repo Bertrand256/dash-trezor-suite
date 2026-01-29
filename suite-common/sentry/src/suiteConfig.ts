@@ -77,7 +77,7 @@ export const SENTRY_CONFIG = {
     dsn: 'https://6d91ca6e6a5d4de7b47989455858b5f6@o117836.ingest.sentry.io/5193825',
 
     beforeSend,
-    enabled: !isDevEnv, // set to true to enable Sentry logging while testing locally
+    enabled: 1 > 0 || !isDevEnv, // set to true to enable Sentry logging while testing locally
     maxValueLength: 500, // default 250 is not enough for some errors
     release: process.env.SENTRY_RELEASE,
     environment: isCodesignBuild() ? 'production' : 'develop',

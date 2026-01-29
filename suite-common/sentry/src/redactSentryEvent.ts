@@ -6,6 +6,7 @@ let eventCountThisSession = 0;
 let countingStartTimestamp = Date.now();
 const incrementOrResetCounter = () => {
     if (Date.now() - countingStartTimestamp > MAX_EVENTS_INTERVAL_LENGTH) {
+        console.log('EVENT COUNT RESET');
         eventCountThisSession = 0;
         countingStartTimestamp = Date.now();
     }
@@ -19,8 +20,10 @@ export const redactSentryEvent = (event: ErrorEvent): ErrorEvent | null => {
     incrementOrResetCounter();
     // hard limit the number of events sent this session (app instance), to prevent a flurry of events sent in a loop
     if (eventCountThisSession > MAX_EVENTS_PER_INTERVAL) {
+        console.log('EVENT DROPPED');
         return null;
     }
+    console.log('SENT EVENT ' + eventCountThisSession);
 
     // sentry events are skipped until user confirm analytics reporting
     const allowReport = event.tags?.[ALLOW_REPORT_TAG];

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useReportDeviceCompromised } from '@suite-common/firmware-authenticity';
@@ -11,6 +12,7 @@ import {
 import { useDetectDeviceError } from '@suite-native/device/src/hooks/useDetectDeviceError';
 import { useHandleDeviceAuthorization } from '@suite-native/device-authorization';
 import { useConnectPopupNavigation } from '@suite-native/module-connect-popup';
+import { captureSentryException } from '@suite-native/sentry';
 
 /**
  * @description This hook is used to initialize all the hooks,
@@ -22,6 +24,14 @@ export const useGlobalHooks = () => {
     useConnectPopupNavigation();
 
     useBluetoothAdapter();
+
+    useEffect(() => {
+        setInterval(() => {
+            captureSentryException(
+                new Error('TESTING ERROR FROM A LOOP ' + (Math.random() * 1e6).toFixed()),
+            );
+        }, 1000);
+    }, []);
 
     useDetectDeviceError();
     useHandleDeviceAuthorization();
