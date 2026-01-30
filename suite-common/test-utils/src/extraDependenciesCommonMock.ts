@@ -14,7 +14,11 @@ import {
     notImplementedThunk,
 } from '@suite-common/redux-utils';
 import type { SuiteSync } from '@suite-common/suite-sync-types';
-import { ReportSecurityCheckParams, Route } from '@suite-common/suite-types';
+import {
+    ReportSecurityCheckParams,
+    Route,
+    asDelegatedIdentityKey,
+} from '@suite-common/suite-types';
 import { AddressDisplayOptions, SelectedAccountLoaded } from '@suite-common/wallet-types';
 import { Analytics } from '@trezor/analytics-uploader';
 import { err, ok } from '@trezor/type-utils';
@@ -79,6 +83,7 @@ export const extraDependenciesCommonMock: ExtraDependencies = {
     },
     services: {
         suiteSync: suiteSyncMock,
+        ensureDelegatedIdentityKey: () => ok(asDelegatedIdentityKey('mockDelegatedIdentityKey')),
         platformEncryption: platformEncryptionMock,
         legacyAnalytics: legacyAnalyticsMock,
         analytics: analyticsMock,

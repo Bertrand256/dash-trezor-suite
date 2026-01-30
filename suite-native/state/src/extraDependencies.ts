@@ -72,6 +72,7 @@ export const createNativeCompositionRoot = (deps: NativeAppDeps): NativeServices
 
     return {
         suiteSync,
+        ensureDelegatedIdentityKey,
         platformEncryption,
         getMMKVStorage: () => deps.mmkvStorage.getMMKV(),
         legacyAnalytics: createLegacyAnalytics(),
