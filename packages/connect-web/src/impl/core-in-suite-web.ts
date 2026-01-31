@@ -77,16 +77,16 @@ export class CoreInSuiteWeb implements ConnectFactoryDependencies<ConnectSetting
     }
 
     private getSuiteUrl() {
-        if (this._settings.connectSrc?.startsWith('http://localhost')) {
+        // // todo: we need to control this in a better way. For example 3rd party probably wants to develop against production suite-web
+        if (window.location.origin === 'http://localhost:8088') {
             return 'http://localhost:8000/connect-popup';
         }
-        if (this._settings.connectSrc?.startsWith('https://dev.suite.sldev.cz/connect/')) {
-            const branch = this._settings.connectSrc?.replace(
-                'https://dev.suite.sldev.cz/connect/',
-                '',
-            );
+        if (window.location.href.startsWith('https://dev.suite.sldev.cz/connect/')) {
+            const branch = window.location.href
+                .replace('https://dev.suite.sldev.cz/connect/', '')
+                .split('/')[0];
 
-            return `https://dev.suite.sldev.cz/suite-web/${branch}web/connect-popup`;
+            return `https://dev.suite.sldev.cz/suite-web/${branch}/web/connect-popup`;
         }
 
         return 'https://suite.trezor.io/web/connect-popup';
@@ -103,11 +103,18 @@ export class CoreInSuiteWeb implements ConnectFactoryDependencies<ConnectSetting
         if (!this._popupManager) {
             return createErrorMessage(ERRORS.TypedError('Init_NotInitialized'));
         }
-        await this._popupManager.request();
+        this.logger.debug('call - awaiting popupManger.focusOrCreate()');
+
+        await this._popupManager.focusOrCreate();
+        this.logger.debug('call - popupManager.request() resolved');
+
         await this._popupManager.channel.init();
+        this.logger.debug('call - popupManager.channel.init() resolved');
         await this._popupManager.handshakePromise?.promise;
 
         try {
+            this.logger.debug('call - sending iframe.call');
+
             // post message to core in popup
             const response = await this._popupManager.channel.postMessage({
                 type: IFRAME.CALL,

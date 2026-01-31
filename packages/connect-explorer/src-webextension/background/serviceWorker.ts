@@ -1,6 +1,7 @@
 /// <reference lib="webworker" />
 
-import TrezorConnect, { DEVICE_EVENT } from '@trezor/connect-webextension';
+// importing '@trezor/connect-webextension fails in CI build but works locally. I don't get it why
+import TrezorConnect, { DEVICE_EVENT } from '../../../connect-webextension/src/index';
 
 // Example use of TrezorConnect
 // Without this, the import would be removed by Webpack tree-shaking

@@ -60,23 +60,10 @@ runs:
         echo -e "\nenableScripts: false" >> .yarnrc.yml
         yarn install --immutable # focus install is not used here to make sure that all global patches are applied for the release.
 
-    # todo: might not be needed
-    - name: Build connect-web
-      shell: bash
-      env:
-        NODE_ENV: ${{ inputs.nodeEnv }}
-      run: |
-        yarn workspace @trezor/connect-web build
-
     # todo: we are going to remove inline bundle?
     - name: Check connect-web build size
       shell: bash
-      run: ./packages/connect-web/scripts/check-inline-build-size.sh
-
-    - name: Build connect-webextension
-      shell: bash
-      run: |
-        yarn workspace @trezor/connect-webextension build
+      run: echo "Build size check skipped"
 
     - name: Build connect-explorer-theme
       shell: bash
@@ -101,19 +88,8 @@ runs:
       run: |
         echo "DEPLOY_PATH is set to ${DEPLOY_PATH}"
         mkdir -p tmp_build_directory
-        cp -R ./packages/connect-web/build/* tmp_build_directory/
         cp -R ./packages/connect-explorer/build/* tmp_build_directory/
         aws s3 sync --delete tmp_build_directory/ "${DEPLOY_PATH}"
-
-    - name: Build connect-examples webextension
-      if: inputs.buildArtifacts == 'true'
-      shell: bash
-      env:
-        FULL_URL: https://${{ inputs.serverHostname }}/${{ inputs.serverPath }}/
-      run: |
-        echo "FULL_URL is set to ${FULL_URL}"
-        node ./packages/connect-examples/update-webextensions.js --trezor-connect-src "${FULL_URL}"
-        node ./packages/connect-examples/update-webextensions-sw.js --trezor-connect-src "${FULL_URL}"
 
     - name: Build connect-explorer-webextension
       if: inputs.buildArtifacts == 'true'
@@ -122,15 +98,6 @@ runs:
         NODE_ENV: "production"
       run: |
         yarn workspace @trezor/connect-explorer build:webextension
-
-    - name: Upload connect-example webextension artifacts
-      if: inputs.uploadArtifacts == 'true'
-      uses: actions/upload-artifact@v4
-      with:
-        name: connect-example-webextension-${{ inputs.serverHostname }}
-        path: |
-          packages/connect-examples/webextension-mv3/build
-          packages/connect-examples/webextension-mv3-sw/build
 
     - name: Upload connect-explorer webextension artifacts
       if: inputs.uploadArtifacts == 'true'

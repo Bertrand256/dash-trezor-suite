@@ -18,6 +18,10 @@ import { ConnectCallSource } from 'src/components/suite/ConnectCallSource';
 import { ConnectModalBackdrop } from 'src/components/suite/ConnectModalBackdrop';
 import { WalletLabeling } from 'src/components/suite/labeling';
 import { useDevice, useDispatch, useSelector } from 'src/hooks/suite';
+import {
+    closeWebextensionPopup,
+    isWebextensionMode,
+} from 'src/support/suite/useConnectPopupWebextension';
 
 export const ConnectAddressConfirmation = () => {
     const { device } = useDevice();
@@ -35,6 +39,11 @@ export const ConnectAddressConfirmation = () => {
             getPermissionDeferred()?.reject(TypedError('Method_Cancel'));
         }
         dispatch(connectPopupActions.finishCall());
+
+        // Close the webextension popup if this is a webextension call
+        if (isWebextensionMode) {
+            closeWebextensionPopup();
+        }
     };
     const isLoading =
         popupCall?.state === 'address-confirmation' &&

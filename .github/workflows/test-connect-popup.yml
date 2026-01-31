@@ -21,6 +21,7 @@ on:
       - "packages/connect-explorer-theme/**"
       - ".github/actions/release-connect/**"
       - ".github/workflows/build-connect.yml"
+      - ".github/workflows/test-connect-popup.yml"
   workflow_dispatch:
 
 concurrency:
