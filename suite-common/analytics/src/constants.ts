@@ -17,4 +17,5 @@ export enum EventType {
     DeviceConnectionDeviceFound = 'device-connection/device-found',
     DeviceConnectionDevicePaired = 'device-connection/device-paired',
     DeviceConnectionDeviceConfirmation = 'device-connection/device-confirmation',
+    CoinDiscovery = 'coin-discovery',
 }

@@ -13,3 +13,4 @@ export { walletConnectPairedEvent } from './walletConnectPairedEvent';
 export { walletConnectProposalApprovedEvent } from './walletConnectProposalApprovedEvent';
 export { walletConnectProposalEvent } from './walletConnectProposalEvent';
 export { walletConnectProposalRejectedEvent } from './walletConnectProposalRejectedEvent';
+export { coinDiscoveryEvent } from './coinDiscoveryEvent';

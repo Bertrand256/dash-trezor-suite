@@ -1,8 +1,26 @@
-import { createThunk } from '@suite-common/redux-utils';
-import { AcquiredDevice, AuthorizedDevice, TrezorDevice } from '@suite-common/suite-types';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+
+import { EventType } from '@suite-common/analytics';
+import {
+    AnyAction,
+    ExtraDependencies,
+    SuiteCompatibleThunk,
+    createThunk,
+} from '@suite-common/redux-utils';
+import {
+    AcquiredDevice,
+    AuthorizedDevice,
+    TrezorDevice,
+    TrezorDeviceWithState,
+} from '@suite-common/suite-types';
 import { getNewInstanceNumber } from '@suite-common/suite-utils';
-import { Bip43Path, TrezorConnectBackendType } from '@suite-common/wallet-config';
-import { DiscoveryStatus } from '@suite-common/wallet-types';
+import {
+    Bip43Path,
+    NetworkSymbol,
+    TrezorConnectBackendType,
+    isNetworkSymbol,
+} from '@suite-common/wallet-config';
+import { DiscoveryStatus, TokenSymbol, toTokenAddress } from '@suite-common/wallet-types';
 import TrezorConnect, {
     AccountInfo,
     BundleProgress,
@@ -12,6 +30,7 @@ import TrezorConnect, {
     UI,
 } from '@trezor/connect';
 import { DiscoverAccountsProgress } from '@trezor/connect/src/types/api/discoverAccounts';
+import { typedObjectEntries } from '@trezor/utils';
 
 import { DISCOVERY_MODULE_PREFIX, discoveryActions } from './discoveryActions';
 import { isDiscoveryInProgress, selectDiscoveryByDevicePath } from './discoverySelectors';
@@ -233,6 +252,79 @@ const applyDeviceStateErrorThunk = createThunk(
     },
 );
 
+type DiscoverdAccountsInfo = ReturnType<typeof transformProgressEventData>;
+
+const completeDiscovery = (
+    devicePath: DeviceUniquePath,
+    deviceState: TrezorDeviceWithState['state'],
+    params: {
+        discoveredAccounts: DiscoverdAccountsInfo[];
+    },
+    {
+        analytics,
+        dispatch,
+        fetchAndSaveMetadata,
+        getState,
+    }: {
+        getState: () => any;
+        dispatch: ThunkDispatch<any, ExtraDependencies, AnyAction>;
+        fetchAndSaveMetadata: SuiteCompatibleThunk<StaticSessionId>;
+        analytics: ExtraDependencies['services']['analytics'];
+    },
+) => {
+    dispatch(discoveryActions.updateDiscovery({ status: 'complete' }, devicePath));
+    dispatch(fetchAndSaveMetadata(deviceState.staticSessionId));
+    dispatch(deviceActions.setDiscovered(deviceState.staticSessionId, true));
+
+    const discovery = selectDiscoveryByDevicePath(getState(), devicePath);
+    if (!discovery) {
+        return;
+    }
+
+    const discoveryPerSymbol = params.discoveredAccounts.reduce<
+        Record<NetworkSymbol, DiscoverdAccountsInfo[]>
+    >(
+        (agg, accountDiscovery) => {
+            agg[accountDiscovery.accountPayload.symbol] = (
+                agg[accountDiscovery.accountPayload.symbol] ?? []
+            ).concat([accountDiscovery]);
+
+            return agg;
+        },
+        {} as Record<NetworkSymbol, DiscoverdAccountsInfo[]>,
+    );
+
+    typedObjectEntries(discoveryPerSymbol).forEach(([symbol, discoveredAccounts]) => {
+        if (isNetworkSymbol(symbol)) {
+            analytics.report({
+                type: EventType.CoinDiscovery,
+                payload: {
+                    discoveryId: deviceState.staticSessionId,
+                    symbol,
+                    numberOfAccounts: discoveredAccounts.length,
+                    numberOfNonZeroAccounts: discoveredAccounts.filter(
+                        accountDiscovery => !accountDiscovery.accountPayload.accountInfo.empty,
+                    ).length,
+                    tokenSymbols: discoveredAccounts.flatMap(
+                        accountDiscovery =>
+                            accountDiscovery.accountPayload.accountInfo.tokens
+                                ?.map(token => token.symbol)
+                                .filter(
+                                    (tokenSymbol): tokenSymbol is TokenSymbol => !!tokenSymbol,
+                                ) ?? [],
+                    ),
+                    tokenAddresses: discoveredAccounts.flatMap(
+                        accountDiscovery =>
+                            accountDiscovery.accountPayload.accountInfo.tokens?.map(token =>
+                                toTokenAddress(token.contract),
+                            ) ?? [],
+                    ),
+                },
+            });
+        }
+    });
+};
+
 export const runDiscoveryThunk = createThunk(
     `${DISCOVERY_MODULE_PREFIX}/run`,
     async (passedDevice: TrezorDevice, { dispatch, getState, extra }): Promise<void> => {
@@ -346,6 +438,7 @@ export const runDiscoveryThunk = createThunk(
 
             // we do not create empty accounts right away, but store the progress events for later
             const accountQueue: CreateAccountActionProps[] = [];
+            const discoveredAccountPayloads: ReturnType<typeof transformProgressEventData>[] = [];
             const onBundleProgress = (event: ProgressEvent) => {
                 const currentDiscovery = selectDiscoveryByDevicePath(getState(), device.path);
                 if (!currentDiscovery) {
@@ -357,6 +450,8 @@ export const runDiscoveryThunk = createThunk(
                     deviceState.staticSessionId,
                     currentDiscovery,
                 );
+
+                discoveredAccountPayloads.push({ accountPayload, discoveryPayload });
 
                 // no non-empty account encountered and not the last event, enqueue account for postponed creation
                 if (!discoveryPayload.hasLoadedAnyNonEmptyAccount && event.progress !== 100) {
@@ -428,9 +523,19 @@ export const runDiscoveryThunk = createThunk(
             }
 
             if (!isAddingHiddenWallet) {
-                dispatch(discoveryActions.updateDiscovery({ status: 'complete' }, device.path));
-                dispatch(extra.thunks.fetchAndSaveMetadata(deviceState.staticSessionId));
-                dispatch(deviceActions.setDiscovered(deviceState.staticSessionId, true));
+                completeDiscovery(
+                    device.path,
+                    deviceState,
+                    {
+                        discoveredAccounts: discoveredAccountPayloads,
+                    },
+                    {
+                        analytics: extra.services.analytics,
+                        dispatch,
+                        getState,
+                        fetchAndSaveMetadata: extra.thunks.fetchAndSaveMetadata,
+                    },
+                );
 
                 return;
             }
@@ -440,9 +545,19 @@ export const runDiscoveryThunk = createThunk(
             const allAccountsEmpty = result.payload.nonempty === 0;
             // there is at least one account with balance - passphrase is not empty
             if (!allAccountsEmpty) {
-                dispatch(discoveryActions.updateDiscovery({ status: 'complete' }, device.path));
-                dispatch(extra.thunks.fetchAndSaveMetadata(deviceState.staticSessionId));
-                dispatch(deviceActions.setDiscovered(deviceState.staticSessionId, true));
+                completeDiscovery(
+                    device.path,
+                    deviceState,
+                    {
+                        discoveredAccounts: discoveredAccountPayloads,
+                    },
+                    {
+                        analytics: extra.services.analytics,
+                        dispatch,
+                        getState,
+                        fetchAndSaveMetadata: extra.thunks.fetchAndSaveMetadata,
+                    },
+                );
 
                 // finish here, device state was applied from bundle progress handler
                 return;
@@ -497,9 +612,19 @@ export const runDiscoveryThunk = createThunk(
                 }),
             );
 
-            dispatch(discoveryActions.updateDiscovery({ status: 'complete' }, device.path));
-            dispatch(extra.thunks.fetchAndSaveMetadata(deviceState.staticSessionId));
-            dispatch(deviceActions.setDiscovered(deviceState.staticSessionId, true));
+            completeDiscovery(
+                device.path,
+                deviceState,
+                {
+                    discoveredAccounts: discoveredAccountPayloads,
+                },
+                {
+                    analytics: extra.services.analytics,
+                    dispatch,
+                    getState,
+                    fetchAndSaveMetadata: extra.thunks.fetchAndSaveMetadata,
+                },
+            );
         } catch (error) {
             dispatch(
                 discoveryActions.updateDiscovery({ status: 'failed', error }, passedDevice.path),

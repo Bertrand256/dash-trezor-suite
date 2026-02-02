@@ -10583,6 +10583,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@suite-common/analytics@workspace:suite-common/analytics"
   dependencies:
+    "@suite-common/wallet-types": "workspace:*"
     react: "npm:19.1.0"
   languageName: unknown
   linkType: soft

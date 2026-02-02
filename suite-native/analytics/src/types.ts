@@ -212,17 +212,6 @@ export type SuiteNativeLegacyAnalyticsEvents =
           };
       }
     | {
-          type: EventType.CoinDiscovery;
-          payload: {
-              discoveryId: string;
-              symbol: NetworkSymbol;
-              numberOfAccounts: number;
-              numberOfNonZeroAccounts: number;
-              tokenSymbols?: TokenSymbol[];
-              tokenAddresses?: TokenAddress[];
-          };
-      }
-    | {
           type: EventType.CoinDiscoveryNewAccount;
           payload: {
               symbol: NetworkSymbol;
