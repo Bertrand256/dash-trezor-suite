@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { DiscordIcon, GitHubIcon } from 'nextra/icons';
 
 import { Icon, IconName } from '@trezor/components';
+import { icons as availableIcons } from '@suite-common/icons/src/icons';
 
 import { Anchor } from './components/anchor';
 import { Flexsearch } from './components/flexsearch';
@@ -178,7 +179,12 @@ export const DEFAULT_THEME: DocsThemeConfig = {
                     gap: '0.5rem',
                 }}
             >
-                {icon && <Icon name={icon as IconName} size={16} color="currentColor" />}
+                {icon &&
+                    (icon in availableIcons ? (
+                        <Icon name={icon as IconName} size={16} color="currentColor" />
+                    ) : (
+                        (console.warn(`Missing icon: ${icon}`), null)
+                    ))}
                 {title}
             </div>
         ),
