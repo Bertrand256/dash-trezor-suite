@@ -77,6 +77,15 @@ export class CoreInSuiteWeb implements ConnectFactoryDependencies<ConnectSetting
     }
 
     private getSuiteUrl() {
+        if (
+            typeof process !== 'undefined' &&
+            typeof process.env !== 'undefined' &&
+            process.env.SUITE_WEB_URL
+        ) {
+            console.log('process.env.SUITE_WEB_URL', process.env.SUITE_WEB_URL);
+            return process.env.SUITE_WEB_URL;
+        }
+
         // todo: we need to control this in a better way. For example 3rd party probably wants to develop against production suite-web
         if (typeof window !== 'undefined' && window.location.origin === 'http://localhost:8088') {
             return 'http://localhost:8000/connect-popup';
