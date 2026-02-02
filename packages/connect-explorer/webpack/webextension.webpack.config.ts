@@ -86,6 +86,9 @@ const config: webpack.Configuration = {
         hints: false,
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env.SUITE_WEB_URL': JSON.stringify(process.env.SUITE_WEB_URL),
+        }),
         new HtmlWebpackPlugin({
             chunks: ['extensionPopup'],
             filename: 'extension-popup.html',
