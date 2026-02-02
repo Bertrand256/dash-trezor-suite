@@ -85,13 +85,10 @@ runs:
 
     - name: Download connect-explorer webextension artifact
       if: inputs.target == 'web'
-      uses: dawidd6/action-download-artifact@v6
+      uses: actions/download-artifact@v4
       with:
-        workflow: test-connect-popup.yml
         name: connect-explorer-webextension-dev.suite.sldev.cz
         path: packages/connect-explorer/build-webextension
-        search_artifacts: true
-        if_no_artifact_found: warn
       continue-on-error: true
 
     - name: Pull Docker Images
@@ -102,20 +99,6 @@ runs:
         echo "::group::Pull Docker Images"
         docker compose pull --quiet ${{ inputs.containers }}
         echo "::endgroup::"
-
-    # aha, this for some reason won't run, permission denied
-    # https://github.com/trezor/trezor-suite/actions/runs/21572507513/job/62154046914?pr=24471#step:3:1869
-    # - name: Await Connect deployment
-    #   uses: kamilchodola/wait-for-workflow-action@1.1.0
-    #   with:
-    #     GITHUB_TOKEN: ${{ inputs.github-token }}
-    #     workflow_id: "test-connect-popup.yml"
-    #     max_wait_minutes: "5"
-    #     interval: "15"
-    #     timeout: "15"
-    #     org_name: "trezor"
-    #     repo_name: "trezor-suite"
-    #     ref: "${{ github.ref }}"
 
     - name: Run Playwright E2E Tests
       shell: bash
