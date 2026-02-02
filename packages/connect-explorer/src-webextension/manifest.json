@@ -11,6 +11,6 @@
     },
     "externally_connectable": {
         "ids": [],
-        "matches": ["https://*.trezor.io/*", "http://localhost/*"]
+        "matches": ["https://*.trezor.io/*", "http://localhost/*", "https://*.suite.sldev.cz/*"]
     }
 }
