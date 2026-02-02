@@ -83,6 +83,8 @@ runs:
         yarn message-system-sign-config 1>/dev/null
         echo "::endgroup::"
 
+    # this is needed only for one test (connectPopupWebextension.test.ts)
+    # so some optimization would be desirable
     - name: Download connect-explorer webextension artifact
       if: inputs.target == 'web'
       uses: actions/download-artifact@v4

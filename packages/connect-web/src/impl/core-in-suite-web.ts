@@ -77,16 +77,19 @@ export class CoreInSuiteWeb implements ConnectFactoryDependencies<ConnectSetting
     }
 
     private getSuiteUrl() {
-        if (
-            typeof process !== 'undefined' &&
-            typeof process.env !== 'undefined' &&
-            process.env.SUITE_WEB_URL
-        ) {
-            console.log('process.env.SUITE_WEB_URL', process.env.SUITE_WEB_URL);
-            return process.env.SUITE_WEB_URL;
+        // __SUITE_WEB_URL__ is set at build time for webextension testing builds
+        // todo: maybe this should be handled somewhere above, maybe in the
+        // end some kind of connectSrc setting still makes sense
+        console.log('Using __SUITE_WEB_URL__:', __SUITE_WEB_URL__);
+
+        if (typeof __SUITE_WEB_URL__ !== 'undefined' && __SUITE_WEB_URL__) {
+            console.log('Using __SUITE_WEB_URL__:', __SUITE_WEB_URL__);
+            return __SUITE_WEB_URL__;
         }
 
-        // todo: we need to control this in a better way. For example 3rd party probably wants to develop against production suite-web
+        // this is for web
+        // todo: the only problem I see here is that a 3rd party when developing locally
+        // on the http://localhost:8088 will not fallback to the the production version of connect-popup
         if (typeof window !== 'undefined' && window.location.origin === 'http://localhost:8088') {
             return 'http://localhost:8000/connect-popup';
         }

@@ -5,6 +5,8 @@ import webpack from 'webpack';
 
 const DIST = path.resolve(__dirname, '../build-webextension');
 
+console.log('========process.env.SUITE_WEB_URL========', process.env.__SUITE_WEB_URL__);
+
 const config: webpack.Configuration = {
     target: 'web',
     mode: 'production',
@@ -87,7 +89,7 @@ const config: webpack.Configuration = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.SUITE_WEB_URL': JSON.stringify(process.env.SUITE_WEB_URL),
+            __SUITE_WEB_URL__: JSON.stringify(process.env.__SUITE_WEB_URL__),
         }),
         new HtmlWebpackPlugin({
             chunks: ['extensionPopup'],

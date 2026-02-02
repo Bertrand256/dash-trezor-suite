@@ -17,7 +17,8 @@ const commitHash = execSync('git rev-parse HEAD').toString().trim();
 
 export default withNextra({
     basePath: process.env.CONNECT_EXPLORER_BASE_PATH,
-    assetPrefix: process.env.CONNECT_EXPLORER_ASSET_PREFIX,
+    // todo: looks not use
+    // assetPrefix: process.env.CONNECT_EXPLORER_ASSET_PREFIX,
     trailingSlash: true,
     output: 'export',
     images: {
