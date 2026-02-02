@@ -84,7 +84,7 @@ export class CoreInSuiteWeb implements ConnectFactoryDependencies<ConnectSetting
 
         if (typeof __SUITE_WEB_URL__ !== 'undefined' && __SUITE_WEB_URL__) {
             console.log('Using __SUITE_WEB_URL__:', __SUITE_WEB_URL__);
-            return __SUITE_WEB_URL__;
+            return `${__SUITE_WEB_URL__}/connect-popup`;
         }
 
         // this is for web
