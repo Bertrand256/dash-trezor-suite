@@ -52,7 +52,7 @@ export abstract class AbstractMessageChannel<
 
     abstract disconnect(): void;
 
-    private readonly handshakeMaxRetries = 5;
+    private readonly handshakeMaxRetries = 10;
     private readonly handshakeRetryInterval = 2000;
     private handshakeFinished: Deferred<void> | undefined;
 
