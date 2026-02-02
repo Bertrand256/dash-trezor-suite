@@ -77,11 +77,14 @@ export class CoreInSuiteWeb implements ConnectFactoryDependencies<ConnectSetting
     }
 
     private getSuiteUrl() {
-        // // todo: we need to control this in a better way. For example 3rd party probably wants to develop against production suite-web
-        if (window.location.origin === 'http://localhost:8088') {
+        // todo: we need to control this in a better way. For example 3rd party probably wants to develop against production suite-web
+        if (typeof window !== 'undefined' && window.location.origin === 'http://localhost:8088') {
             return 'http://localhost:8000/connect-popup';
         }
-        if (window.location.href.startsWith('https://dev.suite.sldev.cz/connect/')) {
+        if (
+            typeof window !== 'undefined' &&
+            window.location.href.startsWith('https://dev.suite.sldev.cz/connect/')
+        ) {
             const branch = window.location.href
                 .replace('https://dev.suite.sldev.cz/connect/', '')
                 .split('/')[0];
