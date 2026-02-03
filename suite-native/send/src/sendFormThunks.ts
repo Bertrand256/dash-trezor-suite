@@ -34,6 +34,7 @@ import {
 } from '@suite-native/transaction-management';
 import { BlockbookTransaction } from '@trezor/blockchain-link-types';
 import { Success } from '@trezor/connect';
+import { typedObjectKeys } from '@trezor/utils';
 
 import { SEND_MODULE_PREFIX } from './constants';
 
@@ -127,7 +128,7 @@ export const removeSendFormDraftsSupportingAmountUnitThunk = createThunk(
     (_, { dispatch, getState }) => {
         const sendFormDrafts = selectSendFormDrafts(getState());
         // Draft keys may include tokenContract, but no token networks use amount-unit, so it's fine (for now).
-        const accountKeys = Object.keys(sendFormDrafts);
+        const accountKeys = typedObjectKeys(sendFormDrafts);
 
         accountKeys.forEach(accountKey => {
             const account = selectAccountByKey(getState(), accountKey);

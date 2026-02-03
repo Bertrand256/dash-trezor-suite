@@ -13397,6 +13397,7 @@ __metadata:
     "@suite-native/transaction-management": "workspace:*"
     "@trezor/blockchain-link-types": "workspace:*"
     "@trezor/connect": "workspace:*"
+    "@trezor/utils": "workspace:*"
   languageName: unknown
   linkType: soft
 

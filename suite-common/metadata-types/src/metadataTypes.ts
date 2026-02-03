@@ -188,6 +188,9 @@ export abstract class AbstractMetadataProvider {
 
 export type AccountOutputLabels = { [index: string]: MetadataItem };
 
+/**
+ * @deprecated Legacy Labeling
+ */
 export interface AccountLabels {
     accountLabel?: MetadataItem;
     outputLabels: { [txid: string]: AccountOutputLabels };
