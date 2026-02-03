@@ -5,15 +5,12 @@ import { ButtonGroup, Dropdown, DropdownMenuItemProps, IconName } from '@trezor/
 import { spacingsPx } from '@trezor/theme';
 import { hasNetworkFeatures } from '@suite-common/wallet-utils';
 
-import { WalletParams } from 'src/types/wallet';
 import { Translation } from 'src/components/suite/Translation';
 import { useDevice, useDispatch, useSelector } from 'src/hooks/suite';
 import { goto } from 'src/actions/suite/routerActions';
 import { AppNavigationTooltip } from 'src/components/suite/AppNavigation/AppNavigationTooltip';
 import { selectSelectedAccount } from 'src/reducers/wallet/selectedAccountReducer';
-import { TradeActions } from 'src/components/suite/layouts/SuiteLayout/PageHeader/TradeActions';
 import { HeaderActionButton } from 'src/components/suite/layouts/SuiteLayout/PageHeader/HeaderActionButton';
-import { selectWindowSize } from 'src/reducers/suite/windowReducer';
 
 const Container = styled.div`
     display: flex;
@@ -32,15 +29,10 @@ type ActionItem = {
 
 export const HeaderActions = () => {
     const account = useSelector(selectSelectedAccount);
-    const routerParams = useSelector(state => state.router.params) as WalletParams;
     const selectedAccount = useSelector(state => state.wallet.selectedAccount);
 
     const dispatch = useDispatch();
     const { device } = useDevice();
-    const layoutSize = useSelector(selectWindowSize);
-    const showCoinmarketButtons = layoutSize === 'XLARGE';
-
-    const accountType = account?.accountType || routerParams?.accountType || '';
 
     const goToWithAnalytics = (...[routeName, options]: Parameters<typeof goto>) => {
         if (account?.symbol) {
@@ -63,20 +55,10 @@ export const HeaderActions = () => {
             // show dots when acc missing as they are hidden only in case of XRP
             isHidden: account ? !hasNetworkFeatures(account, 'sign-verify') : false,
         },
-        {
-            id: 'wallet-coinmarket-buy',
-            callback: () => {
-                goToWithAnalytics('wallet-coinmarket-buy', { preserveParams: true });
-            },
-            title: <Translation id="TR_COINMARKET_BUY_AND_SELL" />,
-            icon: 'currencyCircleDollar',
-            isHidden: showCoinmarketButtons,
-        },
     ];
 
     const visibleAdditionalActions = additionalActions?.filter(action => !action.isHidden);
 
-    const isCoinmarketAvailable = !['coinjoin'].includes(accountType);
     const isAccountLoading = selectedAccount.status === 'loading';
 
     const isDeviceConnected = device?.connected && device?.available;
@@ -104,10 +86,6 @@ export const HeaderActions = () => {
                         ]}
                     />
                 </AppNavigationTooltip>
-            )}
-
-            {isCoinmarketAvailable && (
-                <TradeActions selectedAccount={selectedAccount} hideBuyAndSellBelowDesktop />
             )}
 
             <AppNavigationTooltip>

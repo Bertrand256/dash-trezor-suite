@@ -8,7 +8,6 @@ import { spacingsPx, zIndices } from '@trezor/theme';
 import { useSelector } from 'src/hooks/suite';
 import { selectSelectedAccount } from 'src/reducers/wallet/selectedAccountReducer';
 import { selectIsAccountTabPage, selectRouteName } from 'src/reducers/suite/routerReducer';
-import { TradeActions } from 'src/components/suite/layouts/SuiteLayout/PageHeader/TradeActions';
 import { HEADER_HEIGHT } from 'src/constants/suite/layout';
 
 import { HeaderActions } from './HeaderActions';
@@ -49,7 +48,6 @@ export const PageHeader = ({ backRoute, children }: PageHeaderProps) => {
     ) : (
         <Container>
             <PageName backRoute={backRoute} />
-            {routeName === 'suite-index' && <TradeActions />}
             {!!selectedAccount && isAccountTabPage && <HeaderActions />}
         </Container>
     );
