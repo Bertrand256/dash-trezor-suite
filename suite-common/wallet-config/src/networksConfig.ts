@@ -535,7 +535,7 @@ export const networks = {
         bip43Path: "m/44'/1'/i'",
         decimals: 8,
         testnet: true,
-        explorer: getExplorerUrls('https://trezor-testnet1.dash-masternode-tool.org', 'bitcoin'),
+        explorer: getExplorerUrls('https://trezor-dash-testnet1.dash-masternode-tool.org', 'bitcoin'),
         features: ['sign-verify'],
         backendTypes: ['blockbook'],
         accountTypes: {},
