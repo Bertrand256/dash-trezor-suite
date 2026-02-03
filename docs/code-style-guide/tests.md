@@ -2,11 +2,11 @@
 
 ## Reading
 
-- Avoid testing implementation details - https://kentcdodds.com/blog/testing-implementation-details
+- Avoid testing implementation details: https://kentcdodds.com/blog/testing-implementation-details
 
 ## Translations in tests
 
-Copy in the app may change as translators and copywriters update the strings in Crowdin, independently from developers. To avoid failing tests in Crowdin sync PRs, get a string by its translation ID instead of using the literal text.
+Text in the app may change as translators and copywriters update strings in Crowdin, independently of developers. To avoid failing tests in Crowdin sync PRs, get the string by its translation ID instead of using the literal text.
 
 ```ts
 // bad
@@ -31,31 +31,22 @@ expect(screen.getByText(getTranslation(
 
 ### Typing
 
-All fixtures and mocks shall be typed. Using `as` to cast some uncompleted object is only last resort.
-
-Although it may produce some boilerplate code, the fixtures shall be declaratively typed. In case the type is changed, without typed fixtures, this will produce a hardly fixable failed test instead of easily fixable type-error.
+All fixtures and mocks shall be typed and declaratively defined; using `as` to cast an incomplete object is only a last resort. This may add boilerplate, but it ensures type changes surface as type errors instead of hard-to-fix failing tests.
 
 ### Reusability
 
-Ideally, shared mocks shall not be needed. Dependencies shall be that small and clear, that tests shall only need to
-mock what they are testing and nothing else. Thus, reusable mocks shall not be needed.
+To keep things simple, avoid creating complex mocks to be shared between multiple test suites. In case you do reuse a mock, keep it generic and non-opinionated.
 
-However, we have legacy code, or it's too complicated (costly) to make perfect code and having a shared mock is useful.
-
-We reuse mocks to not repeat ourselves in test with details, that are not relevant to the test. For that, they need to be very generic and non-opinionated.
-
-- Shared mocks shall always be reusable without complicated re-configuration.
-- Test shall not relay on default in this mocks.
-- Change in a shared mock shall not cause any test to fail.
+Simple test: change in shared mock SHALL NOT break existing tests (or make fixes trivial).
 
 ### Organization & Naming Convention
 
-- Mock/fixture files shall be places in the same package where the subject to be mock resides.
-- Putting it into type package is ok. Mock for `Device` shall be in the same package where the _type declaration_ is
+- Mock/fixture files shall be placed in the same package where the subject being mocked resides.
+- Putting them in a types package is OK. A mock for `Device` shall be in the same package where the _type declaration_ is located.
 - Use `mock` prefix to distinguish it from type or original implementation. `Device` => `mockDevice`.
-- Prefer factories to static object. Factory is better as it can provide API to create a mock with desired changes. (`mockDevice(data: Partial<Device>): Device => {...}`)
-- Put mocks into `mocks` directory into the same package
-- Export them from package in separate file. In this example it will be: `import { mockDevice } from '@common/device-types/mocks'`
+- Prefer factories over static objects. A factory is better because it can provide an API to create a mock with desired changes. (`mockDevice(data: Partial<Device>): Device => ({ ... })`)
+- Put mocks into a `mocks` directory within the same package.
+- Export them from the package via a separate file. In this example: `import { mockDevice } from '@common/device-types/mocks'`
     ```
     device-types
       - mocks
@@ -64,4 +55,4 @@ We reuse mocks to not repeat ourselves in test with details, that are not releva
       - src
          - device.ts
     ```
-- Name the file, same as the export mock.
+- Name the file the same as the exported mock.
