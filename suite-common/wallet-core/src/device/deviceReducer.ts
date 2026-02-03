@@ -153,7 +153,7 @@ const connectDevice = (
     if (!device.features) {
         const knownDevices = draft.devices.filter(
             ({ descriptor }) =>
-                descriptor.id &&
+                descriptor?.id &&
                 descriptor.id === device.descriptor?.id &&
                 descriptor.apiType === device.descriptor?.apiType,
         );
