@@ -105,7 +105,7 @@ export default defineMessages({
     },
     TR_RECONNECT_DEVICE_DESCRIPTION_DESKTOP: {
         defaultMessage:
-            "If closing tabs and reopening Dash Dash Trezor Suite doesn't help, try reconnecting your Trezor.",
+            "If closing tabs and reopening Dash Trezor Suite doesn't help, try reconnecting your Trezor.",
         id: 'TR_RECONNECT_DEVICE_DESCRIPTION_DESKTOP',
     },
     TR_ACQUIRE_DEVICE_TITLE: {
@@ -1541,12 +1541,12 @@ export default defineMessages({
         id: 'TR_ALLOW_ANALYTICS_DESCRIPTION',
     },
     TR_ALLOW_AUTOMATIC_SUITE_UPDATES: {
-        defaultMessage: 'Automatic Dash Dash Trezor Suite updates',
+        defaultMessage: 'Automatic Dash Trezor Suite updates',
         id: 'TR_ALLOW_AUTOMATIC_SUITE_UPDATES',
     },
     TR_ALLOW_AUTOMATIC_SUITE_UPDATES_DESCRIPTION: {
         defaultMessage:
-            "Automatically download the latest version of Dash Dash Trezor Suite in the background and install it when restarting the app. This ensures you're always up-to-date with the latest features and security patches. Updates occur without requiring your permission.",
+            "Automatically download the latest version of Dash Trezor Suite in the background and install it when restarting the app. This ensures you're always up-to-date with the latest features and security patches. Updates occur without requiring your permission.",
         id: 'TR_ALLOW_AUTOMATIC_SUITE_UPDATES_DESCRIPTION',
     },
     TR_ADDRESS_DISPLAY: {
@@ -2704,7 +2704,7 @@ export default defineMessages({
     TR_LOG_DESCRIPTION: {
         id: 'TR_LOG_DESCRIPTION',
         defaultMessage:
-            'This log contains essential technical information about Dash Dash Trezor Suite and may be needed when contacting Trezor Support.',
+            'This log contains essential technical information about Dash Trezor Suite and may be needed when contacting Trezor Support.',
     },
     TR_LTC_ADDRESS_INFO: {
         defaultMessage:
@@ -3161,7 +3161,7 @@ export default defineMessages({
         id: 'TR_START',
     },
     TR_SUITE_VERSION: {
-        defaultMessage: 'Dash Dash Trezor Suite version',
+        defaultMessage: 'Dash Trezor Suite version',
         id: 'TR_SUITE_VERSION',
     },
     TR_SWITCH_DEVICE: {
@@ -3472,7 +3472,7 @@ export default defineMessages({
     TR_ACCOUNT_TYPE_BIP84_DESC: {
         id: 'TR_ACCOUNT_TYPE_BIP84_DESC',
         defaultMessage:
-            'SegWit is the default address type in Dash Dash Trezor Suite. It reduces transaction size, boosts capacity, and enhances scalability while enabling smaller transaction fees, but may not work with some older services.',
+            'SegWit is the default address type in Dash Trezor Suite. It reduces transaction size, boosts capacity, and enhances scalability while enabling smaller transaction fees, but may not work with some older services.',
     },
     TR_ACCOUNT_TYPE_BIP86_DESC: {
         id: 'TR_ACCOUNT_TYPE_BIP86_DESC',
@@ -3800,7 +3800,7 @@ export default defineMessages({
     },
     TR_QUICK_ACTION_TOOLTIP_TREZOR_SUITE: {
         id: 'TR_QUICK_ACTION_TOOLTIP_TREZOR_SUITE',
-        defaultMessage: 'Dash Dash Trezor Suite',
+        defaultMessage: 'Dash Trezor Suite',
     },
     TR_QUICK_ACTION_TOOLTIP_TREZOR_DEVICE: {
         id: 'TR_QUICK_ACTION_TOOLTIP_TREZOR_DEVICE',
@@ -3828,15 +3828,15 @@ export default defineMessages({
     },
     TR_QUICK_ACTION_UPDATE_POPOVER_APP_UPDATE_AVAILABLE: {
         id: 'TR_QUICK_ACTION_UPDATE_POPOVER_APP_UPDATE_AVAILABLE',
-        defaultMessage: 'Dash Dash Trezor Suite update now available',
+        defaultMessage: 'Dash Trezor Suite update now available',
     },
     TR_QUICK_ACTION_UPDATE_POPOVER_APP_HAS_BEEN_UPDATED: {
         id: 'TR_QUICK_ACTION_UPDATE_POPOVER_APP_HAS_BEEN_UPDATED',
-        defaultMessage: "Dash Dash Trezor Suite's been updated.",
+        defaultMessage: "Dash Trezor Suite's been updated.",
     },
     TR_QUICK_ACTION_UPDATE_POPOVER_APP_DOWNLOADED: {
         id: 'TR_QUICK_ACTION_UPDATE_POPOVER_APP_DOWNLOADED',
-        defaultMessage: 'Dash Dash Trezor Suite downloaded a new update.',
+        defaultMessage: 'Dash Trezor Suite downloaded a new update.',
     },
     TR_QUICK_ACTION_UPDATE_POPOVER_TREZOR_UPDATE_AVAILABLE: {
         id: 'TR_QUICK_ACTION_UPDATE_POPOVER_TREZOR_UPDATE_AVAILABLE',
@@ -3926,7 +3926,7 @@ export default defineMessages({
     TR_TOR_DESCRIPTION: {
         id: 'TR_TOR_DESCRIPTION',
         defaultMessage:
-            "Route all of Dash Dash Trezor Suite's traffic through the Tor network, increasing your privacy and security. It may take some time for Tor to load and establish a connection.",
+            "Route all of Dash Trezor Suite's traffic through the Tor network, increasing your privacy and security. It may take some time for Tor to load and establish a connection.",
     },
     TR_TOR_REMOVE_ONION_AND_DISABLE: {
         id: 'TR_TOR_REMOVE_ONION_AND_DISABLE',
@@ -4231,7 +4231,7 @@ export default defineMessages({
     },
     MODAL_ADD_ACCOUNT_COINJOIN_DESKTOP_ONLY: {
         id: 'MODAL_ADD_ACCOUNT_COINJOIN_DESKTOP_ONLY',
-        defaultMessage: 'Coinjoin account only available on the Dash Dash Trezor Suite desktop app.',
+        defaultMessage: 'Coinjoin account only available on the Dash Trezor Suite desktop app.',
     },
     TR_DEVICE_IN_RECOVERY_MODE: {
         id: 'TR_DEVICE_IN_RECOVERY_MODE',
@@ -4728,7 +4728,7 @@ export default defineMessages({
     },
     TR_GO_TO_SUITE: {
         id: 'TR_GO_TO_SUITE',
-        defaultMessage: 'Go to Dash Dash Trezor Suite',
+        defaultMessage: 'Go to Dash Trezor Suite',
     },
     TR_ONBOARDING_CREATE_NEW_WALLET: {
         id: 'TR_ONBOARDING_CREATE_NEW_WALLET',
@@ -4858,7 +4858,7 @@ export default defineMessages({
     TR_ONBOARDING_NEW_FW_DESCRIPTION: {
         id: 'TR_ONBOARDING_NEW_FW_DESCRIPTION',
         defaultMessage:
-            'New firmware is now available. Update your device now or do it in Dash Dash Trezor Suite once you have finished setting up your device.',
+            'New firmware is now available. Update your device now or do it in Dash Trezor Suite once you have finished setting up your device.',
     },
     TR_FIRMWARE_NEW_FW_DESCRIPTION: {
         id: 'TR_FIRMWARE_NEW_FW_DESCRIPTION',
@@ -4936,7 +4936,7 @@ export default defineMessages({
     TR_EXPERIMENTAL_TOR_EXTERNAL_DESCRIPTION: {
         id: 'TR_EXPERIMENTAL_TOR_EXTERNAL_DESCRIPTION',
         defaultMessage:
-            'Connect to Tor daemon running on port 9050, rather than using the one bundled with Dash Dash Trezor Suite.',
+            'Connect to Tor daemon running on port 9050, rather than using the one bundled with Dash Trezor Suite.',
     },
     TR_EXPERIMENTAL_TOR_EXTERNAL_PORT: {
         id: 'TR_EXPERIMENTAL_TOR_EXTERNAL_PORT',
@@ -4945,7 +4945,7 @@ export default defineMessages({
     TR_EXPERIMENTAL_TOR_EXTERNAL_PORT_DESCRIPTION: {
         id: 'TR_EXPERIMENTAL_TOR_EXTERNAL_PORT_DESCRIPTION',
         defaultMessage:
-            'Use Tor daemon running in an external process instead of the one bundled with Dash Dash Trezor Suite.',
+            'Use Tor daemon running in an external process instead of the one bundled with Dash Trezor Suite.',
     },
     TR_EARLY_ACCESS: {
         id: 'TR_EARLY_ACCESS',
@@ -4997,7 +4997,7 @@ export default defineMessages({
     TR_EARLY_ACCESS_ENABLE_CONFIRM_CHECK: {
         id: 'TR_EARLY_ACCESS_ENABLE_CONFIRM_CHECK',
         defaultMessage:
-            'I understand this allows me to test pre-release software, which may contain errors that affect the normal operation of Dash Dash Trezor Suite.',
+            'I understand this allows me to test pre-release software, which may contain errors that affect the normal operation of Dash Trezor Suite.',
     },
     TR_EARLY_ACCESS_ENABLE_CONFIRM_TOOLTIP: {
         id: 'TR_EARLY_ACCESS_ENABLE_CONFIRM_TOOLTIP',
@@ -5027,7 +5027,7 @@ export default defineMessages({
     TR_EARLY_ACCESS_LEFT_DESCRIPTION: {
         id: 'TR_EARLY_ACCESS_LEFT_DESCRIPTION',
         defaultMessage:
-            'To downgrade to the latest stable release of Dash Dash Trezor Suite, click "Download stable" and reinstall the app.',
+            'To downgrade to the latest stable release of Dash Trezor Suite, click "Download stable" and reinstall the app.',
     },
     TR_EARLY_ACCESS_SKIP_REINSTALL: {
         id: 'TR_EARLY_ACCESS_SKIP_REINSTALL',
@@ -5063,7 +5063,7 @@ export default defineMessages({
     LOG_DESCRIPTION: {
         id: 'LOG_DESCRIPTION',
         defaultMessage:
-            'This log contains essential technical information about Dash Dash Trezor Suite and may be needed when contacting Trezor Support.',
+            'This log contains essential technical information about Dash Trezor Suite and may be needed when contacting Trezor Support.',
     },
     TR_RESTORE_EXISTING_WALLET: {
         id: 'TR_RESTORE_EXISTING_WALLET',
@@ -5843,11 +5843,11 @@ export default defineMessages({
     SETTINGS_ADV_COIN_BLOCKBOOK_DESCRIPTION: {
         id: 'SETTINGS_ADV_COIN_BLOCKBOOK_DESCRIPTION',
         defaultMessage:
-            'Dash Dash Trezor Suite uses Trezor Blockbook for the wallet backend. You can also use your own custom blockbook.',
+            'Dash Trezor Suite uses Trezor Blockbook for the wallet backend. You can also use your own custom blockbook.',
     },
     SETTINGS_ADV_COIN_BLOCKFROST_DESCRIPTION: {
         id: 'SETTINGS_ADV_COIN_BLOCKFROST_DESCRIPTION',
-        defaultMessage: 'Dash Dash Trezor Suite uses Blockfrost websocket-link for the wallet backend.',
+        defaultMessage: 'Dash Trezor Suite uses Blockfrost websocket-link for the wallet backend.',
     },
     SETTINGS_ADV_COIN_URL_INPUT_PLACEHOLDER: {
         id: 'SETTINGS_ADV_COIN_URL_INPUT_PLACEHOLDER',
@@ -6061,7 +6061,7 @@ export default defineMessages({
     },
     TR_FEEDBACK_ANALYTICS_ITEM_APP: {
         id: 'TR_FEEDBACK_ANALYTICS_ITEM_APP',
-        defaultMessage: 'Dash Dash Trezor Suite version',
+        defaultMessage: 'Dash Trezor Suite version',
     },
     TR_FEEDBACK_CATEGORY_SELECT_PLACEHOLDER: {
         id: 'TR_FEEDBACK_CATEGORY_SELECT_PLACEHOLDER',
@@ -6224,7 +6224,7 @@ export default defineMessages({
     },
     TR_UPDATE_MODAL_RESTART_NEEDED: {
         id: 'TR_UPDATE_MODAL_RESTART_NEEDED',
-        defaultMessage: 'This will restart Dash Dash Trezor Suite.',
+        defaultMessage: 'This will restart Dash Trezor Suite.',
     },
     SETTINGS_UPDATE_CHECKING: {
         id: 'SETTINGS_UPDATE_CHECKING',
@@ -6317,7 +6317,7 @@ export default defineMessages({
     TR_COLOR_SCHEME_DESCRIPTION: {
         id: 'TR_COLOR_SCHEME_DESCRIPTION',
         defaultMessage:
-            'Choose whether Dash Dash Trezor Suite uses dark-colored elements on a light background or light-colored elements on a dark background.',
+            'Choose whether Dash Trezor Suite uses dark-colored elements on a light background or light-colored elements on a dark background.',
     },
     TR_COLOR_SCHEME_DARK: {
         id: 'TR_COLOR_SCHEME_DARK',
@@ -6613,7 +6613,7 @@ export default defineMessages({
     TR_SUITE_META_DESCRIPTION: {
         id: 'TR_SUITE_META_DESCRIPTION',
         defaultMessage:
-            'New desktop & browser app for Trezor hardware wallets. Dash Dash Trezor Suite brings significant improvements across our three key pillars of usability, security, and privacy.',
+            'New desktop & browser app for Trezor hardware wallets. Dash Trezor Suite brings significant improvements across our three key pillars of usability, security, and privacy.',
     },
     TR_DATABASE_UPGRADE_BLOCKED: {
         id: 'TR_DATABASE_UPGRADE_BLOCKED',
@@ -7034,12 +7034,12 @@ export default defineMessages({
     TR_ONBOARDING_COINS_STEP_DESCRIPTION: {
         id: 'TR_ONBOARDING_COINS_STEP_DESCRIPTION',
         defaultMessage:
-            'Select which coins to show in Dash Dash Trezor Suite. You can change this setting anytime.',
+            'Select which coins to show in Dash Trezor Suite. You can change this setting anytime.',
     },
     TR_ONBOARDING_COINS_STEP_DESCRIPTION_BITCOIN_ONLY: {
         id: 'TR_ONBOARDING_COINS_STEP_DESCRIPTION_BITCOIN_ONLY',
         defaultMessage:
-            'Select which coins to show in Dash Dash Trezor Suite. You can change this setting anytime.',
+            'Select which coins to show in Dash Trezor Suite. You can change this setting anytime.',
     },
     TR_WHAT_DATA_WE_COLLECT: {
         id: 'TR_WHAT_DATA_WE_COLLECT',
@@ -7119,11 +7119,11 @@ export default defineMessages({
     },
     TR_TROUBLESHOOTING_TIP_SUITE_DESKTOP_TITLE: {
         id: 'TR_TROUBLESHOOTING_TIP_SUITE_DESKTOP_TITLE',
-        defaultMessage: 'Use the Dash Dash Trezor Suite desktop app',
+        defaultMessage: 'Use the Dash Trezor Suite desktop app',
     },
     TR_TROUBLESHOOTING_TIP_SUITE_DESKTOP_DESCRIPTION: {
         id: 'TR_TROUBLESHOOTING_TIP_SUITE_DESKTOP_DESCRIPTION',
-        defaultMessage: 'Run the  <a>Dash Dash Trezor Suite</a> desktop app',
+        defaultMessage: 'Run the  <a>Dash Trezor Suite</a> desktop app',
     },
     TR_TROUBLESHOOTING_TIP_SUITE_DESKTOP_TOGGLE_BRIDGE_TITLE: {
         id: 'TR_TROUBLESHOOTING_TIP_SUITE_DESKTOP_TOGGLE_BRIDGE_TITLE',
@@ -7149,7 +7149,7 @@ export default defineMessages({
     },
     TR_TROUBLESHOOTING_CLOSE_TABS_DESCRIPTION_DESKTOP: {
         defaultMessage:
-            'After closing other browser tabs and windows, try quitting and reopening Dash Dash Trezor Suite.',
+            'After closing other browser tabs and windows, try quitting and reopening Dash Trezor Suite.',
         id: 'TR_TROUBLESHOOTING_CLOSE_TABS_DESCRIPTION_DESKTOP',
     },
     TR_TROUBLESHOOTING_TIP_CABLE_TITLE: {
@@ -7200,7 +7200,7 @@ export default defineMessages({
     },
     TR_SEEDLESS_SETUP_IS_NOT_SUPPORTED_TITLE: {
         id: 'TR_SEEDLESS_SETUP_IS_NOT_SUPPORTED_TITLE',
-        defaultMessage: "Seedless setup isn't supported in Dash Dash Trezor Suite",
+        defaultMessage: "Seedless setup isn't supported in Dash Trezor Suite",
     },
     TR_VERIFYING_PIN: {
         id: 'TR_VERIFYING_PIN',
@@ -7217,7 +7217,7 @@ export default defineMessages({
     TR_SEEDLESS_SETUP_IS_NOT_SUPPORTED_DESCRIPTION: {
         id: 'TR_SEEDLESS_SETUP_IS_NOT_SUPPORTED_DESCRIPTION',
         defaultMessage:
-            "Devices set up in seedless mode can't access Dash Dash Trezor Suite to prevent irreversible coin loss, which can occur if a device is used incorrectly.",
+            "Devices set up in seedless mode can't access Dash Trezor Suite to prevent irreversible coin loss, which can occur if a device is used incorrectly.",
     },
     TR_FORMAT: {
         id: 'TR_FORMAT',
@@ -7362,7 +7362,7 @@ export default defineMessages({
     TR_STAKING_ON_3RD_PARTY_DESCRIPTION: {
         id: 'TR_STAKING_ON_3RD_PARTY_DESCRIPTION',
         defaultMessage:
-            'By staking on a Trezor stake pool you are directly supporting Trezor and the Cardano ecosystem within Dash Dash Trezor Suite.',
+            'By staking on a Trezor stake pool you are directly supporting Trezor and the Cardano ecosystem within Dash Trezor Suite.',
     },
     TR_STAKING_POOL_OVERSATURATED_TITLE: {
         id: 'TR_STAKING_POOL_OVERSATURATED_TITLE',
@@ -7493,7 +7493,7 @@ export default defineMessages({
     TR_CARDANO_WITHDRAW_MODAL_TITLE_DESCRIPTION: {
         id: 'TR_CARDANO_WITHDRAW_MODAL_TITLE_DESCRIPTION',
         defaultMessage:
-            "When withdrawing your rewards, you can choose to support the Cardano ecosystem by delegating your community voting rights. Your votes will be delegated to Five Binaries, the operators of Cardano staking in Dash Dash Trezor Suite. This helps strengthen the network's resilience, sustainability, and community-driven governance. If you prefer, you can easily opt out.",
+            "When withdrawing your rewards, you can choose to support the Cardano ecosystem by delegating your community voting rights. Your votes will be delegated to Five Binaries, the operators of Cardano staking in Dash Trezor Suite. This helps strengthen the network's resilience, sustainability, and community-driven governance. If you prefer, you can easily opt out.",
     },
     TR_CARDANO_WITHDRAW_MODAL_SUB_TITLE: {
         id: 'TR_CARDANO_WITHDRAW_MODAL_SUB_TITLE',
@@ -7708,7 +7708,7 @@ export default defineMessages({
         id: 'TR_TERMS_AND_PRIVACY_CONFIRMATION',
         description: 'Checkbox in coinjoin settings',
         defaultMessage:
-            'I agree to the <trezor>Dash Dash Trezor Suite Terms</trezor> and <coordinator>zkSNACKs Coordinator Terms</coordinator>',
+            'I agree to the <trezor>Dash Trezor Suite Terms</trezor> and <coordinator>zkSNACKs Coordinator Terms</coordinator>',
     },
     TR_CONFIRM_CONDITIONS: {
         id: 'TR_CONFIRM_CONDITIONS',
@@ -8366,7 +8366,7 @@ export default defineMessages({
     },
     TR_DESKTOP_APP_PROMO_HEADING: {
         id: 'TR_DESKTOP_APP_PROMO_HEADING',
-        defaultMessage: 'Get the most out of Dash Dash Trezor Suite',
+        defaultMessage: 'Get the most out of Dash Trezor Suite',
     },
     TR_DESKTOP_APP_PROMO_TEXT: {
         id: 'TR_DESKTOP_APP_PROMO_TEXT',
@@ -8382,7 +8382,7 @@ export default defineMessages({
     },
     TR_MOBILE_APP_PROMO_TEXT_FOOTER: {
         id: 'TR_MOBILE_APP_PROMO_TEXT_FOOTER',
-        defaultMessage: 'Sync & track on your phone with <b>Dash Dash Trezor Suite Lite</b>',
+        defaultMessage: 'Sync & track on your phone with <b>Dash Trezor Suite Lite</b>',
     },
     TR_PROMO_BANNER_DASHBOARD: {
         id: 'TR_PROMO_BANNER_DASHBOARD',
@@ -8991,7 +8991,7 @@ export default defineMessages({
     TR_STAKE_SECURELY_DELEGATE_TO_EVERSTAKE: {
         id: 'TR_STAKE_SECURELY_DELEGATE_TO_EVERSTAKE',
         defaultMessage:
-            'With Dash Dash Trezor Suite, you can easily and securely delegate your {symbol} to the Everstake validator node for staking. Enjoy competitive rewards, rely on a trusted a validator, and retain full ownership of your coins.',
+            'With Dash Trezor Suite, you can easily and securely delegate your {symbol} to the Everstake validator node for staking. Enjoy competitive rewards, rely on a trusted a validator, and retain full ownership of your coins.',
     },
     TR_STAKE_CONSENT_TO_STAKING_WITH_EVERSTAKE: {
         id: 'TR_STAKE_CONSENT_TO_STAKING_WITH_EVERSTAKE',
@@ -9100,7 +9100,7 @@ export default defineMessages({
     TR_DEVICE_SETTINGS_DEFAULT_WALLET_LOADING_DESC: {
         id: 'TR_DEVICE_SETTINGS_DEFAULT_WALLET_LOADING_DESC',
         defaultMessage:
-            'Set "Standard" or "Passphrase" as your default wallet option when Dash Dash Trezor Suite starts. Selecting "Passphrase" displays the passphrase entry box when you open the app. ',
+            'Set "Standard" or "Passphrase" as your default wallet option when Dash Trezor Suite starts. Selecting "Passphrase" displays the passphrase entry box when you open the app. ',
     },
     TR_DEFAULT_WALLET_LOADING_STANDARD: {
         id: 'TR_DEFAULT_WALLET_LOADING_STANDARD',
@@ -9234,7 +9234,7 @@ export default defineMessages({
     },
     TR_CONNECT_DEVICE_PASSPHRASE_BANNER_DESCRIPTION: {
         id: 'TR_CONNECT_DEVICE_PASSPHRASE_BANNER_DESCRIPTION',
-        defaultMessage: 'Enable the passphrase entry dialog to open when you start Dash Dash Trezor Suite.',
+        defaultMessage: 'Enable the passphrase entry dialog to open when you start Dash Trezor Suite.',
     },
     TR_CONNECT_DEVICE_PASSPHRASE_BANNER_BUTTON: {
         id: 'TR_CONNECT_DEVICE_PASSPHRASE_BANNER_BUTTON',
@@ -9259,7 +9259,7 @@ export default defineMessages({
     TR_BRIDGE_REQUESTED_DESCRIPTION: {
         id: 'TR_BRIDGE_REQUESTED_DESCRIPTION',
         defaultMessage:
-            'Another app requested Dash Dash Trezor Suite to connect with your Trezor device. Keep Dash Dash Trezor Suite running in the background and retry the action in the other app.',
+            'Another app requested Dash Trezor Suite to connect with your Trezor device. Keep Dash Trezor Suite running in the background and retry the action in the other app.',
     },
     TR_BRIDGE_GO_TO_WALLET_DESCRIPTION: {
         id: 'TR_BRIDGE_GO_TO_WALLET_DESCRIPTION',
@@ -9274,20 +9274,20 @@ export default defineMessages({
     TR_BRIDGE_NEEDED_DESCRIPTION: {
         id: 'TR_BRIDGE_NEEDED_DESCRIPTION',
         defaultMessage:
-            "Your browser isn't supported. For the best experience, download and run the Dash Dash Trezor Suite desktop app in the background, or use a supported Chromium-based browser that is compatible with WebUSB.",
+            "Your browser isn't supported. For the best experience, download and run the Dash Trezor Suite desktop app in the background, or use a supported Chromium-based browser that is compatible with WebUSB.",
     },
     TR_OPEN_TREZOR_SUITE_DESKTOP: {
         id: 'TR_OPEN_TREZOR_SUITE_DESKTOP',
-        defaultMessage: 'Open the Dash Dash Trezor Suite desktop app',
+        defaultMessage: 'Open the Dash Trezor Suite desktop app',
     },
     TR_AUTO_START: {
         id: 'TR_AUTO_START',
-        defaultMessage: 'Start Dash Dash Trezor Suite automatically',
+        defaultMessage: 'Start Dash Trezor Suite automatically',
     },
     TR_AUTO_START_DESCRIPTION: {
         id: 'TR_AUTO_START_DESCRIPTION',
         defaultMessage:
-            'Start Dash Dash Trezor Suite automatically in the background when you log into your computer.',
+            'Start Dash Trezor Suite automatically in the background when you log into your computer.',
     },
     TR_SHOW_ON_TRAY: {
         id: 'TR_SHOW_ON_TRAY',
@@ -9295,7 +9295,7 @@ export default defineMessages({
     },
     TR_SHOW_ON_TRAY_DESCRIPTION: {
         id: 'TR_SHOW_ON_TRAY_DESCRIPTION',
-        defaultMessage: 'Monitor if Dash Dash Trezor Suite is running in the background.',
+        defaultMessage: 'Monitor if Dash Trezor Suite is running in the background.',
     },
     TR_CUSTOM_FEE_WARNING: {
         id: 'TR_CUSTOM_FEE_WARNING',
