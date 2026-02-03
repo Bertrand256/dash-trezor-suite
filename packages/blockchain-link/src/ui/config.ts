@@ -346,6 +346,30 @@ export default [
     },
     {
         blockchain: {
+            name: 'Dash Testnet',
+            worker: 'js/blockbook-worker.js',
+            server: [
+                'https://trezor-testnet1.dash-masternode-tool.org',
+                'https://trezor-testnet2.dash-masternode-tool.org',
+            ],
+            debug: true,
+        },
+        data: {
+            address: '',
+            accountInfoOptions: {
+                page: 0,
+                pageSize: 25,
+            },
+            estimateFeeOptions: {
+                blocks: [1, 2, 10],
+            },
+            txid: '',
+            tx: '',
+            subscribe: '',
+        },
+    },
+    {
+        blockchain: {
             name: 'DigiByte',
             worker: 'js/blockbook-worker.js',
             server: ['https://dgb1.trezor.io', 'https://dgb2.trezor.io'],

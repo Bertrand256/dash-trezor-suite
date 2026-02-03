@@ -28,7 +28,8 @@ export type NetworkSymbol =
     | 'thol'
     | 'txrp'
     | 'tada'
-    | 'dsol';
+    | 'dsol'
+    | 'tdash';
 /**
  * Used for some edge cases where extension of NetworkSymbol is necessary.
  * Autocomplete is working as expected but can be passed any string.

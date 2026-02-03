@@ -24,6 +24,7 @@ export const cryptoIcons = {
     regtest: require('../cryptoAssets/cryptoIcons/regtest.svg'),
     sol: require('../cryptoAssets/cryptoIcons/sol.svg'),
     tada: require('../cryptoAssets/cryptoIcons/tada.svg'),
+    tdash: require('../cryptoAssets/cryptoIcons/tdash.svg'),
     test: require('../cryptoAssets/cryptoIcons/test.svg'),
     thol: require('../cryptoAssets/cryptoIcons/thol.svg'),
     tsep: require('../cryptoAssets/cryptoIcons/tsep.svg'),
