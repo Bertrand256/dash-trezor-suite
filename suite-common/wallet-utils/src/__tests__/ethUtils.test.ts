@@ -1,30 +1,13 @@
 import {
-    decimalToHex,
     getEvmApprovalTxData,
     getEvmTransactionTextSignature,
     getEvmTransferTxData,
-    hexToDecimal,
     padLeftEven,
     sanitizeHex,
     strip,
 } from '../ethUtils';
 
 describe('eth utils', () => {
-    it('decimalToHex', () => {
-        expect(decimalToHex(0)).toBe('0');
-        expect(decimalToHex(1)).toBe('1');
-        expect(decimalToHex(2)).toBe('2');
-        expect(decimalToHex(100)).toBe('64');
-        expect(decimalToHex(9999999999)).toBe('2540be3ff');
-    });
-
-    it('hexToDecimal', () => {
-        expect(hexToDecimal(64)).toBe('100');
-        expect(hexToDecimal(2)).toBe('2');
-        expect(hexToDecimal(1)).toBe('1');
-        expect(hexToDecimal(0)).toBe('0');
-    });
-
     it('padLeftEven', () => {
         // TODO: add more tests
         expect(padLeftEven('2540be3ff')).toBe('02540be3ff');
