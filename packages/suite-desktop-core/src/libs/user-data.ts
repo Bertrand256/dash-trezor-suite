@@ -21,7 +21,7 @@ export const clearAppCache = () =>
 export const initUserData = () => {
     if (isDevEnv) {
         const userDataDirDefault = app.getPath('userData');
-        const userDataDir = `${userDataDirDefault}-local`;
+        const userDataDir = `${userDataDirDefault}-dash-local`;
         try {
             fs.accessSync(userDataDir, fs.constants.R_OK);
         } catch {

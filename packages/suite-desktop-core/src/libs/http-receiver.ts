@@ -26,7 +26,7 @@ const applyTemplate = (content = 'You may now close this window.', options?: Tem
         <!DOCTYPE html>
         <html>
             <head>
-                <title>${options?.title ?? 'Trezor Suite'}</title>
+                <title>${options?.title ?? 'Dash Trezor Suite'}</title>
                 ${options?.script || ''}
                 <style>
                     body, html {
@@ -56,7 +56,7 @@ const applyTemplate = (content = 'You may now close this window.', options?: Tem
             <body>
                 <img style="margin-bottom:40px" alt="trezor logo" src="data:image/png;base64, ${trezorLogo}" />
                 ${content}
-                <a style="margin-top:40px" href="trezorsuite://">Go back to Trezor Suite</a>
+                <a style="margin-top:40px" href="dashtrezorsuite://">Go back to Dash Trezor Suite</a>
             </body>
         </html>
     `;

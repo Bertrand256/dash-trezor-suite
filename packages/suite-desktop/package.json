@@ -1,6 +1,6 @@
 {
     "name": "@trezor/suite-desktop",
-    "description": "Trezor Suite desktop application",
+    "description": "Dash Trezor Suite desktop application",
     "version": "1.0.0",
     "private": true,
     "author": "SatoshiLabs <info@satoshilabs.com>",

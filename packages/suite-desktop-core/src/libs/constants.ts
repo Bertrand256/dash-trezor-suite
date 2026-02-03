@@ -5,7 +5,7 @@ import { TOR_URLS } from '@trezor/urls';
 import { isCodesignBuild } from '@trezor/env-utils';
 
 const getAppName = () => {
-    const appName = 'Trezor Suite';
+    const appName = 'Dash Trezor Suite';
 
     if (!isCodesignBuild()) {
         return `${appName} ${isDevEnv ? 'Local' : 'Dev'}`;
