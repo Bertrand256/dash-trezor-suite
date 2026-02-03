@@ -24,7 +24,7 @@ import { jws as configJwsLocal } from '../files/config.v1';
 
 // Enable this for local development purposes:
 // set to true to always fetch local JWS
-const FORCE_LOCAL_JWS = false;
+const FORCE_LOCAL_JWS = true;
 
 const getConfigJws = async () => {
     if (FORCE_LOCAL_JWS) {
