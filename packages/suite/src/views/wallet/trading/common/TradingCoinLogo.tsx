@@ -26,6 +26,7 @@ export const TradingCoinLogo = ({
                 size={size}
                 placeholder={networkId.toUpperCase()}
                 margin={margin}
+                showNetworkIcon
             />
         </Wrapper>
     );

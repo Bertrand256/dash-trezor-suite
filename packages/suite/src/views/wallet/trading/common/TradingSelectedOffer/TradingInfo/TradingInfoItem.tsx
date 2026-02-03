@@ -1,10 +1,18 @@
+import { useSelector } from 'react-redux';
+
 import { CryptoId } from 'invity-api';
 
 import { Translation, useTranslation } from '@suite/intl';
-import { type TradingType, cryptoIdToNetworkSymbolAndContractAddress } from '@suite-common/trading';
+import {
+    TradingRootState,
+    type TradingType,
+    cryptoIdToNetworkSymbolAndContractAddress,
+    selectTradingCoinInfoByCryptoId,
+} from '@suite-common/trading';
+import { getNetworkDisplaySymbol } from '@suite-common/wallet-config';
 import { Account, TokenAddress } from '@suite-common/wallet-types';
-import { Box, Column, Row, Text } from '@trezor/components';
-import { borders, spacings } from '@trezor/theme';
+import { Box, Column, Flex, Row, Text } from '@trezor/components';
+import { borders } from '@trezor/theme';
 
 import { AccountLabel, Address, BaseCurrencyValue } from 'src/components/suite';
 import { TradingPayGetLabelType } from 'src/types/trading/trading';
@@ -38,6 +46,11 @@ export const TradingInfoItem = ({
     const showAccountLabel = !!account && type !== 'sell';
     const isExternalExchange = type === 'exchange' && !account && !!receiveAddress;
 
+    const coinInfo = useSelector((state: TradingRootState) =>
+        selectTradingCoinInfoByCryptoId(state, currency),
+    );
+    const networkSymbol = account?.symbol && getNetworkDisplaySymbol(account.symbol);
+
     if (!amount || !currency) return null;
 
     return (
@@ -65,15 +78,25 @@ export const TradingInfoItem = ({
                 )}
             </Row>
             <Box
-                margin={{ top: spacings.xs }}
+                margin={{ top: 8 }}
                 borderWidth={borders.widths.medium}
                 borderRadius={borders.radii.sm}
-                padding={spacings.md}
+                padding={16}
                 backgroundColor="backgroundSurfaceElevation2"
             >
-                <Row gap={spacings.xs} alignItems="center">
-                    <TradingCoinLogo cryptoId={currency} size={24} />
-                    <Column>
+                <Row gap={8} alignItems="center" justifyContent="space-between">
+                    <Flex gap={8} alignItems="center">
+                        <TradingCoinLogo cryptoId={currency} size={40} />
+                        <Flex direction="column" alignItems="start">
+                            <Text>{networkSymbol}</Text>
+                            {coinInfo?.name && (
+                                <Text variant="tertiary" typographyStyle="hint">
+                                    {coinInfo.name}
+                                </Text>
+                            )}
+                        </Flex>
+                    </Flex>
+                    <Column alignSelf="flex-end" alignItems="flex-end">
                         <TradingCryptoAmount amount={amount} cryptoId={currency} />
 
                         {currencyInfo?.symbol && (

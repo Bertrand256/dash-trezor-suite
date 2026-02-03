@@ -5,11 +5,9 @@ import {
     TradingAssetOption,
     TradingAssetSellOption,
 } from '@suite-common/trading';
-import { Badge, Row, Text } from '@trezor/components';
+import { Flex, Row, Text } from '@trezor/components';
 import { AssetLogo, CoinLogo } from '@trezor/product-components';
 import { spacings } from '@trezor/theme';
-
-import { AssetPickerAccountLabel } from './AssetPickerAccountLabel';
 
 export type AssetPickerInputContentProps = {
     dataTestId?: string;
@@ -26,31 +24,29 @@ export type AssetPickerInputContentProps = {
       }
 );
 
-export function AssetPickerInputContent({ name, value, dataTestId }: AssetPickerInputContentProps) {
+export function AssetPickerInputContent({ value, dataTestId }: AssetPickerInputContentProps) {
     return (
         <Row gap={spacings.sm}>
             {value.isNativeToken ? (
-                <CoinLogo size={20} symbol={value.symbol} type="tokenWithNetwork" />
+                <CoinLogo size={32} symbol={value.symbol} type="tokenWithNetwork" />
             ) : (
                 <AssetLogo
-                    size={20}
+                    size={32}
                     coingeckoId={value.coingeckoId}
                     symbol={value.networkSymbol}
                     contractAddress={value.contractAddress}
                     placeholder={value.displaySymbol}
-                    showNetworkIcon={false}
+                    showNetworkIcon={true}
                 />
             )}
-            <Text data-testid={dataTestId ? `${dataTestId}/display-symbol` : undefined}>
-                {value.displaySymbol}
-            </Text>
-            <Text variant="tertiary" typographyStyle="label">
-                {value.name}
-            </Text>
-            {name === TRADING_FORM_SEND_CRYPTO_CURRENCY_SELECT && (
-                <AssetPickerAccountLabel accountKey={value.accountKey} />
-            )}
-            {!value.isNativeToken ? <Badge size="small">{value.networkName}</Badge> : null}
+            <Flex direction="column" alignItems="start">
+                <Text data-testid={dataTestId ? `${dataTestId}/display-symbol` : undefined}>
+                    {value.displaySymbol}
+                </Text>
+                <Text variant="tertiary" typographyStyle="label">
+                    {value.name}
+                </Text>
+            </Flex>
         </Row>
     );
 }

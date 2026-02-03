@@ -122,7 +122,10 @@ export const TradingExchangeFormInputs = () => {
                     inputName={TRADING_FORM_SEND_CRYPTO_CURRENCY_SELECT}
                     inputLabel="TR_FROM"
                     inputBottomText={
-                        <AssetPickerInputBalance name={TRADING_FORM_SEND_CRYPTO_CURRENCY_SELECT} />
+                        <AssetPickerInputBalance
+                            name={TRADING_FORM_SEND_CRYPTO_CURRENCY_SELECT}
+                            showOnlyAmount
+                        />
                     }
                     includedCryptoIds={exchangeSellSupportedCryptoIds}
                     excludedCryptoId={receiveCryptoSelect?.id}
