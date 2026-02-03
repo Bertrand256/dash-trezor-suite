@@ -718,6 +718,7 @@ export const enhancePrecomposedTransactionThunk = createThunk<
                     createdTimestamp: new Date().getTime(),
                     isTokenKnown,
                 },
+                accountKey: selectedAccount.key,
             }),
         );
 
