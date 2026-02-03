@@ -11,7 +11,7 @@ on:
 
 env:
   IS_CODESIGN_BUILD: "true"
-  DESKTOP_APP_NAME: "Trezor-Suite"
+  DESKTOP_APP_NAME: "Dash-Trezor-Suite"
   APPLEID: ${{ secrets.APPLEID }}
   APPLEIDPASS: ${{ secrets.APPLEIDPASS }}
   APPLETEAMID: ${{ secrets.APPLETEAMID }}
@@ -80,7 +80,7 @@ jobs:
         with:
           name: suite-desktop-${{ matrix.platform }}
           path: |
-            Trezor-Suite*
+            Dash-Trezor-Suite*
             latest*.yml
           retention-days: 7
 
@@ -107,7 +107,7 @@ jobs:
         run: |
           gh config set prompt disabled
           VERSION=$(jq -r .suiteVersion packages/suite/package.json)
-          gh release create --repo trezor/trezor-suite --draft v${VERSION}  --title "v${VERSION}" ./Trezor-Suite* latest*
+          gh release create --repo trezor/trezor-suite --draft v${VERSION}  --title "v${VERSION}" ./Dash-Trezor-Suite* latest*
 
   suite-desktop-autoupdate-release:
     if: github.repository == 'trezor/trezor-suite-release'
@@ -243,7 +243,7 @@ jobs:
           mv version0.json packages/suite/package.json
           yarn workspace @trezor/suite-desktop build:${{ matrix.platform }}
           bash packages/suite-desktop-core/scripts/gnupg-sign.sh
-          mv packages/suite-desktop/build-electron/Trezor-Suite* .
+          mv packages/suite-desktop/build-electron/Dash-Trezor-Suite* .
           mv packages/suite-desktop/build-electron/latest*.yml .
 
       - name: Upload suite-desktop autoupdate version 0.xx.x artifacts
@@ -251,13 +251,13 @@ jobs:
         with:
           name: AUTOUPDATE-TEST-suite-desktop-${{steps.prepare-versions.outputs.VERSION0}}-${{ matrix.platform }}
           path: |
-            Trezor-Suite*
+            Dash-Trezor-Suite*
             latest*.yml
           retention-days: 3
 
       - name: Remove suite-desktop autoupdate version 0.xx.x before building version 3x.x.x
         run: |
-          rm -rf Trezor-Suite*
+          rm -rf Dash-Trezor-Suite*
           rm -rf latest*.yml
 
       - name: Build ${{ matrix.platform }} suite-desktop autoupdate version 3x.x.x
@@ -267,7 +267,7 @@ jobs:
           mv version3.json packages/suite/package.json
           yarn workspace @trezor/suite-desktop build:${{ matrix.platform }}
           bash packages/suite-desktop-core/scripts/gnupg-sign.sh
-          mv packages/suite-desktop/build-electron/Trezor-Suite* .
+          mv packages/suite-desktop/build-electron/Dash-Trezor-Suite* .
           mv packages/suite-desktop/build-electron/latest*.yml .
 
       - name: Upload suite-desktop autoupdate version 3x.x.x artifacts
@@ -275,7 +275,7 @@ jobs:
         with:
           name: AUTOUPDATE-TEST-suite-desktop-${{steps.prepare-versions.outputs.VERSION3}}-${{ matrix.platform }}
           path: |
-            Trezor-Suite*
+            Dash-Trezor-Suite*
             latest*.yml
           retention-days: 1
 
