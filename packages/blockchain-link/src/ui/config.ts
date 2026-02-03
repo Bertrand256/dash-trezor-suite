@@ -349,8 +349,8 @@ export default [
             name: 'Dash Testnet',
             worker: 'js/blockbook-worker.js',
             server: [
-                'https://trezor-dash-testnet1.dash-masternode-tool.org',
-                'https://trezor-dash-testnet2.dash-masternode-tool.org',
+                'https://trezor-tdash1.dash-masternode-tool.org',
+                'https://trezor-tdash2.dash-masternode-tool.org',
             ],
             debug: true,
         },

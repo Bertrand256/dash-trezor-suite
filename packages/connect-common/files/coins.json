@@ -635,11 +635,8 @@
             "blockchain_link": {
                 "type": "blockbook",
                 "url": [
-                    "https://dash1.trezor.io",
-                    "https://dash2.trezor.io",
-                    "https://dash3.trezor.io",
-                    "https://dash4.trezor.io",
-                    "https://dash5.trezor.io"
+                    "https://trezor-dash1.dash-masternode-tool.org",
+                    "https://trezor-dash2.dash-masternode-tool.org"
                 ]
             },
             "blocktime_seconds": 150,
@@ -687,7 +684,13 @@
             "address_type": 140,
             "address_type_p2sh": 19,
             "bech32_prefix": null,
-            "blockchain_link": null,
+            "blockchain_link": {
+                "type": "blockbook",
+                "url": [
+                    "https://trezor-tdash1.dash-masternode-tool.org",
+                    "https://trezor-tdash2.dash-masternode-tool.org"
+                ]
+            },
             "blocktime_seconds": 150,
             "cashaddr_prefix": null,
             "coin_label": "Dash Testnet",
