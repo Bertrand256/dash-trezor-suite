@@ -83,7 +83,7 @@ const devTools =
 const patchConfirm = (statePatch: any) =>
     !isCodesignBuild() ||
     confirm(
-        `Trezor Suite is starting with partially predefined state. Press OK only if you intended to do that!\n\n` +
+        `Dash Trezor Suite is starting with partially predefined state. Press OK only if you intended to do that!\n\n` +
             JSON.stringify(statePatch, null, 4),
     );
 

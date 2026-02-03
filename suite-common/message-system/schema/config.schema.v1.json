@@ -2,7 +2,7 @@
     "$id": "https://data.trezor.io/message-system/schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Message system",
-    "description": "JSON schema of the Trezor Suite messaging system.",
+    "description": "JSON schema of the Dash Trezor Suite messaging system.",
     "type": "object",
     "required": ["version", "timestamp", "sequence", "actions"],
     "properties": {
@@ -16,7 +16,7 @@
             "$ref": "#/definitions/date-time"
         },
         "sequence": {
-            "description": "An increasing counter. Trezor Suite must decline any sequence lower than the latest number. This is to protect against replay attacks, where an attacker could send an older version of the file, and Trezor Suite would accept it.",
+            "description": "An increasing counter. Dash Trezor Suite must decline any sequence lower than the latest number. This is to protect against replay attacks, where an attacker could send an older version of the file, and Dash Trezor Suite would accept it.",
             "type": "integer",
             "minimum": 1,
             "default": 1

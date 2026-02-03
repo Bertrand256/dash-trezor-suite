@@ -20,7 +20,7 @@ export type Variant = 'info' | 'warning' | 'critical';
 export type Category = 'banner' | 'context' | 'modal' | 'feature';
 
 /**
- * JSON schema of the Trezor Suite messaging system.
+ * JSON schema of the Dash Trezor Suite messaging system.
  */
 export interface MessageSystem {
     /**
@@ -29,7 +29,7 @@ export interface MessageSystem {
     version: number;
     timestamp: DateTime;
     /**
-     * An increasing counter. Trezor Suite must decline any sequence lower than the latest number. This is to protect against replay attacks, where an attacker could send an older version of the file, and Trezor Suite would accept it.
+     * An increasing counter. Dash Trezor Suite must decline any sequence lower than the latest number. This is to protect against replay attacks, where an attacker could send an older version of the file, and Dash Trezor Suite would accept it.
      */
     sequence: number;
     actions: Action[];

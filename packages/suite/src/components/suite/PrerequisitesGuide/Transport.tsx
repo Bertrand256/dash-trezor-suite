@@ -23,7 +23,7 @@ const Tips = ({ items }: { items: TipItem[] }) => {
     return (
         // No transport layer (bridge/webUSB) is available
         // On web it makes sense to
-        // - offer downloading Trezor Suite desktop, or
+        // - offer downloading Dash Trezor Suite desktop, or
         // - use a browser that supports WebUSB
         // Desktop app should have Bridge transport layer available as it is built-in, if it is not available we fucked up something.
         <TroubleshootingTips

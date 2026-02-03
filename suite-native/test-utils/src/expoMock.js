@@ -215,7 +215,7 @@ jest.mock('expo-constants', () => {
                         },
                         platforms: ['ios', 'android'],
                         sdkVersion: '51.0.0',
-                        name: 'Trezor Suite Lite Debug',
+                        name: 'Dash Trezor Suite Lite Debug',
                     },
                     expoGo: {
                         developer: {
@@ -379,7 +379,7 @@ jest.mock('expo-constants', () => {
                 },
                 platforms: ['ios', 'android'],
                 sdkVersion: '51.0.0',
-                name: 'Trezor Suite Lite Debug',
+                name: 'Dash Trezor Suite Lite Debug',
             },
             expoGoConfig: {
                 developer: {

@@ -1,6 +1,6 @@
 # @suite-native/app
 
-Trezor Suite native application.
+Dash Trezor Suite native application.
 
 ## Prerequisites
 
@@ -43,9 +43,9 @@ It is also possible for development purposes to connect Trezor emulator to iOS S
 
 ## Connecting a physical Trezor
 
-Once Trezor Suite Lite is running in iOS Simulator / Android emulator, it's possible to use it with a physical Trezor.
+Once Dash Trezor Suite Lite is running in iOS Simulator / Android emulator, it's possible to use it with a physical Trezor.
 
-1. Start desktop version of Trezor Suite that will serve as Trezor Bridge.
+1. Start desktop version of Dash Trezor Suite that will serve as Trezor Bridge.
     - Make sure Trezor emulator is stopped before starting the desktop app.
 2. Connect a physical Trezor to your laptop and unlock it if necessary.
 3. You might need to tap the _Use Trezor here_ button and/or reload the app.
@@ -68,7 +68,7 @@ Aliases available in root folder:
 
 You can show DEV utils on production build FOR DEVELOPMENT PURPOSES ONLY – do not use it for your personal wallets!
 
-To reveal dev menu, you have to click at least 7 times on commit hash at the bottom of About Trezor Suite Lite page.
+To reveal dev menu, you have to click at least 7 times on commit hash at the bottom of About Dash Trezor Suite Lite page.
 
 ## Environment variables
 

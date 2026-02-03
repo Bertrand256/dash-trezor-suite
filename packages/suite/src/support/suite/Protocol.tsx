@@ -30,7 +30,7 @@ const Protocol = () => {
                 'bitcoin',
                 `${window.location.origin}${process.env.ASSET_PREFIX ?? ''}/?uri=%s`,
                 // @ts-expect-error deprecated but required for Firefox <= 78, Chrome <= 87
-                'Trezor Suite - Bitcoin',
+                'Dash Trezor Suite - Bitcoin',
             );
         }
 

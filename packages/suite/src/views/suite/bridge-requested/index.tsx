@@ -68,7 +68,7 @@ export const BridgeRequested = () => {
                     </>
                 }
             >
-                <Metadata title="Bridge | Trezor Suite" />
+                <Metadata title="Bridge | Dash Trezor Suite" />
             </StyledModal>
         );
     }
@@ -97,7 +97,7 @@ export const BridgeRequested = () => {
                 </>
             }
         >
-            <Metadata title="Bridge | Trezor Suite" />
+            <Metadata title="Bridge | Dash Trezor Suite" />
             <StyledImage image="CONNECT_DEVICE" width="360" />
 
             {isDesktop() && (

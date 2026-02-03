@@ -77,7 +77,7 @@ export const CoinmarketLayoutHeader = ({ children }: PropsWithChildren) => {
     );
 
     const translatedTitle = translationString(fallbackTitle);
-    const pageTitle = `Trezor Suite | ${translatedTitle}`;
+    const pageTitle = `Dash Trezor Suite | ${translatedTitle}`;
 
     useLayout(pageTitle, <CoinmarketPageHeader fallbackTitle={fallbackTitle} />);
 

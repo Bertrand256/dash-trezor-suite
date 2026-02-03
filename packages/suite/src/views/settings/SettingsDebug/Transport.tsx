@@ -59,7 +59,7 @@ export const Transport = () => {
                         description={(() => {
                             switch (transport.name) {
                                 case 'BridgeTransport':
-                                    return 'Client for bridge http interface regardless node-bridge or trezord-go implementation. It expects bridge to run on http://127.0.0.1:21325/. This is the most general transport that may be used for both desktop and web version of Trezor Suite.';
+                                    return 'Client for bridge http interface regardless node-bridge or trezord-go implementation. It expects bridge to run on http://127.0.0.1:21325/. This is the most general transport that may be used for both desktop and web version of Dash Trezor Suite.';
                                 case 'NodeUsbTransport':
                                     return 'Direct access to usb using node.js implementation.';
                                 case 'UdpTransport':

@@ -63,7 +63,7 @@ export const BridgeUnavailable = () => {
                 description={description}
                 data-testid="@modal/bridge"
             >
-                <Metadata title="Bridge | Trezor Suite" />
+                <Metadata title="Bridge | Dash Trezor Suite" />
 
                 <DownloadStandalone target={target} />
                 <Footer>
@@ -90,7 +90,7 @@ export const BridgeUnavailable = () => {
             description={<Translation id="TR_BRIDGE_NEEDED_DESCRIPTION" />}
             data-testid="@modal/bridge"
         >
-            <Metadata title="Bridge | Trezor Suite" />
+            <Metadata title="Bridge | Dash Trezor Suite" />
             <DownloadStandalone target={target} />
 
             <Footer>

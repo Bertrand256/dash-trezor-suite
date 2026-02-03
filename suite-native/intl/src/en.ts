@@ -5,7 +5,7 @@
 
 export const en = {
     generic: {
-        header: '<green>Trezor Suite</green> <grey>Lite</grey>',
+        header: '<green>Dash Trezor Suite</green> <grey>Lite</grey>',
         buttons: {
             back: 'Back',
             cancel: 'Cancel',
@@ -31,7 +31,7 @@ export const en = {
         killswitch: {
             title: 'Update required',
             content:
-                'Update to continue using Trezor Suite Lite. Don’t worry, your funds are secure.',
+                'Update to continue using Dash Trezor Suite Lite. Don’t worry, your funds are secure.',
             cta: 'Download latest version',
         },
     },
@@ -50,7 +50,7 @@ export const en = {
                 subtitle: 'Sync your coin addresses and view your portfolio balance.',
                 primaryButton: 'Sync & Track',
                 secondaryButton: 'Settings',
-                alert: 'This requires access to Trezor Suite coin addresses.',
+                alert: 'This requires access to Dash Trezor Suite coin addresses.',
             },
             connectOrImportCrossroads: {
                 gotMyTrezor: {
@@ -146,9 +146,9 @@ export const en = {
                     address: 'Where is my receive address?',
                 },
                 text: {
-                    xpub: ' To view the public key (XPUB) of your account, open the Trezor Suite app, plug in your Trezor device, then select <emphasized>Details</emphasized>, then choose <emphasized>Show public key</emphasized>.',
+                    xpub: ' To view the public key (XPUB) of your account, open the Dash Trezor Suite app, plug in your Trezor device, then select <emphasized>Details</emphasized>, then choose <emphasized>Show public key</emphasized>.',
                     address:
-                        'To view the receive address of your account, open the Trezor Suite desktop app, plugin your Trezor device, select <emphasized>Accounts</emphasized>, choose <emphasized>Receive</emphasized>, and click on <emphasized>Show full address</emphasized>.',
+                        'To view the receive address of your account, open the Dash Trezor Suite desktop app, plugin your Trezor device, select <emphasized>Accounts</emphasized>, choose <emphasized>Receive</emphasized>, and click on <emphasized>Show full address</emphasized>.',
                 },
             },
         },
@@ -266,7 +266,7 @@ export const en = {
                 step1: '1. Reconnect your Trezor',
                 step2: '2. Use a different USB data cable',
                 step3: '3. Use a different mobile device',
-                step4: '4. Enable connection for Trezor Suite Lite via phone system message',
+                step4: '4. Enable connection for Dash Trezor Suite Lite via phone system message',
             },
             pinMatrix: {
                 title: 'Enter PIN',
@@ -294,7 +294,7 @@ export const en = {
             deviceNotConnected: 'Device not connected.',
             invalidCallback: 'Invalid callback URL',
             invalidParams: 'Invalid parameters from calling app',
-            versionUnsupported: 'Unsupported version. Please update your Trezor Suite app.',
+            versionUnsupported: 'Unsupported version. Please update your Dash Trezor Suite app.',
         },
         bottomSheets: {
             confirmOnDeviceMessage: 'Go to your device and verify the details of the operation.',
@@ -313,13 +313,13 @@ export const en = {
             title: 'Your Trezor needs to be set up.',
             description:
                 'Unfortunately, we currently don’t support device setup in the mobile app.',
-            primaryButton: 'Continue to Trezor Suite Web',
+            primaryButton: 'Continue to Dash Trezor Suite Web',
             appendix: {
                 title: 'What to do now?',
                 lines: {
-                    1: 'Go to Trezor Suite for Web using the button below.',
+                    1: 'Go to Dash Trezor Suite for Web using the button below.',
                     2: 'Complete the device setup in your browser.',
-                    3: 'Start using your Trezor with Trezor Suite Lite.',
+                    3: 'Start using your Trezor with Dash Trezor Suite Lite.',
                 },
             },
         },
@@ -350,7 +350,7 @@ export const en = {
         unsupportedFirmwareModal: {
             title: 'The connected Trezor device needs an update',
             description:
-                'To continue using your Trezor with this app, update it with Trezor Suite for desktop or web.',
+                'To continue using your Trezor with this app, update it with Dash Trezor Suite for desktop or web.',
         },
         bootloaderModal: {
             title: 'The connected Trezor device is in bootloader mode',
@@ -367,7 +367,7 @@ export const en = {
                     title: 'Continue in bootloader mode',
                     lines: {
                         1: '1. Disconnect your Trezor',
-                        2: '2. Connect your Trezor to Trezor Suite for desktop or web',
+                        2: '2. Connect your Trezor to Dash Trezor Suite for desktop or web',
                         3: '3. Enter bootloader mode',
                     },
                 },
@@ -519,7 +519,7 @@ export const en = {
                 portfolioTracker: {
                     title: 'receive address',
                     subtitle:
-                        'For an extra layer of security, use Trezor Suite with your Trezor hardware wallet to verify the receive address',
+                        'For an extra layer of security, use Dash Trezor Suite with your Trezor hardware wallet to verify the receive address',
                 },
                 viewOnly: {
                     title: 'Address can’t be verified without connected Trezor',
@@ -610,8 +610,8 @@ export const en = {
             },
             usbEnabled: {
                 0: {
-                    question: 'Can I connect my Trezor to Trezor Suite Lite?',
-                    answer: 'Yes, you can connect your Trezor Hardware Wallet and use limited functionality. It is designed to work as a companion to the desktop/web version of Trezor Suite, but we will gradually add more features to make it a standalone application to manage your crypto funds with Trezor Hardware Wallet.',
+                    question: 'Can I connect my Trezor to Dash Trezor Suite Lite?',
+                    answer: 'Yes, you can connect your Trezor Hardware Wallet and use limited functionality. It is designed to work as a companion to the desktop/web version of Dash Trezor Suite, but we will gradually add more features to make it a standalone application to manage your crypto funds with Trezor Hardware Wallet.',
                 },
                 1: {
                     question:
@@ -628,11 +628,11 @@ export const en = {
                         0: 'Reconnect your Trezor',
                         1: 'Use a different USB data cable',
                         2: 'Use a different mobile device',
-                        3: 'Enable connection for Trezor Suite Lite via phone system message',
+                        3: 'Enable connection for Dash Trezor Suite Lite via phone system message',
                     },
                 },
                 4: {
-                    question: 'What version of Trezor device Firmware Trezor Suite Lite supports?',
+                    question: 'What version of Trezor device Firmware Dash Trezor Suite Lite supports?',
                     answer: {
                         0: 'Trezor One: from version 1.12.1',
                         1: 'Trezor T: from version 2.6.3',
@@ -642,11 +642,11 @@ export const en = {
                 },
                 5: {
                     question: 'Why don’t I see my coin listed?',
-                    answer: 'Trezor Suite Lite currently supports a limited number of cryptocurrencies. If your coin is not listed, it may not be compatible with the app. However, Trezor regularly adds support for new coins, so check back periodically to see which coins have been added.',
+                    answer: 'Dash Trezor Suite Lite currently supports a limited number of cryptocurrencies. If your coin is not listed, it may not be compatible with the app. However, Trezor regularly adds support for new coins, so check back periodically to see which coins have been added.',
                 },
                 6: {
                     question: 'What does the graph display?',
-                    answer: 'The graph in Trezor Suite Lite displays the price history of your portfolio’s synced assets over specified time period. You can adjust the time period by selecting a different range on the bottom of the graph.',
+                    answer: 'The graph in Dash Trezor Suite Lite displays the price history of your portfolio’s synced assets over specified time period. You can adjust the time period by selecting a different range on the bottom of the graph.',
                 },
                 7: {
                     question: 'What is View-only?',
@@ -659,24 +659,24 @@ export const en = {
                     answer: 'An XPUB is a master public key for hierarchical deterministic wallets like bitcoin, generating multiple child keys and receive addresses for improved privacy. Ethereum uses a single, unchanging address for all transactions. For Ethereum, share only your address, while keeping your private key secure.',
                 },
                 1: {
-                    question: 'Can I connect my Trezor to Trezor Suite Lite?',
-                    answer: 'No, it is not possible. It is designed to work as a companion to the desktop/web version of Trezor Suite as a way to keep up with your Trezor portfolio on the go.',
+                    question: 'Can I connect my Trezor to Dash Trezor Suite Lite?',
+                    answer: 'No, it is not possible. It is designed to work as a companion to the desktop/web version of Dash Trezor Suite as a way to keep up with your Trezor portfolio on the go.',
                 },
                 2: {
-                    question: 'How do I send crypto in Trezor Suite Lite?',
-                    answer: 'Trezor Suite Lite is a watch-only portfolio tracker, which means it is designed to help you monitor your cryptocurrency holdings and transactions. Unfortunately, it is not currently possible to send crypto using Trezor Suite Lite. To send crypto, use the full version of Trezor Suite with your Trezor hardware wallet. This will provide you with the necessary security and functionality to manage and perform transactions with your cryptocurrencies.',
+                    question: 'How do I send crypto in Dash Trezor Suite Lite?',
+                    answer: 'Dash Trezor Suite Lite is a watch-only portfolio tracker, which means it is designed to help you monitor your cryptocurrency holdings and transactions. Unfortunately, it is not currently possible to send crypto using Dash Trezor Suite Lite. To send crypto, use the full version of Dash Trezor Suite with your Trezor hardware wallet. This will provide you with the necessary security and functionality to manage and perform transactions with your cryptocurrencies.',
                 },
                 3: {
                     question: 'Why don’t I see my coin listed?',
-                    answer: 'Trezor Suite Lite currently supports a limited number of cryptocurrencies. If your coin is not listed, it may not be compatible with the app. However, Trezor regularly adds support for new coins, so check back periodically to see which coins have been added.',
+                    answer: 'Dash Trezor Suite Lite currently supports a limited number of cryptocurrencies. If your coin is not listed, it may not be compatible with the app. However, Trezor regularly adds support for new coins, so check back periodically to see which coins have been added.',
                 },
                 4: {
                     question: 'What does the graph display?',
-                    answer: 'The graph in Trezor Suite Lite displays the price history of your portfolio’s synced assets over specified time period. You can adjust the time period by selecting a different range on the bottom of the graph.',
+                    answer: 'The graph in Dash Trezor Suite Lite displays the price history of your portfolio’s synced assets over specified time period. You can adjust the time period by selecting a different range on the bottom of the graph.',
                 },
                 5: {
                     question:
-                        'Why is the balance displayed in Trezor Suite different from the balance displayed in Trezor Suite Lite?',
+                        'Why is the balance displayed in Dash Trezor Suite different from the balance displayed in Dash Trezor Suite Lite?',
                     answer: 'Balances may mismatch due to improper syncing of all assets and account types, or pending transactions. Ensure you have synced all your assets correctly and check for any pending transactions to resolve the discrepancy.',
                 },
             },
@@ -690,7 +690,7 @@ export const en = {
             title: 'Customization',
         },
         aboutUs: {
-            title: 'About Trezor Suite Lite',
+            title: 'About Dash Trezor Suite Lite',
         },
         privacyAndSecurity: {
             title: 'Privacy & Security',
@@ -792,7 +792,7 @@ export const en = {
         },
         analyticsConsentScreen: {
             title: 'Better with you',
-            subtitle: 'Improve Trezor Suite Lite with your anonymous data.',
+            subtitle: 'Improve Dash Trezor Suite Lite with your anonymous data.',
             bulletPoints: {
                 privacy: {
                     title: 'Your data is private',
@@ -1127,7 +1127,7 @@ export const en = {
                 title: 'Check the address on your Trezor against the original to make sure it’s correct.',
                 step1: 'Go to the app or place where you originally got the address.',
                 step2: 'Compare that address with what’s on your Trezor and confirm.',
-                step3: 'Come back to Trezor Suite Lite',
+                step3: 'Come back to Dash Trezor Suite Lite',
 
                 originBottomSheet: {
                     title: 'What’s the place of origin?',
@@ -1191,7 +1191,7 @@ export const en = {
         rewards: 'Rewards',
         apy: 'Annual percentage yield',
         stakingCanBeManaged: 'Staking can be currently managed only in',
-        trezorDesktop: 'Trezor Suite for desktop.',
+        trezorDesktop: 'Dash Trezor Suite for desktop.',
         stakePendingCard: {
             totalStakePending: 'Total stake pending',
             addingToStakingPool: 'Adding to staking pool',
@@ -1199,8 +1199,8 @@ export const en = {
             unknownStatus: 'Unknown status',
         },
         stakingBottomSheet: {
-            title: 'To manage your staked funds, please use Trezor Suite for desktop.',
-            description: 'We currently support staking as view-only in Trezor Suite Lite.',
+            title: 'To manage your staked funds, please use Dash Trezor Suite for desktop.',
+            description: 'We currently support staking as view-only in Dash Trezor Suite Lite.',
         },
     },
 };

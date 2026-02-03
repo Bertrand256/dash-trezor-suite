@@ -38,10 +38,10 @@ const appIconsAndroid = {
 } as const;
 
 const appNames = {
-    debug: 'Trezor Suite Lite Debug',
-    preview: 'Trezor Suite Lite Preview',
-    develop: 'Trezor Suite Lite Develop',
-    production: 'Trezor Suite Lite',
+    debug: 'Dash Trezor Suite Lite Debug',
+    preview: 'Dash Trezor Suite Lite Preview',
+    develop: 'Dash Trezor Suite Lite Develop',
+    production: 'Dash Trezor Suite Lite',
 } as const satisfies Record<BuildType, string>;
 
 const appSlugs = {

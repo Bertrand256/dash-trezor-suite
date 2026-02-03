@@ -12,7 +12,7 @@ type MetadataProps = {
 };
 
 export const Metadata = ({
-    title = 'Trezor Suite',
+    title = 'Dash Trezor Suite',
     description,
     url = SUITE_URL,
 }: MetadataProps) => {

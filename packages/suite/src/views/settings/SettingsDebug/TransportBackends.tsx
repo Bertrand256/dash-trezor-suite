@@ -86,8 +86,8 @@ export const TransportBackends = () => {
                         title="New bridge rollout"
                         description={
                             allowPrerelease
-                                ? 'New bridge is rolled out to all Trezor Suite instances that are in the Early access program and to a few users apart EAP.'
-                                : `New bridge is rolled out to ${NEW_BRIDGE_ROLLOUT_THRESHOLD * 100} % of Trezor Suite instances outside of Early access. Your rollout score is ${((bridgeSettings.newBridgeRollout ?? 0) * 100).toFixed()}%`
+                                ? 'New bridge is rolled out to all Dash Trezor Suite instances that are in the Early access program and to a few users apart EAP.'
+                                : `New bridge is rolled out to ${NEW_BRIDGE_ROLLOUT_THRESHOLD * 100} % of Dash Trezor Suite instances outside of Early access. Your rollout score is ${((bridgeSettings.newBridgeRollout ?? 0) * 100).toFixed()}%`
                         }
                     />
                 </SectionItem>

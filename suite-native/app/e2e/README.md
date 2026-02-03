@@ -1,6 +1,6 @@
-# Trezor Suite mobile E2E tests
+# Dash Trezor Suite mobile E2E tests
 
-This folder contains Detox E2E tests for the Trezor Suite mobile app. The tests are prepared for both Android (emulator) and iOS (simulator) platforms. It is possible to run them on the local machine in both debug (`expo dev-client`) and release build. There is also a Github CI action prepared running on every mobile app-related pull request.
+This folder contains Detox E2E tests for the Dash Trezor Suite mobile app. The tests are prepared for both Android (emulator) and iOS (simulator) platforms. It is possible to run them on the local machine in both debug (`expo dev-client`) and release build. There is also a Github CI action prepared running on every mobile app-related pull request.
 
 Detox configuration can be found in the [.detoxrc.js](../.detoxrc.js) file. `jest` is used as the test runner.
 

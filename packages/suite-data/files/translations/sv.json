@@ -142,7 +142,7 @@
   "TR_OK": "OK",
   "TR_ONBOARDING_BACKUP_TYPE_DEFAULT": "Standard",
   "TR_ONBOARDING_CANNOT_SELECT_SEED_TYPE": "Trezor kommer att skapa din nya plånbok.",
-  "TR_ONBOARDING_COINS_STEP_DESCRIPTION_BITCOIN_ONLY": "Välj vilka mynt som ska visas i Trezor Suite. Du kan ändra denna inställning när som helst.",
+  "TR_ONBOARDING_COINS_STEP_DESCRIPTION_BITCOIN_ONLY": "Välj vilka mynt som ska visas i Dash Trezor Suite. Du kan ändra denna inställning när som helst.",
   "TR_ONBOARDING_CREATE_NEW_WALLET": "Skapa ny plånbok",
   "TR_ONBOARDING_NEW_VERSION": "Ny version",
   "TR_ONBOARDING_SEED_TYPE_12_WORDS": "12 ord",
