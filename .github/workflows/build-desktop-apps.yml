@@ -2,6 +2,27 @@ name: "[Build] suite-desktop apps"
 
 on:
   workflow_dispatch:
+    inputs:
+      build_linux:
+        description: "Build Linux version"
+        required: false
+        type: boolean
+        default: true
+      build_mac:
+        description: "Build macOS version"
+        required: false
+        type: boolean
+        default: true
+      build_win:
+        description: "Build Windows version"
+        required: false
+        type: boolean
+        default: true
+      create_release:
+        description: "Create a GitHub draft release with artifacts"
+        required: false
+        type: boolean
+        default: false
 
 env:
   DESKTOP_APP_NAME: "Dash-Trezor-Suite"
@@ -12,7 +33,10 @@ concurrency:
 
 jobs:
   suite-desktop:
-    if: github.event_name == 'workflow_dispatch'
+    if: |
+      github.event_name == 'workflow_dispatch' &&
+      ((matrix.platform == 'linux' && github.event.inputs.build_linux == 'true') ||
+       (matrix.platform == 'mac' && github.event.inputs.build_mac == 'true'))
     name: Build suite-desktop-${{ matrix.platform }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
@@ -70,7 +94,7 @@ jobs:
           retention-days: 3
 
   suite-desktop-win:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.build_win == 'true'
     name: Build suite-desktop-win
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -116,3 +140,51 @@ jobs:
             Dash-Trezor-Suite*
             latest*.yml
           retention-days: 3
+
+  create-release:
+    if: |
+      always() &&
+      github.event.inputs.create_release == 'true' &&
+      (needs.suite-desktop.result == 'success' || needs.suite-desktop.result == 'skipped') &&
+      (needs.suite-desktop-win.result == 'success' || needs.suite-desktop-win.result == 'skipped') &&
+      (needs.suite-desktop.result == 'success' || needs.suite-desktop-win.result == 'success')
+    name: Create GitHub draft release
+    runs-on: ubuntu-latest
+    needs: [suite-desktop, suite-desktop-win]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download suite-desktop apps
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          pattern: suite-desktop-*
+          path: artifacts
+
+      - name: Prepare artifacts for release
+        run: |
+          mkdir -p release-artifacts
+          if [ -d "artifacts" ]; then
+            find artifacts -type f -name "Dash-Trezor-Suite*" -exec cp -v {} release-artifacts/ \;
+            find artifacts -type f -name "latest*.yml" -exec cp -v {} release-artifacts/ \;
+          else
+            echo "No artifacts directory found. Skipping artifact preparation."
+          fi
+          ls -R release-artifacts
+
+      - name: Create GitHub draft release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh config set prompt disabled
+          # Only create release if there are artifacts to upload
+          if [ "$(ls -A release-artifacts)" ]; then
+            VERSION=$(jq -r .version packages/suite-desktop/package.json)
+            TAG="v${VERSION}-build-${{ github.run_id }}"
+            gh release create ${TAG} --draft --title "v${VERSION} (Build ${{ github.run_id }})" ./release-artifacts/*
+          else
+            echo "No artifacts found in release-artifacts/. Skipping release creation."
+          fi
