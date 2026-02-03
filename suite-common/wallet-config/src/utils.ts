@@ -21,10 +21,17 @@ export const networksCollection: Network[] = Object.values(networks);
 export const networkSymbolCollection = networksCollection.map(n => n.symbol);
 
 export const getMainnets = (debug = false) =>
-    networksCollection.filter(n => !n.testnet && (!n.isDebugOnlyNetwork || debug));
+    networksCollection.filter(
+        n => !n.testnet && (!n.isDebugOnlyNetwork || debug) && (n.symbol === 'dash' || !n.isHidden),
+    );
 
 export const getTestnets = (debug = false) =>
-    networksCollection.filter(n => n.testnet === true && (!n.isDebugOnlyNetwork || debug));
+    networksCollection.filter(
+        n =>
+            n.testnet === true &&
+            (!n.isDebugOnlyNetwork || debug) &&
+            (n.symbol === 'tdash' || !n.isHidden),
+    );
 
 export const getTestnetSymbols = () => getTestnets().map(n => n.symbol);
 

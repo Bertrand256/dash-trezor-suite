@@ -14,7 +14,7 @@ export type State = WalletSettings;
 export const initialState: State = {
     localCurrency: 'usd',
     discreetMode: false,
-    enabledNetworks: ['btc'],
+    enabledNetworks: ['dash'],
     bitcoinAmountUnit: PROTO.AmountUnit.BITCOIN,
     lastUsedFeeLevel: {},
 };
