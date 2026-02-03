@@ -1,4 +1,10 @@
-# TREZOR SUITE MONOREPO
+# IMPORTANT!
+
+This project is a fork of [Trezor Suite](https://github.com/trezor/trezor-suite) created to restore support for Dash, which was dropped in versions newer than v25.1.2.
+
+**Note:** This fork supports only Dash. If you require support for other coins, please refer to the [original repository](https://github.com/trezor/trezor-suite), where you can find regular updates for officially supported coins. Furthermore, to prevent missing important fixes for other coins, which will likely be available in the original Trezor Suite, those coins have been disabled in this application.
+
+# DASH TREZOR SUITE MONOREPO
 
 Welcome to the Trezor Suite repository! This repository contains the source code for 3 projects:
 
