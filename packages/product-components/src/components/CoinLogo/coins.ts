@@ -26,6 +26,7 @@ export const COINS: Record<NetworkSymbol | LegacyNetworkSymbol, string> = {
     regtest: require('../../images/coins/btc_test.svg'),
     sol: require('../../images/coins/sol.svg'),
     tada: require('../../images/coins/tada.svg'),
+    tdash: require('../../images/coins/tdash.svg'),
     test: require('../../images/coins/btc_test.svg'),
     thol: require('../../images/coins/thol.svg'),
     tsep: require('../../images/coins/tsep.svg'),
