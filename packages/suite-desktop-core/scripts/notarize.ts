@@ -20,7 +20,7 @@ exports.default = context => {
 
     return notarize({
         tool: 'notarytool',
-        appBundleId: 'io.trezor.TrezorSuite',
+        appBundleId: 'org.dash.DashTrezorSuite',
         appPath,
         appleId: process.env.APPLEID,
         appleIdPassword: process.env.APPLEIDPASS,

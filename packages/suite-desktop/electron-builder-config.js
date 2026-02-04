@@ -6,7 +6,7 @@ const isCodesignBuild = process.env.IS_CODESIGN_BUILD === 'true';
 // to be able to use patterns like ${author} and ${arch}
 module.exports = {
     // distingush between dev and prod builds
-    appId: `io.trezor.DashTrezorSuite${isCodesignBuild ? '' : '.dev'}`,
+    appId: `org.dash.DashTrezorSuite${isCodesignBuild ? '' : '.dev'}`,
     extraMetadata: {
         version: suiteVersion,
         // distingush between dev and prod builds so different userDataDir is used
