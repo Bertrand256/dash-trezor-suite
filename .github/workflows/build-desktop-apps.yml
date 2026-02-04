@@ -33,10 +33,7 @@ concurrency:
 
 jobs:
   suite-desktop:
-    if: |
-      github.event_name == 'workflow_dispatch' &&
-      ((matrix.platform == 'linux' && github.event.inputs.build_linux == 'true') ||
-       (matrix.platform == 'mac' && github.event.inputs.build_mac == 'true'))
+    if: github.event_name == 'workflow_dispatch'
     name: Build suite-desktop-${{ matrix.platform }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
@@ -51,16 +48,25 @@ jobs:
             platform: mac
     steps:
       - name: Checkout code
+        if: |
+          (matrix.platform == 'linux' && inputs.build_linux) ||
+          (matrix.platform == 'mac' && inputs.build_mac)
         uses: actions/checkout@v4
         with:
           lfs: true
           submodules: true
       - name: Install node and yarn
+        if: |
+          (matrix.platform == 'linux' && inputs.build_linux) ||
+          (matrix.platform == 'mac' && inputs.build_mac)
         uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
       - name: Install deps and build libs
+        if: |
+          (matrix.platform == 'linux' && inputs.build_linux) ||
+          (matrix.platform == 'mac' && inputs.build_mac)
         run: |
           yarn install --immutable
           yarn message-system-sign-config
@@ -68,6 +74,9 @@ jobs:
           yarn workspace @trezor/transport-bridge build:lib
 
       - name: Build ${{ matrix.platform }} suite-desktop
+        if: |
+          (matrix.platform == 'linux' && inputs.build_linux) ||
+          (matrix.platform == 'mac' && inputs.build_mac)
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
@@ -76,6 +85,9 @@ jobs:
           mv packages/suite-desktop/build-electron/* .
 
       - name: Upload suite-desktop production artifacts
+        if: |
+          (matrix.platform == 'linux' && inputs.build_linux) ||
+          (matrix.platform == 'mac' && inputs.build_mac)
         uses: actions/upload-artifact@v4
         with:
           name: suite-desktop-${{ matrix.platform }}
@@ -85,7 +97,8 @@ jobs:
           retention-days: 3
 
       - name: Upload suite-desktop mac-arm artifact
-        if: matrix.os == 'macos-14'
+        if: |
+          matrix.os == 'macos-14' && inputs.build_mac
         uses: actions/upload-artifact@v4
         with:
           name: suite-desktop-mac-arm-dmg
@@ -94,7 +107,7 @@ jobs:
           retention-days: 3
 
   suite-desktop-win:
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.build_win == 'true'
+    if: github.event_name == 'workflow_dispatch' && inputs.build_win
     name: Build suite-desktop-win
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -144,7 +157,7 @@ jobs:
   create-release:
     if: |
       always() &&
-      github.event.inputs.create_release == 'true' &&
+      inputs.create_release &&
       (needs.suite-desktop.result == 'success' || needs.suite-desktop.result == 'skipped') &&
       (needs.suite-desktop-win.result == 'success' || needs.suite-desktop-win.result == 'skipped') &&
       (needs.suite-desktop.result == 'success' || needs.suite-desktop-win.result == 'success')
@@ -168,8 +181,8 @@ jobs:
         run: |
           mkdir -p release-artifacts
           if [ -d "artifacts" ]; then
-            find artifacts -type f -name "Dash-Trezor-Suite*" -exec cp -v {} release-artifacts/ \;
-            find artifacts -type f -name "latest*.yml" -exec cp -v {} release-artifacts/ \;
+            # Copy only installer files, excluding .blockmap and .yml
+            find artifacts -type f -name "Dash-Trezor-Suite*" ! -name "*.blockmap" ! -name "*.yml" -exec cp -v {} release-artifacts/ \;
           else
             echo "No artifacts directory found. Skipping artifact preparation."
           fi
@@ -182,9 +195,9 @@ jobs:
           gh config set prompt disabled
           # Only create release if there are artifacts to upload
           if [ "$(ls -A release-artifacts)" ]; then
-            VERSION=$(jq -r .version packages/suite-desktop/package.json)
+            VERSION=$(jq -r .suiteVersion packages/suite/package.json)
             TAG="v${VERSION}-build-${{ github.run_id }}"
-            gh release create ${TAG} --draft --title "v${VERSION} (Build ${{ github.run_id }})" ./release-artifacts/*
+            gh release create ${TAG} --draft --title "v${VERSION}" ./release-artifacts/*
           else
             echo "No artifacts found in release-artifacts/. Skipping release creation."
           fi
