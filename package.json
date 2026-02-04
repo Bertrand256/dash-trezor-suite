@@ -2,7 +2,7 @@
     "name": "trezor-suite",
     "version": "1.0.0",
     "private": true,
-    "repository": "https://github.com/trezor/trezor-suite.git",
+    "repository": "https://github.com/Bertrand256/dash-trezor-suite.git",
     "license": "SEE LICENSE IN LICENSE.md",
     "engines": {
         "node": "22",

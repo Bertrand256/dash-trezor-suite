@@ -20,7 +20,7 @@ export const paramDescriptions = {
     path: 'minimum length is `3`. [read more](/details/path)',
     networkPassphrase: 'network passphrase',
     transaction:
-        'type of [StellarTransaction](https://github.com/trezor/trezor-suite/blob/develop/packages/connect/src/types/api/stellar/index.ts)',
+        'type of [StellarTransaction](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/connect/src/types/api/stellar/index.ts)',
 };
 
 ## Stellar: Sign transaction
@@ -43,7 +43,7 @@ const result = await TrezorConnect.stellarSignTransaction(params);
 ### Stellar SDK compatibility
 
 `@stellar/stellar-sdk` is not a part of `trezor-connect` repository.
-To transform `StellarSDK.Transaction` object into `TrezorConnect.StellarTransaction`, install [@trezor/connect-plugin-stellar](https://github.com/trezor/trezor-suite/tree/develop/packages/connect-plugin-stellar) into your project.
+To transform `StellarSDK.Transaction` object into `TrezorConnect.StellarTransaction`, install [@trezor/connect-plugin-stellar](https://github.com/Bertrand256/dash-trezor-suite/tree/develop/packages/connect-plugin-stellar) into your project.
 
 ```javascript
 import * as StellarSDK from '@stellar/stellar-sdk';
@@ -88,7 +88,7 @@ TrezorConnect.stellarSignTransaction(
 
 ### Result
 
-[StellarSignedTx type](https://github.com/trezor/trezor-suite/blob/develop/packages/connect/src/types/api/stellar/index.ts)
+[StellarSignedTx type](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/connect/src/types/api/stellar/index.ts)
 
 ```javascript
 {

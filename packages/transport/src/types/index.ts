@@ -19,7 +19,7 @@ export type DescriptorApiLevel = {
     path: PathInternal;
     /** only used in status page */
     type: DEVICE_TYPE;
-    /** only important for T1 over old bridge (trezord-go), defacto part of 'path'. More explanation in https://github.com/trezor/trezor-suite/compare/transport-descriptor-product */
+    /** only important for T1 over old bridge (trezord-go), defacto part of 'path'. More explanation in https://github.com/Bertrand256/dash-trezor-suite/compare/transport-descriptor-product */
     product?: number;
     /** only reported by old bridge */
     vendor?: number;

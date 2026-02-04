@@ -89,7 +89,7 @@ export class FeeLevels {
                 // validate `feePerUnit` from the backend
                 // should be lower than `coinInfo.maxFee` and higher than `coinInfo.minFee`
                 // xrp sends values from 1 to very high number occasionally
-                // see: https://github.com/trezor/trezor-suite/blob/develop/packages/blockchain-link/src/workers/ripple/index.ts#L316
+                // see: https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/blockchain-link/src/workers/ripple/index.ts#L316
                 feePerUnit: Math.min(
                     this.coinInfo.maxFee,
                     Math.max(this.coinInfo.minFee, parseInt(response.feePerUnit, 10)),

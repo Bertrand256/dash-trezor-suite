@@ -8,7 +8,7 @@
 
     `@trezor/connect` is hosted at `[url]/build/static/connect` and injected as an iframe into DOM.
 
-    `@trezor/connect` imports from `@trezor/suite` are replaced to `@trezor/connect-web` see [webpack config](https://github.com/trezor/trezor-suite/blob/develop/packages/suite-build/configs/web.webpack.config.ts)
+    `@trezor/connect` imports from `@trezor/suite` are replaced to `@trezor/connect-web` see [webpack config](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite-build/configs/web.webpack.config.ts)
 
     `iframe.postMessage/iframe.onmessage` interface is used as communication channel between suite and connect API.
 
@@ -18,7 +18,7 @@
 
     `@trezor/connect` files are **not** hosted on the electron renderer context, there is no iframe or /build/static/connect dir.
 
-    On the renderer context all `@trezor/connect` methods from are replaced by `@trezor/ipc-proxy` methods. see [index](https://github.com/trezor/trezor-suite/blob/develop/packages/suite-desktop/src/Main.tsx)
+    On the renderer context all `@trezor/connect` methods from are replaced by `@trezor/ipc-proxy` methods. see [index](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite-desktop/src/Main.tsx)
 
 ### - Firmware binaries
 

@@ -32,7 +32,7 @@ export const loadChangelog = branch => {
             // Add links to commit hashes
             content = content.replace(
                 /([a-f0-9]{7,10})([),])/g,
-                `[$1](https://github.com/trezor/trezor-suite/commit/$1)$2`,
+                `[$1](https://github.com/Bertrand256/dash-trezor-suite/commit/$1)$2`,
             );
             const versionOverview =  `## Version overview\n\n` + content.substring(0, content.indexOf('##'));
             const changelog = content.substring(content.indexOf('##'));
@@ -74,7 +74,7 @@ export const Changelog = () => {
 
     if (!data) return <>Loading...</>;
     if (error) return <Callout>
-        <MarkdownCustom>An error occurred while loading the changelog. Please [view it on GitHub](https://github.com/trezor/trezor-suite/blob/develop/packages/connect/CHANGELOG.md).</MarkdownCustom>
+        <MarkdownCustom>An error occurred while loading the changelog. Please [view it on GitHub](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/connect/CHANGELOG.md).</MarkdownCustom>
     </Callout>;
 
     const { changelog, versionOverview } = data;
@@ -95,7 +95,7 @@ export const Changelog = () => {
                     **Immediate fixes**: If your application encounters a critical issue with the current stable release, a canary version might already have the necessary fix, allowing you to resolve problems more quickly.
                 </MarkdownCustom>
                 <MarkdownCustom>
-                    **Feedback Opportunity**: Using canary releases allows you to provide feedback on new features and fixes, influencing the final stable release and ensuring it works smoothly with your application. If you encounter any issue, bug, or incompatibility introduced in a Canary release, report it by creating [a new issue in our repository](https://github.com/trezor/trezor-suite/issues/new/choose).
+                    **Feedback Opportunity**: Using canary releases allows you to provide feedback on new features and fixes, influencing the final stable release and ensuring it works smoothly with your application. If you encounter any issue, bug, or incompatibility introduced in a Canary release, report it by creating [a new issue in our repository](https://github.com/Bertrand256/dash-trezor-suite/issues/new/choose).
                 </MarkdownCustom>
             </CollapsibleBox>
 

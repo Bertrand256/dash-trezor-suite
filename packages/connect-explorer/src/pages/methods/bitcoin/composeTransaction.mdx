@@ -31,7 +31,7 @@ export const PrecomposeSchema = Type.Object({
 
 export const paramDescriptions = {
     outputs: 'Array of output objects described [below](#accepted-output-objects)',
-    coin: 'determines network definition specified in [coins.json](https://github.com/trezor/trezor-suite/blob/develop/packages/connect-common/files/coins.json) file. Coin `shortcut`, `name` or `label` can be used.',
+    coin: 'determines network definition specified in [coins.json](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/connect-common/files/coins.json) file. Coin `shortcut`, `name` or `label` can be used.',
     push: 'determines if composed transaction will be broadcasted into blockchain network. Default is set to false.',
     sequence: 'transaction input field used in RBF or locktime transactions',
     account:
@@ -72,7 +72,7 @@ Returned response is a signed transaction in hexadecimal format same as in [sign
 
 Skip first two steps of `payment request` (described above) by providing `account` and `feeLevels` params and perform **only** transaction calculation. [[2]](#additional-notes)
 
-The result, internally called [`PrecomposedTransaction`](https://github.com/trezor/trezor-suite/blob/develop/packages/connect/src/types/api/composeTransaction.ts) is a set of params that can be used in [signTransaction method](signTransaction.md#params) afterwards.
+The result, internally called [`PrecomposedTransaction`](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/connect/src/types/api/composeTransaction.ts) is a set of params that can be used in [signTransaction method](signTransaction.md#params) afterwards.
 
 This useful for the quick preparation of multiple variants for the same transaction using different fee levels or using incomplete data (like missing output addresses just to calculate fee)
 
@@ -119,7 +119,7 @@ TrezorConnect.composeTransaction({
 
 ### Payment result
 
-[SignedTransaction type](https://github.com/trezor/trezor-suite/blob/develop/packages/connect/src/types/api/composeTransaction.ts)
+[SignedTransaction type](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/connect/src/types/api/composeTransaction.ts)
 
 ```javascript
 {
@@ -244,9 +244,9 @@ TrezorConnect.composeTransaction({
 }
 ```
 
-For more examples see [composeTransaction fixtures](https://github.com/trezor/trezor-suite/blob/develop/packages/connect/e2e/__fixtures__/composeTransaction.ts)
+For more examples see [composeTransaction fixtures](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/connect/e2e/__fixtures__/composeTransaction.ts)
 
 ### Additional notes
 
 -   [1] `UI.SELECT_ACCOUNT` and `UI.SELECT_FEE` events are emitted when using `trusted mode`
--   [2] Account utxo selection, fee and change calculation is performed by [@trezor/utxo-lib](https://github.com/trezor/trezor-suite/tree/develop/packages/utxo-lib/src/compose) module
+-   [2] Account utxo selection, fee and change calculation is performed by [@trezor/utxo-lib](https://github.com/Bertrand256/dash-trezor-suite/tree/develop/packages/utxo-lib/src/compose) module

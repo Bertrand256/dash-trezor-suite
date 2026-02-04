@@ -50,7 +50,7 @@ They are stored as part of the transaction. They don't need to be periodically u
 
 ## Usage
 
-To make your life easier use [FiatValue](https://github.com/trezor/trezor-suite/blob/develop/packages/suite/src/components/suite/FiatValue/index.tsx) component.
+To make your life easier use [FiatValue](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite/src/components/suite/FiatValue/index.tsx) component.
 
 Most straightforward usage is to just pass `amount` and `symbol`, if you need to work with tokens also add `tokenAddress` property:
 

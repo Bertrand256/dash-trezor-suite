@@ -1,16 +1,16 @@
 # Localization
 
 Suite uses [react-intl](https://github.com/formatjs/formatjs) package for all in-app localization needs.
-Definitions of all messages are stored in [messages.ts](https://github.com/trezor/trezor-suite/blob/develop/packages/suite/src/support/messages.ts).
+Definitions of all messages are stored in [messages.ts](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite/src/support/messages.ts).
 
 To allow non-developers to edit these messages through user-friendly interface, we upload them to [Crowdin](https://crowdin.com/project/trezor-suite) via their [CLI](https://github.com/crowdin/crowdin-cli).
 
-After strings have been translated we use Crowdin CLI again to download the translated json files to [suite-data package](https://github.com/trezor/trezor-suite/tree/develop/packages/suite-data/files/translations).
+After strings have been translated we use Crowdin CLI again to download the translated json files to [suite-data package](https://github.com/Bertrand256/dash-trezor-suite/tree/develop/packages/suite-data/files/translations).
 To finish the process these files need to be committed to the repository.
 
 ## Message definitions
 
-[messages.ts](https://github.com/trezor/trezor-suite/blob/develop/packages/suite/src/support/messages.ts) is the place where you add new messages to be used in Suite. It's basically just a huge object where a key is an ID of the message and a value is the message definition.
+[messages.ts](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite/src/support/messages.ts) is the place where you add new messages to be used in Suite. It's basically just a huge object where a key is an ID of the message and a value is the message definition.
 
 _Do not manually edit language json files in `suite-data/files/translations/` directory. These are auto-generated, changing them directly is plausible only for development purposes._
 
@@ -37,7 +37,7 @@ Example:
 
 ## Usage in Suite
 
-To render a message use our wrapper for react-intl's `FormattedMessage`, [Translation](https://github.com/trezor/trezor-suite/blob/develop/packages/suite/src/components/suite/Translation/index.tsx). It will always return `JSX.Element`. If, for some reason, you need to render the message as a string (for example for passing it as a placeholder prop to an input) use [useTranslation](https://github.com/trezor/trezor-suite/blob/develop/packages/suite/src/hooks/suite/useTranslation.ts) hook.
+To render a message use our wrapper for react-intl's `FormattedMessage`, [Translation](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite/src/components/suite/Translation/index.tsx). It will always return `JSX.Element`. If, for some reason, you need to render the message as a string (for example for passing it as a placeholder prop to an input) use [useTranslation](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite/src/hooks/suite/useTranslation.ts) hook.
 
 `Translation` accepts the same parameters as `FormattedMessage` and adds a little bit of magic.
 
@@ -120,14 +120,14 @@ To join the ranks of translators follow [Crowdin contributions](https://www.noti
 
 ### With the automated CI job from GitHub.
 
-Navigate to the [Crowdin translations update](https://github.com/trezor/trezor-suite/actions/workflows/bot-crowdin-sync.yml) action and trigger manual job with a base branch `develop`
+Navigate to the [Crowdin translations update](https://github.com/Bertrand256/dash-trezor-suite/actions/workflows/bot-crowdin-sync.yml) action and trigger manual job with a base branch `develop`
 Before triggering the job, make sure there is no pull request already opened with the title `Crowdin translations update`
 
 Action will create a pull request with the title `Crowdin translations update`, review it and merge.
 
 ### Locally
 
-All work could be done with shortcuts defined in [package.json scripts](https://github.com/trezor/trezor-suite/blob/develop/packages/suite/package.json#L5) section. In order to interact with Crowdin you need to ask the project owner for access token and either store it in your `$HOME/.crowdin.yml` file:
+All work could be done with shortcuts defined in [package.json scripts](https://github.com/Bertrand256/dash-trezor-suite/blob/develop/packages/suite/package.json#L5) section. In order to interact with Crowdin you need to ask the project owner for access token and either store it in your `$HOME/.crowdin.yml` file:
 
 ```yaml
 'api_token': xxxx

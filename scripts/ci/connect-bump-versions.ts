@@ -265,7 +265,7 @@ const bumpConnect = async () => {
 
         const prNumber = ghPrCreateResult.stdout
             .replaceAll('\n', '')
-            .replace('https://github.com/trezor/trezor-suite/pull/', '');
+            .replace('https://github.com/Bertrand256/dash-trezor-suite/pull/', '');
 
         if (errors.length) {
             comment({

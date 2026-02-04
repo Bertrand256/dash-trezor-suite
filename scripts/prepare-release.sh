@@ -54,7 +54,7 @@ git commit -m "chore(suite): bump Suite version to $RELEASE_VERSION [RELEASE ONL
 git push --set-upstream $ORIGIN "$(git branch --show-current)"
 
 echo Pushing to the release repository...
-if ! OUTPUT=$(git push -f https://github.com/trezor/trezor-suite-release.git HEAD 2>&1); then
+if ! OUTPUT=$(git push -f https://github.com/Bertrand256/dash-trezor-suite-release.git HEAD 2>&1); then
   tput setaf 3
   echo -e "Could not push to the release repository.\n${OUTPUT}"
   tput sgr0
