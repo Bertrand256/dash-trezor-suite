@@ -33,11 +33,6 @@ export const SERVICE_NAME = 'auto-updater';
 
 export const init: ModuleInit = ({ mainWindowProxy, store }) => {
     const { logger } = global;
-
-    logger.info(SERVICE_NAME, 'Auto-updater is permanently disabled in this fork.');
-
-    return;
-
     if (!isFeatureFlagEnabled('DESKTOP_AUTO_UPDATER') && !enableUpdater) {
         logger.info(SERVICE_NAME, 'Disabled via feature flag');
 
