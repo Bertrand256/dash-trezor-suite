@@ -1,16 +1,20 @@
-### 🚀 New features
+## Important information
 
--   Solana Token-2022 now supported.
--   Added support for Base, Optimism, and Arbitrum One networks, which can be accessed via Experimental features.
--   Introduced an NFT section for EVM-based chains, which can be enabled via Experimental features.
--   Enabled delegation of voting rights when staking Cardano.
+### First release of Dash Trezor Suite
+This is the initial release of Dash Trezor Suite, based on Trezor Suite v25.1.2. Independent version numbering has been introduced from this point forward to distinguish this application from the original Trezor Suite.
 
-### 🎨 Improvements
+### Unsigned release binaries
+The release binaries are not signed with Apple or Microsoft code signing certificates. As a result, you may need to take additional steps to launch the application:
 
--   Added the option to check or create a wallet backup during firmware updates.
--   Introduced a warning when sending funds to a contract address on the Ethereum network.
+- **macOS**: Open the Terminal and run:
+  `sudo xattr -rd com.apple.quarantine /Applications/Dash-Trezor-Suite.app`
+  (Replace `/Applications/Dash-Trezor-Suite.app` with the actual path if different). Alternatively, allow the application in **Settings > Privacy & Security**.
+- **Windows**: If Windows Defender SmartScreen appears, click **More info** and then **Run anyway**.
 
-### 🔧 Bug fixes
+## Release notes
 
--   Fixed labeling for Polygon and BNB Smart Chain networks.
--   Resolved minor bugs, enhanced usability, and optimized performance.
+### New features
+- New backend nodes supporting Dash have been launched and added to the default configuration, removing the need for manual setup.
+- Added support for Dash Testnet.
+- Removed ads, banners, and other UI elements unrelated to Dash.
+- Changed the default color scheme from green to blue (Dash-themed) to prevent confusion with the official Trezor Suite.
