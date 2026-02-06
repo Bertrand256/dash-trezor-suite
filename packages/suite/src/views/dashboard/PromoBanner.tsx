@@ -1,19 +1,14 @@
-import { useState } from 'react';
-
 import styled, { css } from 'styled-components';
 
-import { SUITE_MOBILE_APP_STORE, SUITE_MOBILE_PLAY_STORE, SUITE_URL } from '@trezor/urls';
+import { SUITE_URL } from '@trezor/urls';
 import { EventType, analytics } from '@trezor/suite-analytics';
-import { Button, Icon, Image, Tooltip, variables, Row, Column } from '@trezor/components';
+import { Button, Icon, Image, variables } from '@trezor/components';
 import { isWeb } from '@trezor/env-utils';
-import { spacings } from '@trezor/theme';
 
-import { Translation, QrCode, TrezorLink } from 'src/components/suite';
+import { Translation, TrezorLink } from 'src/components/suite';
 import { useLayoutSize } from 'src/hooks/suite/useLayoutSize';
-import { HORIZONTAL_LAYOUT_PADDINGS, MAX_CONTENT_WIDTH_NUMERIC } from 'src/constants/suite/layout';
-import { useSelector } from 'src/hooks/suite';
+import { HORIZONTAL_LAYOUT_PADDINGS } from 'src/constants/suite/layout';
 
-import { useResponsiveContext } from '../../support/suite/ResponsiveContext';
 
 const Container = styled.div`
     position: absolute;
@@ -52,16 +47,6 @@ const DesktopPromoContainer = styled.div`
     border-right: 1px solid ${({ theme }) => theme.legacy.STROKE_GREY};
 `;
 
-const MobilePromoContainer = styled.div`
-    ${promoContainerCss}
-    justify-content: start;
-
-    ${variables.SCREEN_QUERY.MOBILE} {
-        flex-direction: column;
-        padding: 20px 16px;
-    }
-`;
-
 const OSIcons = styled.div`
     display: flex;
     align-self: center;
@@ -90,97 +75,8 @@ const DesktopLinkButton = styled(Button)`
     }
 `;
 
-// eslint-disable-next-line local-rules/no-override-ds-component
-const Badge = styled(Image)<{ $isHighlighted: boolean }>`
-    max-width: unset;
-    opacity: ${({ $isHighlighted }) => ($isHighlighted ? 1 : 0.6)};
-    transition: opacity 0.3s;
-    cursor: pointer;
-`;
-
-// eslint-disable-next-line local-rules/no-override-ds-component
-const StoreTitle = styled(Image)<{ $isDark: boolean }>`
-    display: block;
-    margin: 2px auto 6px;
-`;
-
-const QR = styled(QrCode)`
-    width: 140px;
-    height: 140px;
-    padding: 4px;
-    background-color: white;
-    border-radius: 6px;
-`;
-
-type QrType = 'app-store' | 'play-store';
-
-type StoreBadgeProps = {
-    url: string;
-    image: 'APP_STORE' | 'PLAY_STORE';
-    type: QrType;
-    analyticsPayload: 'ios' | 'android';
-    shownQRState: [QrType | undefined, (type: QrType | undefined) => void];
-};
-
-const StoreBadge = ({
-    url,
-    image,
-    type,
-    analyticsPayload,
-    shownQRState: [showQR, setShowQr],
-}: StoreBadgeProps) => {
-    const { isMobileLayout } = useLayoutSize();
-    const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-    const currentTheme = useSelector(state => state.suite.settings.theme.variant);
-
-    return (
-        <Tooltip
-            isOpen={isTooltipOpen}
-            disabled={isMobileLayout}
-            content={
-                <Column alignItems="center">
-                    <StoreTitle
-                        $isDark={currentTheme === 'dark'}
-                        image={`${image}_TITLE`}
-                        height={26}
-                    />
-                    <QR value={url} />
-                </Column>
-            }
-        >
-            <span
-                onMouseEnter={() => {
-                    setIsTooltipOpen(true);
-                    setShowQr(type);
-                }}
-                onMouseLeave={() => {
-                    setIsTooltipOpen(false);
-                    setShowQr(undefined);
-                }}
-            >
-                <TrezorLink
-                    href={url}
-                    variant="nostyle"
-                    onClick={() =>
-                        analytics.report({
-                            type: EventType.GetMobileApp,
-                            payload: {
-                                platform: analyticsPayload,
-                            },
-                        })
-                    }
-                >
-                    <Badge image={`${image}_BADGE`} height={35} $isHighlighted={showQR === type} />
-                </TrezorLink>
-            </span>
-        </Tooltip>
-    );
-};
-
 export const PromoBanner = () => {
-    const shownQRState = useState<QrType>();
     const { isMobileLayout } = useLayoutSize();
-    const { contentWidth } = useResponsiveContext();
 
     return (
         <Container>
@@ -213,42 +109,6 @@ export const PromoBanner = () => {
                     </StyledLink>
                 </DesktopPromoContainer>
             )}
-
-            <MobilePromoContainer>
-                <Row
-                    justifyContent="space-between"
-                    width="100%"
-                    margin={{
-                        right:
-                            contentWidth &&
-                            contentWidth < MAX_CONTENT_WIDTH_NUMERIC + spacings.xxxxxl
-                                ? spacings.xxxxxl
-                                : 0,
-                    }}
-                >
-                    <Translation
-                        values={{ b: text => <b>{text}</b> }}
-                        id="TR_MOBILE_APP_PROMO_TEXT_FOOTER"
-                    />
-
-                    <Row gap={spacings.xxs}>
-                        <StoreBadge
-                            url={SUITE_MOBILE_APP_STORE}
-                            image="APP_STORE"
-                            type="app-store"
-                            analyticsPayload="ios"
-                            shownQRState={shownQRState}
-                        />
-                        <StoreBadge
-                            url={SUITE_MOBILE_PLAY_STORE}
-                            image="PLAY_STORE"
-                            type="play-store"
-                            analyticsPayload="android"
-                            shownQRState={shownQRState}
-                        />
-                    </Row>
-                </Row>
-            </MobilePromoContainer>
         </Container>
     );
 };
