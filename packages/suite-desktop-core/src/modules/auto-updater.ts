@@ -19,8 +19,8 @@ import type { ModuleInit } from './index';
 
 const defaultFeedURL = {
     // This should correspond with the value in electron-builder-config.js file.
-    latest: 'https://data.trezor.io/suite/releases/desktop/latest',
-    preRelease: 'https://data.trezor.io/suite/releases/desktop/canary',
+    latest: 'https://github.com/Bertrand256/dash-trezor-suite/releases/latest/download',
+    preRelease: 'https://github.com/Bertrand256/dash-trezor-suite/releases/download/canary',
 };
 
 // Runtime flags

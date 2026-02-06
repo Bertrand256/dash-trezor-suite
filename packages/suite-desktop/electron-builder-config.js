@@ -57,8 +57,9 @@ module.exports = {
         schemes,
     },
     publish: {
-        provider: 'generic',
-        url: 'https://data.trezor.io/suite/releases/desktop/latest',
+        provider: 'github',
+        owner: 'Bertrand256',
+        repo: 'dash-trezor-suite',
     },
     dmg: {
         sign: false,
@@ -115,7 +116,7 @@ module.exports = {
         target: ['dmg', 'zip'],
     },
     win: {
-        publisherName: ['SatoshiLabs, s.r.o.', 'Trezor Company s.r.o.'],
+        publisherName: ['Bertrand256', 'Dash Comunity'],
         extraResources: [
             {
                 from: 'build/static/bin/bridge/win-${arch}',

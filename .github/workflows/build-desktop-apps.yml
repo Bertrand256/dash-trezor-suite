@@ -181,23 +181,30 @@ jobs:
         run: |
           mkdir -p release-artifacts
           if [ -d "artifacts" ]; then
-            # Copy only installer files, excluding .blockmap and .yml
-            find artifacts -type f -name "Dash-Trezor-Suite*" ! -name "*.blockmap" ! -name "*.yml" -exec cp -v {} release-artifacts/ \;
+            # Copy all relevant files, including .blockmap and .yml for auto-updates
+            find artifacts -type f \( -name "Dash-Trezor-Suite*" -o -name "latest*.yml" \) -exec cp -v {} release-artifacts/ \;
           else
             echo "No artifacts directory found. Skipping artifact preparation."
           fi
           ls -R release-artifacts
 
-      - name: Create GitHub draft release
+      - name: Create or Update GitHub draft release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh config set prompt disabled
-          # Only create release if there are artifacts to upload
           if [ "$(ls -A release-artifacts)" ]; then
             VERSION=$(jq -r .suiteVersion packages/suite/package.json)
-            TAG="v${VERSION}-build-${{ github.run_id }}"
-            gh release create ${TAG} --draft --title "v${VERSION}" ./release-artifacts/*
+            TAG="v${VERSION}"
+
+            # Check if release already exists
+            if gh release view "${TAG}" >/dev/null 2>&1; then
+              echo "Release ${TAG} already exists. Uploading new artifacts..."
+              gh release upload "${TAG}" ./release-artifacts/* --clobber
+            else
+              echo "Creating new draft release ${TAG}..."
+              gh release create "${TAG}" --draft --title "v${VERSION}" ./release-artifacts/*
+            fi
           else
             echo "No artifacts found in release-artifacts/. Skipping release creation."
           fi
