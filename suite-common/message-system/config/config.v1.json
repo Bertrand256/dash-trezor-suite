@@ -416,58 +416,6 @@
             "conditions": [
                 {
                     "environment": {
-                        "desktop": "<=24.5.4",
-                        "mobile": "!",
-                        "web": "!"
-                    }
-                }
-            ],
-            "message": {
-                "id": "a205467d-8913-420e-98c5-11c8fdf958a8",
-                "priority": 98,
-                "dismissible": true,
-                "variant": "critical",
-                "category": ["banner"],
-                "content": {
-                    "en-GB": "Update required! Install the latest version of Dash Trezor Suite for enhanced security and an improved user experience.",
-                    "en": "Update required! Install the latest version of Dash Trezor Suite for enhanced security and an improved user experience.",
-                    "es": "Es necesaria una actualización. Instala la última versión de Dash Trezor Suite para mejorar la seguridad y la experiencia de usuario.",
-                    "cs": "Nutná aktualizace! Nainstalujte si nejnovější verzi Dash Trezor Suite a získejte lepší zabezpečení a komfortnější používání.",
-                    "ru": "Требуется обновление! Установите последнюю версию Dash Trezor Suite для улучшения безопасности и удобства использования.",
-                    "ja": "アップデートが必要です！Dash Trezor Suiteの最新バージョンをインストールして、セキュリティと使いやすさを向上させましょう。",
-                    "hu": "Frissítés szükséges! Telepítse a Dash Trezor Suite legújabb verzióját a nagyobb biztonság és a jobb felhasználói élmény érdekében.",
-                    "it": "È necessario un aggiornamento! Installate l'ultima versione di Dash Trezor Suite pour une maggiore sicurezza e una migliore esperienza d'uso.",
-                    "fr": "Mise à jour requise ! Installez la dernière version de Dash Trezor Suite pour une sécurité renforcée et une expérience utilisateur améliorée.",
-                    "de": "Update erforderlich! Installiere die neueste Version von Dash Trezor Suite, um Sicherheit und Benutzerfreundlichkeit zu verbessern.",
-                    "tr": "Güncelleme gerekiyor! Geliştirilmiş güvenlik ve kullanıcı deneyimi için en son Dash Trezor Suite sürümünü yükleyin.",
-                    "pt": "Atualização necessária! Instale a versão mais recente do Dash Trezor Suite para uma segurança reforçada e uma experiência de utilizador melhorada.",
-                    "uk": "Потрібне оновлення! Встановіть останню версію Dash Trezor Suite для покращення безпеки та поліпшення користувацького досвіду."
-                },
-                "cta": {
-                    "action": "external-link",
-                    "link": "https://trezor.io/trezor-suite",
-                    "label": {
-                        "en-GB": "Go to trezor.io/trezor-suite",
-                        "en": "Go to trezor.io/trezor-suite",
-                        "es": "Visita trezor.io/trezor-suite",
-                        "cs": "Přejít na trezor.io/trezor-suite",
-                        "ru": "Перейти на trezor.io/trezor-suite",
-                        "ja": "trezor.io/trezor-suite に移動",
-                        "hu": "Tovább a trezor.io/trezor-suite oldalra",
-                        "it": "Vai a trezor.io/trezor-suite",
-                        "fr": "Accédez à trezor.io/trezor-suite",
-                        "de": "Gehe zu trezor.io/trezor-suite",
-                        "tr": "trezor.io/trezor-suite adresine git",
-                        "pt": "Ir para trezor.io/trezor-suite",
-                        "uk": "Перейти на trezor.io/trezor-suite"
-                    }
-                }
-            }
-        },
-        {
-            "conditions": [
-                {
-                    "environment": {
                         "desktop": "22.4.0",
                         "mobile": "!",
                         "web": "22.4.0"
