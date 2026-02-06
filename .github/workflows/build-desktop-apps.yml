@@ -197,13 +197,21 @@ jobs:
             VERSION=$(jq -r .suiteVersion packages/suite/package.json)
             TAG="v${VERSION}"
 
+            # Use release-notes.md if exists, otherwise create an empty one
+            NOTES_FILE="packages/suite-desktop/releaseNotes/release-notes.md"
+            if [ ! -f "$NOTES_FILE" ]; then
+              NOTES_FILE="release_notes_tmp.md"
+              echo "Release v${VERSION}" > "$NOTES_FILE"
+            fi
+
             # Check if release already exists
             if gh release view "${TAG}" >/dev/null 2>&1; then
-              echo "Release ${TAG} already exists. Uploading new artifacts..."
+              echo "Release ${TAG} already exists. Updating notes and uploading artifacts..."
+              gh release edit "${TAG}" --notes-file "$NOTES_FILE"
               gh release upload "${TAG}" ./release-artifacts/* --clobber
             else
               echo "Creating new draft release ${TAG}..."
-              gh release create "${TAG}" --draft --title "v${VERSION}" ./release-artifacts/*
+              gh release create "${TAG}" --draft --title "v${VERSION}" --notes-file "$NOTES_FILE" ./release-artifacts/*
             fi
           else
             echo "No artifacts found in release-artifacts/. Skipping release creation."
