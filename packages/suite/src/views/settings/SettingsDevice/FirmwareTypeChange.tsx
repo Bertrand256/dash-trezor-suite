@@ -50,6 +50,7 @@ export const FirmwareTypeChange = ({ isDeviceLocked }: FirmwareTypeProps) => {
     const actionButtonId = hasBitcoinOnlyFirmware(device)
         ? 'TR_SWITCH_TO_REGULAR'
         : 'TR_SWITCH_TO_BITCOIN_ONLY';
+    const hideSwitchFirmwareButton = true;
 
     const handleAction = () => dispatch(goto('firmware-type', { params: { cancelable: true } }));
 
@@ -83,7 +84,7 @@ export const FirmwareTypeChange = ({ isDeviceLocked }: FirmwareTypeProps) => {
                     )
                 }
             />
-            {!bitcoinOnlyDevice && (
+            {!bitcoinOnlyDevice && !hideSwitchFirmwareButton && (
                 <ActionColumn>
                     <ActionButton
                         variant="primary"

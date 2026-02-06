@@ -59,6 +59,7 @@ export const SettingsGeneral = () => {
     const isMetadataEnabled = metadata.enabled && !metadata.initiating;
     const isProviderConnected = useSelector(selectSelectedProviderForLabels);
     const isExperimentalEnabled = useSelector(state => state.suite.settings.experimental);
+    const hideExperimentalSection = true;
 
     return (
         <SettingsLayout data-testid="@settings/index">
@@ -104,15 +105,17 @@ export const SettingsGeneral = () => {
                 <EnableViewOnly />
             </SettingsSection>
 
-            <SettingsSection
-                title={<Translation id="TR_EXPERIMENTAL_FEATURES" />}
-                icon="experimental"
-            >
-                {desktopUpdate.enabled && <EarlyAccess />}
-                <Experimental />
-            </SettingsSection>
+            {!hideExperimentalSection && (
+                <SettingsSection
+                    title={<Translation id="TR_EXPERIMENTAL_FEATURES" />}
+                    icon="experimental"
+                >
+                    {desktopUpdate.enabled && <EarlyAccess />}
+                    <Experimental />
+                </SettingsSection>
+            )}
 
-            {isDesktop() && isExperimentalEnabled !== undefined && (
+            {isDesktop() && !hideExperimentalSection && isExperimentalEnabled !== undefined && (
                 <SettingsSection title={<Translation id="TR_TREZOR_CONNECT" />} icon="plugs">
                     <AutoStart />
                     <ShowOnTray />
