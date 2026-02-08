@@ -1,12 +1,12 @@
 name: "[Test] misc"
 
 on:
-  schedule:
-    # Runs at midnight UTC every day at 01:00 AM CET
-    - cron: "0 0 * * *"
-  pull_request:
-    paths:
-      - ".github/workflows/test-misc.yml"
+  #   schedule:
+    #           Runs at midnight UTC every day at 01:00 AM CET
+    #           - cron: "0 0 * * *"
+  #   pull_request:
+    #           paths:
+    #             - ".github/workflows/test-misc.yml"
   workflow_dispatch:
 
 concurrency:

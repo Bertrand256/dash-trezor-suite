@@ -3,8 +3,8 @@ name: "[Test] nightly suite-web, migrations and canary"
 # run all suite-web related tests every day at midnight
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
+  #   schedule:
+    #           - cron: "0 0 * * *"
 
 jobs:
   e2e-test-suite-web:

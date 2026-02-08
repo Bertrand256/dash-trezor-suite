@@ -1,19 +1,19 @@
 name: "[Build] suite-native preview"
 
 on:
-  push:
-    # push develop(default) branch is necessary for this action to update its fingerprint database
-    branches: [develop]
-  pull_request:
-    types: [opened, synchronize, labeled]
-    paths:
-      - "suite-native/**"
-      - "suite-common/**"
-      - "packages/react-native-usb/**"
-      - "packages/transport-native/**"
-      - "yarn.lock"
-      - ".github/workflows/build-suite-native-preview.yml"
-      # list of paths is not complete, but it's always possible to dispatch manually using 'build-mobile' label
+  #   push:
+    #         push develop(default) branch is necessary for this action to update its fingerprint database
+    #         branches: [develop]
+  #   pull_request:
+    #         types: [opened, synchronize, labeled]
+    #         paths:
+    #           - "suite-native/**"
+    #           - "suite-common/**"
+    #           - "packages/react-native-usb/**"
+    #           - "packages/transport-native/**"
+    #           - "yarn.lock"
+    #           - ".github/workflows/build-suite-native-preview.yml"
+    #           # list of paths is not complete, but it's always possible to dispatch manually using 'build-mobile' label
   workflow_dispatch:
     # manual dispatch will not add any comment to PR, use label 'build-mobile' if PR exists
 

@@ -2,9 +2,10 @@ name: "[Bot] suite-native monthly version bump"
 permissions:
   pull-requests: write
 on:
-  schedule:
-    # Runs on the first day of every month at 00:00 UTC
-    - cron: "0 0 1 * *"
+  workflow_dispatch:
+  #   schedule:
+    #           Runs on the first day of every month at 00:00 UTC
+    #           - cron: "0 0 1 * *"
 
 jobs:
   bump_native_version:

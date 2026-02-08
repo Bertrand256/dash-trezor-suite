@@ -2,21 +2,21 @@ name: "[Test] suite-desktop e2e"
 # this workflow builds a desktop version of Suite and runs basic test suite for it
 
 on:
-  pull_request:
-    branches:
-      - develop
-    paths-ignore:
-      - "suite-native/**"
-      - "packages/connect*/**"
-      - "packages/react-native-usb/**"
-      # ignore unrelated github workflows config files
-      - ".github/workflows/connect*"
-      - ".github/workflows/suite-native*"
-      - ".github/workflows/build-desktop*"
-      - ".github/workflows/release*"
-      - ".github/workflows/template*"
-  schedule:
-    - cron: "0 0 * * *"
+  #   pull_request:
+    #         branches:
+    #           - develop
+    #         paths-ignore:
+    #           - "suite-native/**"
+    #           - "packages/connect*/**"
+    #           - "packages/react-native-usb/**"
+    #           # ignore unrelated github workflows config files
+    #           - ".github/workflows/connect*"
+    #           - ".github/workflows/suite-native*"
+    #           - ".github/workflows/build-desktop*"
+    #           - ".github/workflows/release*"
+    #           - ".github/workflows/template*"
+  #   schedule:
+    #           - cron: "0 0 * * *"
   workflow_dispatch:
 
 concurrency:

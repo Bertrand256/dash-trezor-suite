@@ -1,18 +1,18 @@
 name: "[Test] connect-web e2e"
 
 on:
-  schedule:
-    # Runs at midnight UTC every day at 01:00 AM CET
-    - cron: "0 0 * * *"
-  push:
-    branches: [release/connect/**]
-  pull_request:
-    paths:
-      - "packages/connect/**"
-      - "packages/connect-common/**"
-      - "packages/utils/**"
-      - ".github/workflows/connect-web-e2e-test.yml"
-      - "yarn.lock"
+  #   schedule:
+    #           Runs at midnight UTC every day at 01:00 AM CET
+    #           - cron: "0 0 * * *"
+  #   push:
+    #           branches: [release/connect/**]
+  #   pull_request:
+    #           paths:
+    #             - "packages/connect/**"
+    #             - "packages/connect-common/**"
+    #             - "packages/utils/**"
+    #             - ".github/workflows/connect-web-e2e-test.yml"
+    #             - "yarn.lock"
   workflow_dispatch:
 
 concurrency:

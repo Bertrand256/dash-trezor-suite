@@ -5,9 +5,9 @@ permissions:
   contents: read # for actions/checkout
 
 on:
-  push:
-    branches:
-      - develop
+  #   push:
+    #         branches:
+    #           - develop
   workflow_dispatch:
 
 concurrency:

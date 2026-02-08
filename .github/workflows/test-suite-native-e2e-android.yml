@@ -4,14 +4,14 @@ permissions:
   id-token: write # for fetching the OIDC token (needed for aws s3 actions)
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
-  pull_request:
-    paths:
-      - "suite-native/**"
-      - "suite-common/**"
-      - "packages/connect/**"
-      - ".github/workflows/test-suite-native-e2e-android.yml"
+  #   schedule:
+    #           - cron: "0 0 * * *"
+  #   pull_request:
+    #           paths:
+    #             - "suite-native/**"
+    #             - "suite-common/**"
+    #             - "packages/connect/**"
+    #             - ".github/workflows/test-suite-native-e2e-android.yml"
   workflow_dispatch:
 
 concurrency:

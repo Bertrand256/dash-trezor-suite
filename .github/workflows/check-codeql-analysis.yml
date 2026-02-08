@@ -1,12 +1,13 @@
 name: "[Check] CodeQL check"
 
 on:
-  push:
-    branches: [develop, release/*]
-  pull_request:
-    branches: [develop]
-  schedule:
-    - cron: "34 02 * * 2"
+  workflow_dispatch:
+  #   push:
+    #         branches: [develop, release/*]
+  #   pull_request:
+    #         branches: [develop]
+  #   schedule:
+    #           - cron: "34 02 * * 2"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}

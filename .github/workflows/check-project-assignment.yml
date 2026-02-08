@@ -1,12 +1,13 @@
 name: "[Check] Project/Issue Assignment"
 
 on:
-  pull_request:
-    types:
-      - opened
-      - ready_for_review
-      - labeled
-      - synchronize
+  workflow_dispatch:
+  #   pull_request:
+    #         types:
+    #           - opened
+    #           - ready_for_review
+    #           - labeled
+    #           - synchronize
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}

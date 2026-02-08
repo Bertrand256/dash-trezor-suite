@@ -1,6 +1,7 @@
 name: "[Template] connect-popup test params"
 
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       testName:

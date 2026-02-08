@@ -2,30 +2,30 @@ name: "[Test] connect core e2e"
 
 # run only if there are changes in connect or related libs paths
 on:
-  schedule:
-    # Runs at midnight UTC every day at 01:00 AM CET
-    - cron: "0 0 * * *"
-  push:
-    branches: [release/connect/**]
-  pull_request:
-    paths:
-      - "packages/blockchain-link/**"
-      - "packages/connect-common/**"
-      - "packages/connect-iframe/**"
-      - "packages/connect-web/**"
-      - "packages/connect/**"
-      - "packages/protobuf/**"
-      - "packages/schema-utils/**"
-      - "packages/transport/**"
-      - "packages/utils/**"
-      - "packages/utxo-lib/**"
-      - "docker/**"
-      - "submodules/trezor-common/**"
-      - "yarn.lock"
-      - ".github/workflows/test-connect.yml"
-      - ".github/workflows/template-connect-test-params.yml"
-      - "docker/docker-connect-test.sh"
-      - "docker/docker-compose.connect-test.yml"
+  #   schedule:
+    #           Runs at midnight UTC every day at 01:00 AM CET
+    #           - cron: "0 0 * * *"
+  #   push:
+    #           branches: [release/connect/**]
+  #   pull_request:
+    #           paths:
+    #             - "packages/blockchain-link/**"
+    #             - "packages/connect-common/**"
+    #             - "packages/connect-iframe/**"
+    #             - "packages/connect-web/**"
+    #             - "packages/connect/**"
+    #             - "packages/protobuf/**"
+    #             - "packages/schema-utils/**"
+    #             - "packages/transport/**"
+    #             - "packages/utils/**"
+    #             - "packages/utxo-lib/**"
+    #             - "docker/**"
+    #             - "submodules/trezor-common/**"
+    #             - "yarn.lock"
+    #             - ".github/workflows/test-connect.yml"
+    #             - ".github/workflows/template-connect-test-params.yml"
+    #             - "docker/docker-connect-test.sh"
+    #             - "docker/docker-compose.connect-test.yml"
   workflow_dispatch:
 
 concurrency:

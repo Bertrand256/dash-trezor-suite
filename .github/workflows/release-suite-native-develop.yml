@@ -1,12 +1,12 @@
 name: "[Release] suite-native develop"
 
 on:
-  push:
-    branches:
-      - develop
-    paths:
-      - "suite-native/**"
-      - "suite-common/**"
+  #   push:
+    #         branches:
+    #           - develop
+    #         paths:
+    #           - "suite-native/**"
+    #           - "suite-common/**"
   workflow_dispatch:
 
 concurrency:

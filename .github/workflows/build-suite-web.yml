@@ -7,19 +7,20 @@ permissions:
 
 # run only if there are changes in suite or related libs paths
 on:
-  push:
-    branches:
-      - develop
-    paths-ignore:
-      - "suite-native/**"
-      - "packages/connect*/**"
-      - "packages/react-native-usb/**"
-      # ignore unrelated github workflows config files
-      - ".github/workflows/connect*"
-      - ".github/workflows/suite-native*"
-      - ".github/workflows/build-desktop*"
-      - ".github/workflows/release*"
-      - ".github/workflows/template*"
+  workflow_dispatch:
+  #   push:
+    #         branches:
+    #           - develop
+    #         paths-ignore:
+    #           - "suite-native/**"
+    #           - "packages/connect*/**"
+    #           - "packages/react-native-usb/**"
+    #           # ignore unrelated github workflows config files
+    #           - ".github/workflows/connect*"
+    #           - ".github/workflows/suite-native*"
+    #           - ".github/workflows/build-desktop*"
+    #           - ".github/workflows/release*"
+    #           - ".github/workflows/template*"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
